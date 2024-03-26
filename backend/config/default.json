@@ -1,0 +1,21 @@
+{
+    "app": {
+        "name": "vacation-tours",
+        "port": 8080,
+        "protocol": "http",
+        "host": "localhost",
+        "secret": "lorem-ipsum-secret",
+        "jwt": {
+            "expires": "3h",
+            "secret": "IhaveTheHighgroundAnakin"
+        }
+    },
+    "mysql": {
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "toursProject",
+        "port": 3306,
+        "connectionLimit": 10
+    }
+}
