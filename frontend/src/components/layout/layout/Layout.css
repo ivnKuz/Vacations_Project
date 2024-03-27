@@ -3,7 +3,7 @@
     box-sizing: border-box;
     display: grid;
     grid-template-rows: 15% 80% 5%;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: 100%;
 }
 
 .Layout>header,
@@ -12,7 +12,7 @@
 }
 
 .Layout>main {
-    grid-column: span 5;
+    width: 100%;
     overflow: auto;
 }
 

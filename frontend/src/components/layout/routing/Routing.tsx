@@ -1,3 +1,4 @@
+import Login from "../../auth/login/SignUp";
 import Home from "../../home/home/Home";
 import Add from "../../loremIpsum/add/Add";
 import List from "../../loremIpsum/list/List";
@@ -7,7 +8,7 @@ function Routing(): JSX.Element {
     return (
         <Routes>
 
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Login />} />
             <Route path="/home" element={<Navigate to="/" />} />
 
             <Route path="/lorem-ipsums/" element={<List />} />

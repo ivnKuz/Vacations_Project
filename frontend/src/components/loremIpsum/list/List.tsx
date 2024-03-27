@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./List.css";
 import loremIpsumService from "../../../services/LoremIpsum";
 import notify from "../../../services/Notify";
-import LoremIpsum from "../../../models/LoremIpsum";
+import LoremIpsum from "../../../models/SignUp";
 
 function List(): JSX.Element {
 
