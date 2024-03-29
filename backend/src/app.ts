@@ -9,7 +9,7 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-server.use('/api/v1/authentication', authRouter)
+server.use('/api', authRouter)
 
 // special middleware for not found error
 server.use(notFound)

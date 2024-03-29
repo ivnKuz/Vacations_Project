@@ -29,12 +29,12 @@ function List(): JSX.Element {
                     </tr>
                 </thead>
                 <tbody>
-                    {loremIpsums.map(gift => <tr key={gift.id}>
+                  {/* {loremIpsums.map(gift => <tr key={gift.id}>
                         <td>{gift.name}</td>
-                        {/* <td>{gift.description}</td>
+                        <td>{gift.description}</td>
                         <td>{gift.discount}</td>
-                        <td>{gift.price}</td> */}
-                    </tr>)}
+                        <td>{gift.price}</td>
+                    </tr>)} */}
                 </tbody>
             </table>
         </div>

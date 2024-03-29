@@ -7,22 +7,19 @@ import userIcon from "../../../assets/images/user-icon.png"
 import passwordIcon from "../../../assets/images/password-icon.jpeg"
 import emailIcon from "../../../assets/images/email-icon.webp"
 import { useForm } from "react-hook-form";
+import notify from "../../../services/Notify";
+import { useNavigate } from "react-router-dom";
+import authentication from "../../../services/Authentication";
+import { NavLink } from "react-router-dom";
 function SignUp(): JSX.Element {
     const {register, handleSubmit} = useForm<SignUpModel>();
-
-    useEffect(() => {
-        /*
-        perform any operations required for the loading of this component here.
-        remember we can't use async function here, so either use then/catch
-        or an IIFE
-        */
-       setSomething('a string from state')
-    }, []);
+    const navigator = useNavigate();
+   
     async function submitUserData(signUp: SignUpModel): Promise<void>{
         try{
-            await auth.signup(signUp);
+            await authentication.signup(signUp);
             notify.success('You have been successfully signed up');
-            navigate('/home');
+            navigator('/home');
         }catch(err){
             notify.error(err);
         }
@@ -55,11 +52,11 @@ function SignUp(): JSX.Element {
                     <input type="password" placeholder="Password" {...register('password')}/>
                 </div>
                 </div>
-                <div className="submit-container">
                     <button className="submit">Sign Up</button>
-                    <button className="submit">Login</button>
-                </div>
+              
                 </form>
+                
+                <NavLink to="/login">Login</NavLink>
         </div>
     );
     }

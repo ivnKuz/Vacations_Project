@@ -4,15 +4,20 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Layout from './components/layout/layout/Layout';
 import { BrowserRouter } from 'react-router-dom';
-import Login from './components/auth/login/SignUp';
+import AuthPage from './components/auth/loginSignUpWindow/authPage';
+
+
+    
+    const token = localStorage.getItem('token') || null;
+   
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <BrowserRouter>
-        <Login></Login>
-        {/* <Layout /> */}
+    {token ?  <Layout /> : <AuthPage /> }
+        
     </BrowserRouter>
 );
 
