@@ -6,9 +6,6 @@ import Layout from './components/layout/layout/Layout';
 import { BrowserRouter } from 'react-router-dom';
 import AuthPage from './components/auth/loginSignUpWindow/authPage';
 
-
-    
-    const token = localStorage.getItem('token') || null;
    
 
 const root = ReactDOM.createRoot(
@@ -16,7 +13,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <BrowserRouter>
-    {token ?  <Layout /> : <AuthPage /> }
+    {localStorage.getItem('token') ?  <Layout /> : <AuthPage /> }
         
     </BrowserRouter>
 );

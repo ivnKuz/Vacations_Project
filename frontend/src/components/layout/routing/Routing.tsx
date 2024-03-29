@@ -10,8 +10,8 @@ function Routing(): JSX.Element {
         <Routes>
 
             
-            <Route path="/home" element={<Navigate to="/" />} />
-            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/lorem-ipsums/" element={<List />} />
