@@ -26,7 +26,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         res.json({jwt})
     }catch(err){    
         //we need to examine the err to see if it really the duplicate username error 
-        // if not, we need to raiese another error
+        // if not, we need to raiese another error ww
         next(createHttpError(Unauthorized(ReasonPhrases.UNAUTHORIZED)));
     }
   

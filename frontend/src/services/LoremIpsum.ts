@@ -1,5 +1,5 @@
 import axios from "axios";
-import LoremIpsumModel from "../models/LoremIpsum";
+import LoremIpsumModel from "../models/SignUp";
 import appConfig from "../utils/AppConfig";
 
 
