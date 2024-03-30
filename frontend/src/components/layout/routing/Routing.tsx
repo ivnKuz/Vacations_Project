@@ -12,8 +12,6 @@ function Routing(): JSX.Element {
             
             <Route path="/home" element={<Home />} />
             <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signUp" element={<SignUp />} />
             <Route path="/lorem-ipsums/" element={<List />} />
             <Route path="/lorem-ipsums/add" element={<Add />} />
             <Route path="*" element={<Page404 />} />
