@@ -8,8 +8,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 function Routing(): JSX.Element {
     return (
         <Routes>
-
-            
             <Route path="/home" element={<Home />} />
             <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/lorem-ipsums/" element={<List />} />

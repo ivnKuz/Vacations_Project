@@ -8,3 +8,12 @@
 .Header .Menu{
    margin: auto
 }
+.userProfile{
+    position: absolute;
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    top: 3vh;
+    right: 3vw;
+    border: 1px solid #0000;
+    border-radius: 10px;
+}
