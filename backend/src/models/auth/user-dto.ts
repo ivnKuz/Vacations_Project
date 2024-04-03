@@ -1,7 +1,7 @@
 import CredentialsDTO from './credentials-dto'
 
 export default interface DTO extends CredentialsDTO{
-    id: number,
+    id: string,
     firstName: string,
     lastName: string,
     roleId: number

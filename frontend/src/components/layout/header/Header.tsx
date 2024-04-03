@@ -9,7 +9,7 @@ import User from '../../../models/User';
 
 function Header(): JSX.Element {
     const [user, setUser] = useState<User>();
-
+    const [token, setToken] = useState<string>('');
     useEffect(()=>{
         const token = authStore.getState().token;
         if(token){
@@ -20,11 +20,13 @@ function Header(): JSX.Element {
         const token = authStore.getState().token;
         if(token){
            const user = jwtDecode<{user: User}>(token).user;
+     setToken(token)
             setUser(user)
         }else{
             setUser(undefined)
         }
      });
+     console.log(user);
      return unsubscribe
     },[]);
 
@@ -43,7 +45,7 @@ function Header(): JSX.Element {
 
             {user &&  
             <div className='userProfile'>
-                <span>Hello {user.name} | </span>
+                <span>Hello {user?.name } | </span>
                 <NavLink to="/login" onClick={logout}>Logout</NavLink>
             </div>
             }
