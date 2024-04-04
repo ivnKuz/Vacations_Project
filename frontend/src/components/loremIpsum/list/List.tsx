@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./List.css";
-import loremIpsumService from "../../../services/LoremIpsum";
+import loremIpsumService from "../../../services/Vocations";
 import notify from "../../../services/Notify";
 import LoremIpsum from "../../../models/SignUp";
 
@@ -8,11 +8,11 @@ function List(): JSX.Element {
 
     const [loremIpsums, setLoremIpsums] = useState<LoremIpsum[]>([]);
 
-    useEffect(() => {
-        loremIpsumService.getAll()
-            .then(setLoremIpsums)
-            .catch(notify.error)
-    }, []);
+    // useEffect(() => {
+    //     loremIpsumService.getAll()
+    //         .then(setLoremIpsums)
+    //         .catch(notify.error)
+    // }, []);
 
     return (
         <div className="Gifts">

@@ -4,9 +4,22 @@ import { OkPacketParams } from "mysql2";
 import query from "../../db/mysql";
 import config from "config";
 
-class LoremIpsum implements Model {
+class Vacation implements Model {
+    public async getAll(): Promise<DTO[]> {
+        const vacations = await query(`
+            SELECT  id,
+                    destination,
+                    description,
+                    startDate,
+                    endDate,
+                    price,
+                    imageName
+            FROM    vacations
+        `)
+        return vacations;
+    }
 
-    public async loremIpsum(loremIpsum: DTO): Promise<DTO> {
+    // public async getOne(loremIpsum: DTO): Promise<DTO> {
         // const user = (await query(`
         //     SELECT  userId AS id,
         //             username as email,
@@ -18,8 +31,8 @@ class LoremIpsum implements Model {
         //     WHERE   userId = ?
         // `, [id]))[0];
         // return user;
-    }
+    // }
 }
 
-const loremIpsum = new LoremIpsum();
-export default loremIpsum;
+const vacation = new Vacation();
+export default vacation;
