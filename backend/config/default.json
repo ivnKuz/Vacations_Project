@@ -17,5 +17,11 @@
         "database": "toursProject",
         "port": 3306,
         "connectionLimit": 10
+    },
+    "rateLimit":{
+        "windowMs": 90000, 
+        "limit": 100,
+        "standardHeaders": "draft-7",
+        "legacyHeaders": false
     }
 }

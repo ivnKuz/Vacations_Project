@@ -29,7 +29,6 @@ export function authReducer(currentState = new authState(), action: AuthAction):
         case AuthActionType.Login:
             newState.token = action.payload as string;
             localStorage.setItem('token', newState.token);
-            console.log("our jwt is "+action.payload);
             break;
         case AuthActionType.Logout:
             newState.token = '';

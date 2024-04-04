@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import notify from "../../../services/Notify";
 import { NavLink, useNavigate } from "react-router-dom";
 import authentication from "../../../services/Authentication";
+import { authStore } from "../../../redux/authState";
 function Login(): JSX.Element {
     const {register, handleSubmit} = useForm<LoginData>();
     const navigator = useNavigate();
@@ -22,6 +23,13 @@ function Login(): JSX.Element {
             notify.error(err);
         }
     }
+    useEffect(()=>{
+        const token = authStore.getState().token;
+        if(token){
+            notify.error('You are already logged in')
+            navigator('/home')
+        }
+    },[])
     return (
         <div className="container">
                 <form  onSubmit={handleSubmit(submitLoginData)}>

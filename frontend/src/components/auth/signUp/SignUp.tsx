@@ -1,7 +1,4 @@
 import "./SignUp.css";
-// if you have an image to display, this is how you would import it
-// import Products2ImageSource from '../../../assets/images/products2.jpg';
-import { useEffect, useState } from "react";
 import SignUpModel from "../../../models/SignUp";
 import userIcon from "../../../assets/images/user-icon.png"
 import passwordIcon from "../../../assets/images/password-icon.jpeg"
