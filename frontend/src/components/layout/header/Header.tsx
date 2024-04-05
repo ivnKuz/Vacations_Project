@@ -7,6 +7,8 @@ import notify from '../../../services/Notify';
 import { jwtDecode } from 'jwt-decode';
 import User from '../../../models/User';
 
+
+
 function Header(): JSX.Element {
     const [user, setUser] = useState<User>();
     const [token, setToken] = useState<string>('');
@@ -43,12 +45,12 @@ function Header(): JSX.Element {
             <NavLink to="/lorem-ipsums/add">Add LoremIposum</NavLink>
             <NavLink to="/about">About</NavLink>
 
-            {user &&  
+           
             <div className='userProfile'>
                 <span>Hello {user?.name } | </span>
                 <NavLink to="/login" onClick={logout}>Logout</NavLink>
             </div>
-            }
+            
         </div>
         </div>
     );

@@ -8,9 +8,13 @@ import { authStore } from '../../../redux/authState';
 import { useNavigate } from 'react-router-dom';
 import SignUp from '../../auth/signUp/SignUp';
 import Login from '../../auth/login/Login';
+import { jwtDecode } from 'jwt-decode';
+import User from '../../../models/User';
 
 function Layout(): JSX.Element {
     const navigator = useNavigate();
+    const [user, setUser] = useState<User>();
+    // const [token, setToken] = useState<string>('');
 // const [token, setToken] = useState<string>('')
 // useEffect(()=>{
 //     if(localStorage.getItem('token')){
@@ -20,20 +24,12 @@ function Layout(): JSX.Element {
 //     }
 // },[])
 
-const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
+// const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
 
 const token = authStore.getState().token;
     useEffect(()=>{
-         setIsUserLoggedIn((authStore.getState().token !== ''));
-         const unsubscribe = authStore.subscribe(()=>{
-            setIsUserLoggedIn((authStore.getState().token !== ''));
-    })
-    !token ? navigator('/login') : navigator('/home')
-    return unsubscribe;
+    !token ? navigator('/login') : navigator('/home');
     },[])
-    useEffect(()=>{
-        
-   },[])
     return ( 
       <div className="Layout">
              <header>

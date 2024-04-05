@@ -8,6 +8,8 @@ import notify from "../../../services/Notify";
 import { useNavigate } from "react-router-dom";
 import authentication from "../../../services/Authentication";
 import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
+import { authStore } from "../../../redux/authState";
 function SignUp(): JSX.Element {
     const {register, handleSubmit} = useForm<SignUpModel>();
     const navigator = useNavigate();
@@ -21,6 +23,7 @@ function SignUp(): JSX.Element {
             notify.error(err);
         }
     }
+   
     return (
         <div className="container">
                 <form  onSubmit={handleSubmit(submitUserData)}>

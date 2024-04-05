@@ -8,7 +8,7 @@ import  config  from "config";
 import { hashPassword } from "../../utils/crypto";
 class User implements Model {
   
-    public async getOne(id: number): Promise<UserDTO> {
+    public async getOne(id: string): Promise<UserDTO> {
         const user = (await query(`
             SELECT  id,
                     password ,
@@ -36,15 +36,24 @@ class User implements Model {
       `, [email, hashPassword(password, config.get<string>('app.secret'))]))[0];
       return user;
     }
-
-
+//is this OK? If email is uinque, idk
+    public async getUUID(email:string): Promise<string>{
+        const uuidId = (await query(`
+        SELECT     id
+          FROM    Users
+          WHERE   email = ? 
+        `, [email]))[0];
+        const uuid = await uuidId;
+        const {id} = uuid;
+        return id;
+    }
     public async signUp(user: UserDTO): Promise<UserDTO>{
         const {firstName, lastName, email, password} = user;
         const result: OkPacketParams = await query(`
         INSERT INTO Users(name, lastName, email, password, roleId) 
         VALUES(?,?,?,?,?) 
     `, [firstName, lastName, email, hashPassword(password, config.get<string>('app.secret')), Roles.USER]);
-    return this.getOne(result.insertId);
+    return this.getOne(await this.getUUID(email));
     }
 }
 
