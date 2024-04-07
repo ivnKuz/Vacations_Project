@@ -13,7 +13,7 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
     }catch(err){    
         //we need to examine the err to see if it really the duplicate username error 
         // if not, we need to raiese another error
-        next(createHttpError(Unauthorized(ReasonPhrases.UNAUTHORIZED)));
+        next(createHttpError(err));
     }
   
 }
@@ -27,7 +27,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     }catch(err){    
         //we need to examine the err to see if it really the duplicate username error 
         // if not, we need to raiese another error ww
-        next(createHttpError(Unauthorized(ReasonPhrases.UNAUTHORIZED)));
+        next(createHttpError(err));
     }
   
 }
