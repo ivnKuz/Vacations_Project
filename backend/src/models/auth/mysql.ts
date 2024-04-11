@@ -6,6 +6,7 @@ import query from "../../db/mysql";
 import { createHash } from 'crypto';
 import  config  from "config";
 import { hashPassword } from "../../utils/crypto";
+import { v4 } from 'uuid';
 class User implements Model {
   
     public async getOne(id: string): Promise<UserDTO> {
@@ -36,24 +37,14 @@ class User implements Model {
       `, [email, hashPassword(password, config.get<string>('app.secret'))]))[0];
       return user;
     }
-//is this OK? If email is uinque, idk
-    public async getUUID(email:string): Promise<string>{
-        const uuidId = (await query(`
-        SELECT     id
-          FROM    Users
-          WHERE   email = ? 
-        `, [email]))[0];
-        const uuid = await uuidId;
-        const {id} = uuid;
-        return id;
-    }
     public async signUp(user: UserDTO): Promise<UserDTO>{
         const {firstName, lastName, email, password} = user;
+        const id = v4();
         const result: OkPacketParams = await query(`
-        INSERT INTO Users(name, lastName, email, password, roleId) 
-        VALUES(?,?,?,?,?) 
-    `, [firstName, lastName, email, hashPassword(password, config.get<string>('app.secret')), Roles.USER]);
-    return this.getOne(await this.getUUID(email));
+        INSERT INTO Users(id, name, lastName, email, password, roleId) 
+        VALUES(?, ?,?,?,?,?) 
+    `, [id, firstName, lastName, email, hashPassword(password, config.get<string>('app.secret')), Roles.USER]);
+    return this.getOne(id);
     }
 }
 
