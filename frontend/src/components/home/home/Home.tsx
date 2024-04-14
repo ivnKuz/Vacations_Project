@@ -7,12 +7,27 @@ import "./Home.css";
 import { useEffect, useState } from "react";
 import Card from "../card/card";
 import Vacation from "../../../models/vacation";
+import User from "../../../models/User";
+import { jwtDecode } from "jwt-decode";
+import follower from "../../../models/follower";
 
 function Home(): JSX.Element {
+    
+    const token = authStore.getState().token;
+    const [user, setUser] = useState<User>();
     const [vacations, setVacations] = useState<Vacation[]>([]);
+    const [followers, setFollowers] = useState<follower[]>([]);
     useEffect(()=>{
         vacationsService.getAll().then(serverVacations => setVacations(serverVacations)).catch();
+        if(token){
+            const user = jwtDecode<{user: User}>(token).user;
+            setUser(user)
+         }
+         
     },[]);
+    function follow(user: User){
+        // vacationsService.addFollower(user).then(follower => setFollowers(follower))
+    }
     return (
         <div className="Home">
                {vacations.sort((a,b) => {

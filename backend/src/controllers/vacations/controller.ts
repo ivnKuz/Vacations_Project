@@ -13,4 +13,14 @@ export const getAll = async (req: Request, res: Response, next: NextFunction) =>
     } catch (err) {
         next(err);
     }
+    
+}
+export const userFollowed  = async (req: Request, res: Response, next: NextFunction) => { 
+   
+    try {
+        const followers = await getModel().userFollowed(req.body);
+        res.json(followers)
+    } catch (err) {
+        next(err);
+    }
 }

@@ -3,6 +3,7 @@ import DTO from './dto';
 import { OkPacketParams } from "mysql2";
 import query from "../../db/mysql";
 import config from "config";
+import followersDTO from "./followDTO";
 
 class Vacation implements Model {
     public async getAll(): Promise<DTO[]> {
@@ -18,20 +19,23 @@ class Vacation implements Model {
         `)
         return vacations;
     }
-
-    // public async getOne(loremIpsum: DTO): Promise<DTO> {
-        // const user = (await query(`
-        //     SELECT  userId AS id,
-        //             username as email,
-        //             password,
-        //             firstName,
-        //             lastName,
-        //             roleId
-        //     FROM    users  
-        //     WHERE   userId = ?
-        // `, [id]))[0];
-        // return user;
-    // }
+    public async userFollowed(follower: followersDTO): Promise<followersDTO>{
+        const {userId, vocationId} = follower;
+        const result: OkPacketParams = await query(`
+        INSERT INTO Followers(userId, vocationId)
+         VALUES (?, ?);
+        `, [userId, vocationId]);
+        return this.getOneFollower(userId);
+    }
+    public async getOneFollower(id: string): Promise<followersDTO> {
+        const user = (await query(`
+            SELECT  userId,
+                    vocationId
+            FROM    Followers  
+            WHERE   userId = ?
+        `, [id]))[0];
+        return user;
+    }
 }
 
 const vacation = new Vacation();

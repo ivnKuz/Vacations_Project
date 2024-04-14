@@ -13,7 +13,6 @@ import User from '../../../models/User';
 
 function Layout(): JSX.Element {
     const navigator = useNavigate();
-    const [user, setUser] = useState<User>();
     // const [token, setToken] = useState<string>('');
 // const [token, setToken] = useState<string>('')
 // useEffect(()=>{
@@ -29,6 +28,8 @@ function Layout(): JSX.Element {
 const token = authStore.getState().token;
     useEffect(()=>{
     !token ? navigator('/login') : navigator('/home');
+       
+
     },[])
     return ( 
       <div className="Layout">

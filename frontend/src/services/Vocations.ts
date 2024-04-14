@@ -2,6 +2,8 @@ import axios from "axios";
 import LoremIpsumModel from "../models/SignUp";
 import appConfig from "../utils/AppConfig";
 import VacationModel from "../models/vacation";
+import User from "../models/User";
+import follower from "../models/follower";
 
 class Vacations {
 
@@ -14,14 +16,14 @@ class Vacations {
         return vacations;
     }
 
-    // public async add(loremIpsum: VacationModel): Promise<VacationModel> {
+    public async addFollower(follower: User): Promise<follower> {
 
-    //     const response = await axios.post<VacationModel>(appConfig.loremIpsumUrl, loremIpsum);
+        const response = await axios.post<follower>(appConfig.addFollowUrl, follower);
 
-    //     const addedLoremIpsum = response.data;
+        const addedFollower = response.data;
 
-    //     return addedLoremIpsum;
-    // }
+        return addedFollower;
+    }
 
 
 }
