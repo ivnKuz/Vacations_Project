@@ -27,6 +27,15 @@ class Vacation implements Model {
         `, [userId, vocationId]);
         return this.getOneFollower(userId);
     }
+    
+    public async deleteFollow(id: number): Promise<boolean> {
+        const result:OkPacketParams = await query(`
+            DELETE FROM Followers
+            WHERE       vocationId  = ?
+        `, [id]);
+        return Boolean(result.affectedRows);
+    }
+
     public async getOneFollower(id: string): Promise<followersDTO> {
         const user = (await query(`
             SELECT  userId,

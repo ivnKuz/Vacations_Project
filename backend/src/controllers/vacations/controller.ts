@@ -24,3 +24,13 @@ export const userFollowed  = async (req: Request, res: Response, next: NextFunct
         next(err);
     }
 }
+
+export const deleteFollow = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+       const isDeleted = await getModel().deleteFollow(+req.params.id)
+       if(!isDeleted) return next(); 
+        res.sendStatus(StatusCodes.NO_CONTENT)
+    } catch (err) {
+        next(err)
+    }
+}

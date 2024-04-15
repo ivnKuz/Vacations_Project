@@ -18,12 +18,16 @@ class Vacations {
 
     public async addFollower(follower: follower | undefined): Promise<follower> {
 
-        const response = await axios.post<follower>(appConfig.addFollowUrl, follower);
+        const response = await axios.post<follower>(appConfig.FollowUrl, follower);
 
         const addedFollower = response.data;
 
         return addedFollower;
     }
+    public async deleteFollow(id: number | undefined): Promise<void>{
+        await axios.delete( `${appConfig.FollowUrl}/${id}`);
+    }
+    
 
 
 }

@@ -44,7 +44,8 @@ overflow: hidden;
 height: 25vh;
 width: 100%;
 }
-.btn-like::before{
+.btn-like::before,
+.btn-like--pressed::before{
     position: absolute;
     left: 2px;
     top: 50%;
@@ -61,6 +62,17 @@ width: 100%;
 }
 .btn-like{
     position: absolute;
+    top: 5px;
+    left: 10px;
+    padding: 8px;
+    width: 27%;
+    border-radius: 15px;
+    transition: 0.5s;
+    animation: ease-in-out;
+}
+.btn-like--pressed{
+    position: absolute;
+    background: red;
     top: 5px;
     left: 10px;
     padding: 8px;
