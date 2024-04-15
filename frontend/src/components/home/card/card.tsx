@@ -14,27 +14,27 @@ interface vacationCardProps {
 function Card(props:vacationCardProps): JSX.Element {
     const [follower, setFollower] = useState<follower>();
     const [followed, setFollowed] = useState<boolean>(false);
- 
     const newFollower = {
         userId: props.user?.id, vocationId: props.vacation?.id
     }
-    //its not saving the state of buttons on refresh, figure out
+    //maybe make getFollowers and if vocationId for this userId is there set followed to true
     useEffect(()=>{
         setFollower(newFollower)
     },[])
     function follow(){
         setFollowed(followed ? false : true);
-        followed ? vacations.deleteFollow(follower?.vocationId) : vacations.addFollower(follower);
+        if(!followed) vacations.addFollower(follower);
+        if(followed) vacations.deleteFollow(follower?.vocationId)
+        
     }
     
-    
-
+    console.log(followed);
     
     return (
         <div className="card-container">
        
 			<div className="image-container">
-                <button onClick={follow} className={followed ? "btn-like--pressed" :"btn-like"}><span className="btn-heart"></span> Like</button>
+                <button onClick={follow} className={followed ? "btn-like--pressed" : "btn-like"}><span className="btn-heart"></span> Like</button>
                 <h3 className="card-title">{props.vacation.destination}</h3>
                 <img className="card-img" src={pool} alt="" />
             </div>
