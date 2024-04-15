@@ -16,7 +16,7 @@ class Vacations {
         return vacations;
     }
 
-    public async addFollower(follower: User): Promise<follower> {
+    public async addFollower(follower: follower | undefined): Promise<follower> {
 
         const response = await axios.post<follower>(appConfig.addFollowUrl, follower);
 

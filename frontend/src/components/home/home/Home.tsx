@@ -25,16 +25,14 @@ function Home(): JSX.Element {
          }
          
     },[]);
-    function follow(user: User){
-        // vacationsService.addFollower(user).then(follower => setFollowers(follower))
-    }
+    
     return (
         <div className="Home">
                {vacations.sort((a,b) => {
             let firstDate = a.startDate as unknown as Date;
             let secondDate = b.startDate as unknown as Date;
             return firstDate > secondDate ?  1 :  -1;
-        }).map((vacation, indx) => <Card key={indx} vacation={vacation}/>)}
+        }).map((vacation, indx) => <Card key={indx}  vacation={vacation} user={user}/>)}
                
         </div>
     );

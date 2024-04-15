@@ -3,15 +3,35 @@ import pool from "../../../assets/images/pool.jpg"
 import { NavLink } from "react-router-dom";
 import Vacation from "../../../models/vacation";
 import dayjs from "dayjs";
+import User from "../../../models/User";
+import follower from "../../../models/follower";
+import { useEffect, useState } from "react";
+import vacations from "../../../services/Vocations";
 interface vacationCardProps {
     vacation: Vacation;
+    user: User | undefined;
 }
 function Card(props:vacationCardProps): JSX.Element {
+    const [follower, setFollower] = useState<follower>();
+
+    const newFollower = {
+        userId: props.user?.id, vocationId: props.vacation.id
+    }
+    useEffect(()=>{
+        setFollower(newFollower)
+    },[])
+    function follow(){
+        vacations.addFollower(follower)
+        
+    }
+    
+    console.log(newFollower);
+    
     return (
         <div className="card-container">
        
 			<div className="image-container">
-                <button className="btn-like"><span className="btn-heart"></span> Like</button>
+                <button onClick={follow} className="btn-like"><span className="btn-heart"></span> Like</button>
                 <h3 className="card-title">{props.vacation.destination}</h3>
                 <img className="card-img" src={pool} alt="" />
             </div>
@@ -24,7 +44,7 @@ function Card(props:vacationCardProps): JSX.Element {
                 {props.vacation.description}
                  </div>
                  <div className="btn-container">
-                <button className="price-btn">
+                <button  className="price-btn">
                     <NavLink to={''}>view more</NavLink>
                 </button>
             </div>
