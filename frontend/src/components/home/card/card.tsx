@@ -13,22 +13,35 @@ interface vacationCardProps {
 }
 function Card(props:vacationCardProps): JSX.Element {
     const [follower, setFollower] = useState<follower>();
+    const [follows, setFollows] = useState<follower[]>([]);
     const [followed, setFollowed] = useState<boolean>(false);
     const newFollower = {
         userId: props.user?.id, vocationId: props.vacation?.id
     }
-    //maybe make getFollowers and if vocationId for this userId is there set followed to true
+    //maybe make getFollowers and if vocationId for this userId is there set followed to true <---
     useEffect(()=>{
+        checkFollowedVocations();
         setFollower(newFollower)
     },[])
     function follow(){
-        setFollowed(followed ? false : true);
         if(!followed) vacations.addFollower(follower);
         if(followed) vacations.deleteFollow(follower?.vocationId)
         
     }
+     function  checkFollowedVocations(){
+        vacations.getAllFollowers().then(data => setFollows(data))
+        for(let existingFollow of follows){
+            if(existingFollow.userId === props.user?.id){
+             if(existingFollow.vocationId === props.vacation?.id){
+                 setFollowed(true);
+             }
+            }
+         }
+    }
+    console.log(follows);
     
-    console.log(followed);
+    
+    // console.log(followed);
     
     return (
         <div className="card-container">

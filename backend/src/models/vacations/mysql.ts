@@ -19,6 +19,14 @@ class Vacation implements Model {
         `)
         return vacations;
     }
+    public async getAllFollowers(): Promise<DTO[]> {
+        const vacations = await query(`
+            SELECT  userId,
+                    vocationId
+            FROM    Followers
+        `)
+        return vacations;
+    }
     public async userFollowed(follower: followersDTO): Promise<followersDTO>{
         const {userId, vocationId} = follower;
         const result: OkPacketParams = await query(`

@@ -15,6 +15,14 @@ class Vacations {
 
         return vacations;
     }
+    public async getAllFollowers(): Promise<follower[]> {
+
+        const response = await axios.get<follower[]>(appConfig.getAllFollowers);
+
+        const followers = response.data;
+
+        return followers;
+    }
 
     public async addFollower(follower: follower | undefined): Promise<follower> {
 

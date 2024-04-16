@@ -15,6 +15,17 @@ export const getAll = async (req: Request, res: Response, next: NextFunction) =>
     }
     
 }
+export const getAllFollowers = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        // throw new Error('custom error')
+        const followerss = await getModel().getAllFollowers();
+        // res.json(products.map(p => convertProductToImageUrl(p)));
+        res.json(followerss); // same as ^
+    } catch (err) {
+        next(err);
+    }
+    
+}
 export const userFollowed  = async (req: Request, res: Response, next: NextFunction) => { 
    
     try {
