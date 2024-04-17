@@ -16,8 +16,11 @@ function Home(): JSX.Element {
     const token = authStore.getState().token;
     const [user, setUser] = useState<User>();
     const [vacations, setVacations] = useState<Vacation[]>([]);
+    const [follows, setFollows] = useState<follower[]>([]);
     const [followers, setFollowers] = useState<follower[]>([]);
+    
     useEffect(()=>{
+        vacationsService.getAllFollowers().then(data => setFollows(data))
         vacationsService.getAll().then(serverVacations => setVacations(serverVacations)).catch();
         if(token){
             const user = jwtDecode<{user: User}>(token).user;
@@ -32,7 +35,7 @@ function Home(): JSX.Element {
             let firstDate = a.startDate as unknown as Date;
             let secondDate = b.startDate as unknown as Date;
             return firstDate > secondDate ?  1 :  -1;
-        }).map((vacation, indx) => <Card key={indx}  vacation={vacation} user={user}/>)}
+        }).map((vacation, indx) => <Card key={indx} follows={follows}  vacation={vacation} user={user}/>)}
                
         </div>
     );

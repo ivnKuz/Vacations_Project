@@ -10,35 +10,44 @@ import vacations from "../../../services/Vocations";
 interface vacationCardProps {
     vacation: Vacation;
     user: User | undefined;
+    follows: follower[]
 }
 function Card(props:vacationCardProps): JSX.Element {
     const [follower, setFollower] = useState<follower>();
     const [follows, setFollows] = useState<follower[]>([]);
     const [followed, setFollowed] = useState<boolean>(false);
-    const newFollower = {
+    
+    useEffect(()=>{
+        setFollows(props.follows)
+        const newFollower = {
         userId: props.user?.id, vocationId: props.vacation?.id
     }
+     setFollower(newFollower)
+    checkFollowedVocations();
+    }, [])
+
     //maybe make getFollowers and if vocationId for this userId is there set followed to true <---
-    useEffect(()=>{
-        checkFollowedVocations();
-        setFollower(newFollower)
-    },[])
+    
     function follow(){
+        followed ? setFollowed(false) : setFollowed(true)
         if(!followed) vacations.addFollower(follower);
         if(followed) vacations.deleteFollow(follower?.vocationId)
-        
     }
+//save followers to redux ?????
      function  checkFollowedVocations(){
-        vacations.getAllFollowers().then(data => setFollows(data))
+        //follows is empty at refresh
         for(let existingFollow of follows){
-            if(existingFollow.userId === props.user?.id){
-             if(existingFollow.vocationId === props.vacation?.id){
+            
+            if(existingFollow.userId === follower?.userId){
+             if(existingFollow.vocationId === follower?.vocationId){
                  setFollowed(true);
              }
             }
          }
     }
-    console.log(follows);
+   
+   
+    // console.log(follows);
     
     
     // console.log(followed);
