@@ -48,6 +48,7 @@ class Vacation implements Model {
         return this.getOneFollower(userId);
     }
     
+    //change sql
     public async deleteFollow(id: number): Promise<boolean> {
         const result:OkPacketParams = await query(`
             DELETE FROM Followers

@@ -21,9 +21,19 @@ function Home(): JSX.Element {
     const [followerCount, setFollowerCount] = useState<followerCount[]>([]);
     
     useEffect(()=>{
-        vacationsService.getAllFollowers().then(data => setFollows(data)).catch();
-        vacationsService.getAll().then(serverVacations => setVacations(serverVacations)).catch();
-        vacationsService.getFollowerCount().then(followerCount => setFollowerCount(followerCount));
+        Promise.all([
+            vacationsService.getAllFollowers(),
+            vacationsService.getAll(),
+            vacationsService.getFollowerCount()
+        ]).then(results => {
+            setFollows(results[0]);
+            setVacations(results[1]);
+            setFollowerCount(results[2]);
+        }).catch()
+        
+        // vacationsService.getAllFollowers().then(data => setFollows(data)).catch();
+        // vacationsService.getAll().then(serverVacations => setVacations(serverVacations)).catch();
+        // vacationsService.getFollowerCount().then(followerCount => setFollowerCount(followerCount));
         
         if(token){
             const user = jwtDecode<{user: User}>(token).user;

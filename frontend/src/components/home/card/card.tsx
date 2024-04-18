@@ -17,18 +17,22 @@ interface vacationCardProps {
 function Card(props:vacationCardProps): JSX.Element {
     const [follower, setFollower] = useState<follower>();
     const [followed, setFollowed] = useState<boolean>(false);
+    const [numberOfFollowers, setNumberOfFollowers] = useState<number>();
     useEffect(()=>{
-    checkFollowedVocations();
-    
+        setNumberOfFollowers(props.vocationFollowers.followers)
+        checkFollowedVocations();
+
     }, [])
 
     //maybe make getFollowers and if vocationId for this userId is there set followed to true <---
     
-    function follow(){
+     function follow(){
         followed ? setFollowed(false) : setFollowed(true)
+        //thought to set it on when follow button pressed again
         if(!followed) vacations.addFollower(follower);
-        // aaaa it deletes everything ffs 
+        // TO CHANGE, it deletes every vocation with this Id
         if(followed) vacations.deleteFollow(follower?.vocationId)
+
     }
 //save followers to redux ?????
      function  checkFollowedVocations(){  
@@ -50,7 +54,7 @@ function Card(props:vacationCardProps): JSX.Element {
         <div className="card-container">
        
 			<div className="image-container">
-                <button onClick={follow} className={followed ? "btn-like pressed" : "btn-like"}><span className="btn-heart"></span> {followed ? "Liked" : "Like"} {followed ? props.vocationFollowers?.followers :props.vocationFollowers?.followers}</button>
+                <button onClick={follow} className={followed ? "btn-like pressed" : "btn-like"}><span className="btn-heart"></span> {followed ? "Liked" : "Like"} {numberOfFollowers}</button>
                 <h3 className="card-title">{props.vacation.destination}</h3>
                 <img className="card-img" src={pool} alt="" />
             </div>
