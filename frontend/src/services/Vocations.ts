@@ -1,5 +1,5 @@
 import axios from "axios";
-import LoremIpsumModel from "../models/SignUp";
+import followerCount from "../models/followerCount";
 import appConfig from "../utils/AppConfig";
 import VacationModel from "../models/vacation";
 import User from "../models/User";
@@ -22,6 +22,14 @@ class Vacations {
         const followers = response.data;
 
         return followers;
+    }
+    public async getFollowerCount(): Promise<followerCount[]> {
+
+        const response = await axios.get<followerCount[]>(appConfig.getFollowersCount);
+
+        const followersCount = response.data;
+
+        return followersCount;
     }
 
     public async addFollower(follower: follower | undefined): Promise<follower> {

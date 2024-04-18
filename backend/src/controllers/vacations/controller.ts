@@ -36,6 +36,16 @@ export const userFollowed  = async (req: Request, res: Response, next: NextFunct
     }
 }
 
+export const getFollowersCount  = async (req: Request, res: Response, next: NextFunction) => { 
+   
+    try {
+        const followerCount = await getModel().getFollowersCount();
+        res.json(followerCount)
+    } catch (err) {
+        next(err);
+    }
+}
+
 export const deleteFollow = async (req: Request, res: Response, next: NextFunction) => {
     try {
        const isDeleted = await getModel().deleteFollow(+req.params.id)

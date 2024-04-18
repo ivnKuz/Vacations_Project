@@ -1,8 +1,10 @@
 import DTO from './dto';
 import followDTO from './followDTO'
+import followerCountDTO from './followersCountDTO';
 export default interface Model {
     getAll(): Promise<DTO[]>;
-    getAllFollowers(): Promise<DTO[]>;
+    getAllFollowers(): Promise<followDTO[]>;
+    getFollowersCount(): Promise<followerCountDTO[]>
     userFollowed(follower: followDTO): Promise<followDTO>;
     deleteFollow(id: number): Promise<boolean>;
 }

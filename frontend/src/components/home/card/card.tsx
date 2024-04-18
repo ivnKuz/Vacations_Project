@@ -7,23 +7,19 @@ import User from "../../../models/User";
 import follower from "../../../models/follower";
 import { useEffect, useState } from "react";
 import vacations from "../../../services/Vocations";
+import followerCount from "../../../models/followerCount";
 interface vacationCardProps {
     vacation: Vacation;
     user: User | undefined;
-    follows: follower[]
+    follows: follower[];
+    vocationFollowers: followerCount;
 }
 function Card(props:vacationCardProps): JSX.Element {
     const [follower, setFollower] = useState<follower>();
-    const [follows, setFollows] = useState<follower[]>([]);
     const [followed, setFollowed] = useState<boolean>(false);
-    
     useEffect(()=>{
-        setFollows(props.follows)
-        const newFollower = {
-        userId: props.user?.id, vocationId: props.vacation?.id
-    }
-     setFollower(newFollower)
     checkFollowedVocations();
+    
     }, [])
 
     //maybe make getFollowers and if vocationId for this userId is there set followed to true <---
@@ -31,32 +27,30 @@ function Card(props:vacationCardProps): JSX.Element {
     function follow(){
         followed ? setFollowed(false) : setFollowed(true)
         if(!followed) vacations.addFollower(follower);
+        // aaaa it deletes everything ffs 
         if(followed) vacations.deleteFollow(follower?.vocationId)
     }
 //save followers to redux ?????
-     function  checkFollowedVocations(){
-        //follows is empty at refresh
-        for(let existingFollow of follows){
-            
-            if(existingFollow.userId === follower?.userId){
-             if(existingFollow.vocationId === follower?.vocationId){
+     function  checkFollowedVocations(){  
+        const newFollower = {
+        userId: props.user?.id, vocationId: props.vacation?.id
+    }
+     setFollower(newFollower)
+        for(let existingFollow of props.follows){
+            if(existingFollow.userId === newFollower?.userId){
+             if(existingFollow.vocationId === newFollower?.vocationId){
                  setFollowed(true);
              }
             }
          }
     }
-   
-   
-    // console.log(follows);
     
-    
-    // console.log(followed);
     
     return (
         <div className="card-container">
        
 			<div className="image-container">
-                <button onClick={follow} className={followed ? "btn-like--pressed" : "btn-like"}><span className="btn-heart"></span> Like</button>
+                <button onClick={follow} className={followed ? "btn-like pressed" : "btn-like"}><span className="btn-heart"></span> {followed ? "Liked" : "Like"} {followed ? props.vocationFollowers?.followers :props.vocationFollowers?.followers}</button>
                 <h3 className="card-title">{props.vacation.destination}</h3>
                 <img className="card-img" src={pool} alt="" />
             </div>
@@ -70,7 +64,7 @@ function Card(props:vacationCardProps): JSX.Element {
                  </div>
                  <div className="btn-container">
                 <button  className="price-btn">
-                    <NavLink to={''}>view more</NavLink>
+                    <p>{props.vacation.price}</p>
                 </button>
             </div>
             </div>

@@ -4,6 +4,7 @@ import { OkPacketParams } from "mysql2";
 import query from "../../db/mysql";
 import config from "config";
 import followersDTO from "./followDTO";
+import followerCountDTO from "./followersCountDTO";
 
 class Vacation implements Model {
     public async getAll(): Promise<DTO[]> {
@@ -19,14 +20,25 @@ class Vacation implements Model {
         `)
         return vacations;
     }
-    public async getAllFollowers(): Promise<DTO[]> {
-        const vacations = await query(`
+    public async getAllFollowers(): Promise<followersDTO[]> {
+        const followers = await query(`
             SELECT  userId,
                     vocationId
             FROM    Followers
         `)
-        return vacations;
+        return followers;
     }
+    public async getFollowersCount(): Promise<followerCountDTO[]> {
+        const followerCount = await query(`
+        SELECT v.id, count(f.vocationId) as followers
+         FROM vacations AS v
+          LEFT JOIN Followers AS f 
+          ON f.vocationId = v.id 
+          GROUP BY v.id;
+        `)
+        return followerCount;
+    }
+
     public async userFollowed(follower: followersDTO): Promise<followersDTO>{
         const {userId, vocationId} = follower;
         const result: OkPacketParams = await query(`

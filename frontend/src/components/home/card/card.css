@@ -70,16 +70,9 @@ width: 100%;
     transition: 0.5s;
     animation: ease-in-out;
 }
-.btn-like--pressed{
-    position: absolute;
+.pressed{
     background: red;
-    top: 5px;
-    left: 10px;
-    padding: 8px;
-    width: 27%;
-    border-radius: 15px;
-    transition: 0.5s;
-    animation: ease-in-out;
+    color: white;
 }
 .btn-like:hover{
     cursor: pointer;
