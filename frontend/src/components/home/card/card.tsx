@@ -1,9 +1,10 @@
 import "./card.css";
 import pool from "../../../assets/images/pool.jpg"
-import { NavLink } from "react-router-dom";
 import Vacation from "../../../models/vacation";
 import dayjs from "dayjs";
 import User from "../../../models/User";
+
+import vacationsService from "../../../services/Vocations";
 import follower from "../../../models/follower";
 import { useEffect, useState } from "react";
 import vacations from "../../../services/Vocations";
@@ -13,6 +14,7 @@ interface vacationCardProps {
     user: User | undefined;
     follows: follower[];
     vocationFollowers: followerCount;
+    // setFollowerCount: React.Dispatch<React.SetStateAction<followerCount[]>>;
 }
 function Card(props:vacationCardProps): JSX.Element {
     const [follower, setFollower] = useState<follower>();
@@ -21,18 +23,22 @@ function Card(props:vacationCardProps): JSX.Element {
     useEffect(()=>{
         setNumberOfFollowers(props.vocationFollowers.followers)
         checkFollowedVocations();
-
     }, [])
 
     //maybe make getFollowers and if vocationId for this userId is there set followed to true <---
     
-     function follow(){
+     async function follow(){
+        
         followed ? setFollowed(false) : setFollowed(true)
+     
         //thought to set it on when follow button pressed again
         if(!followed) vacations.addFollower(follower);
         // TO CHANGE, it deletes every vocation with this Id
         if(followed) vacations.deleteFollow(follower?.vocationId)
-
+        //wanted to set state from here up, didnt work
+        // const updatedFollowerCount = await vacationsService.getFollowerCount();
+        // props.setFollowerCount(updatedFollowerCount)
+        setNumberOfFollowers(props.vocationFollowers.followers)
     }
 //save followers to redux ?????
      function  checkFollowedVocations(){  

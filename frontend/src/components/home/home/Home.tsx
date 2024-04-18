@@ -31,6 +31,7 @@ function Home(): JSX.Element {
             setFollowerCount(results[2]);
         }).catch()
         
+        
         // vacationsService.getAllFollowers().then(data => setFollows(data)).catch();
         // vacationsService.getAll().then(serverVacations => setVacations(serverVacations)).catch();
         // vacationsService.getFollowerCount().then(followerCount => setFollowerCount(followerCount));
