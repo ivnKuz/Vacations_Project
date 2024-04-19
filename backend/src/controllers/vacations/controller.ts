@@ -48,7 +48,7 @@ export const getFollowersCount  = async (req: Request, res: Response, next: Next
 
 export const deleteFollow = async (req: Request, res: Response, next: NextFunction) => {
     try {
-       const isDeleted = await getModel().deleteFollow(+req.params.id)
+       const isDeleted = await getModel().deleteFollow(+req.params.id, req.params.userId)
        if(!isDeleted) return next(); 
         res.sendStatus(StatusCodes.NO_CONTENT)
     } catch (err) {

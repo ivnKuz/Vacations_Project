@@ -49,11 +49,11 @@ class Vacation implements Model {
     }
     
     //change sql
-    public async deleteFollow(id: number): Promise<boolean> {
+    public async deleteFollow(vocationId: number, userId:string): Promise<boolean> {
         const result:OkPacketParams = await query(`
             DELETE FROM Followers
-            WHERE       vocationId  = ?
-        `, [id]);
+            WHERE       vocationId  = ? && userId = ?
+        `, [vocationId, userId]);
         return Boolean(result.affectedRows);
     }
 

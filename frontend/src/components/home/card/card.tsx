@@ -34,7 +34,7 @@ function Card(props:vacationCardProps): JSX.Element {
         //thought to set it on when follow button pressed again
         if(!followed) vacations.addFollower(follower);
         // TO CHANGE, it deletes every vocation with this Id
-        if(followed) vacations.deleteFollow(follower?.vocationId)
+        if(followed) vacations.deleteFollow(follower?.vocationId, follower?.userId)
         //wanted to set state from here up, didnt work
         // const updatedFollowerCount = await vacationsService.getFollowerCount();
         // props.setFollowerCount(updatedFollowerCount)

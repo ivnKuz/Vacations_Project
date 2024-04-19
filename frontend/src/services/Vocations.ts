@@ -40,8 +40,8 @@ class Vacations {
 
         return addedFollower;
     }
-    public async deleteFollow(id: number | undefined): Promise<void>{
-        await axios.delete( `${appConfig.FollowUrl}/${id}`);
+    public async deleteFollow(id: number | undefined, userId: string | undefined): Promise<void>{
+        await axios.delete( `${appConfig.FollowUrl}/${id}${userId}`);
     }
     
 

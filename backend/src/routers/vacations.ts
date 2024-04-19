@@ -8,6 +8,6 @@ router.get('/vacations', getAll);
 router.get('/followers', getAllFollowers)
 router.get('/followersCount', getFollowersCount)
 router.post('/followed', userFollowed);
-router.delete('/followed/:id', deleteFollow)
+router.delete('/followed/:id:userId', deleteFollow)
 
 export default router;
