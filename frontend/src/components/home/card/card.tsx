@@ -1,10 +1,9 @@
 import "./card.css";
 import pool from "../../../assets/images/pool.jpg"
-import Vacation from "../../../models/vacation";
+import Vacation from "../../../models/Vocation";
 import dayjs from "dayjs";
 import User from "../../../models/User";
-
-import vacationsService from "../../../services/Vocations";
+import VocationsService from "../../../services/Vocations";
 import follower from "../../../models/follower";
 import { useEffect, useState } from "react";
 import followerCount from "../../../models/followerCount";
@@ -26,29 +25,23 @@ function Card(props:vacationCardProps): JSX.Element {
     //maybe make getFollowers and if vocationId for this userId is there set followed to true <---
     
     async function follow(){
-       
-        // setNumberOfFollowers(props.vocationFollowers.followers);
-        
         followed ? setFollowed(false) : setFollowed(true)
         //thought to set it on when follow button pressed again
         if(!followed) {
-            await vacationsService.addFollower(follower);
+            await VocationsService.addFollower(follower);
             await getFollowerCount();
         }
         // TO CHANGE, it deletes every vocation with this Id
         if(followed) { 
-            await vacationsService.deleteFollow(follower?.vocationId, follower?.userId)
+            await VocationsService.deleteFollow(follower?.vocationId, follower?.userId)
             await getFollowerCount();
         }
         //wanted to set state from here up, didnt work
         
     }
     async function getFollowerCount(){
-        vacationsService.getFollowerCount().then(updatedFollowerCount => {
-            // props.setFollowerCount(updatedFollowerCount)
+        VocationsService.getFollowerCount().then(updatedFollowerCount => {
             setNumberOfFollowers(updatedFollowerCount.find(item => item.id === follower?.vocationId)?.followers);
-            console.log(updatedFollowerCount.find(item => item.id === follower?.vocationId)?.followers);
-            
         }).catch(err => console.log(err));
     }
 //save followers to redux ?????
