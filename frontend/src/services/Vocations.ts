@@ -2,7 +2,6 @@ import axios from "axios";
 import followerCount from "../models/followerCount";
 import appConfig from "../utils/AppConfig";
 import VocationModel from "../models/Vocation";
-import User from "../models/User";
 import follower from "../models/follower";
 
 class Vacations {
