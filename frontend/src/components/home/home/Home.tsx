@@ -20,6 +20,13 @@ function Home(): JSX.Element {
     const [followerCount, setFollowerCount] = useState<followerCount[]>([]);
     const [sortBy, setSortBy] = useState("byDate");
     
+    if(sortBy === 'byDate'){
+      vocations.sort((a,b) => {
+        let firstDate = a.startDate as unknown as Date;
+        let secondDate = b.startDate as unknown as Date;
+        return firstDate > secondDate ?  1 :  -1;
+    })
+  }
  
   function sortVocations(value: string){
     if (value === 'byDate') {
@@ -31,6 +38,7 @@ function Home(): JSX.Element {
       setSortBy('byDate')
   }
     if(value === 'byFollow'){
+      // setVocations(vocations.filter(vocation => isUserFollows(vocation))
       const sortedVocations = vocations.reduce((acc:Vocation[], element:Vocation) => {
         for(let fol of follows){
             if (element.id === fol.vocationId && user?.id === fol.userId) {
@@ -39,9 +47,9 @@ function Home(): JSX.Element {
         }
         return [...acc, element];
       }, []);
-      console.log(sortedVocations);
-      setSortBy('byFollow')
-      setVocations(sortedVocations)
+      // console.log(sortedVocations);
+      setSortBy(value)
+      setVocations(sortedVocations);
     }
    
   }
@@ -55,19 +63,25 @@ function Home(): JSX.Element {
             setVocations(results[1]);
             setFollowerCount(results[2]);
         }).catch()
-       
-       
+         
+        
+        
 
         if(token){
             const user = jwtDecode<{user: User}>(token).user;
             setUser(user)
          }
     },[]);
-    // console.log(follows);
-    // console.log(vocations[0]?.id);
-   
-    console.log(follows);
-    
+
+      
+      function isUserFollows(vocation:Vocation): boolean{
+        for(let fol of follows){
+          if (vocation.id === fol.vocationId && user?.id === fol.userId) {
+            return true;
+            }
+      }
+      return false;
+      }
     return (
       
         <div className="Home">
@@ -75,12 +89,12 @@ function Home(): JSX.Element {
         <select value={sortBy} onChange={e => sortVocations(e.target.value)}>
           <option value='byDate'>Sort by date</option>
           <option value='byFollow'>Sort by following</option>
-          <option value='packed'>Sort by the packed status</option>
+          <option value='byActive'>Sort by only active</option>
 
         </select>
         </div>
         <div className="cardsContainer">
-               {vocations.map((vacation, indx) => <Card key={indx}  vocationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vocation={vacation} user={user}/>
+               {vocations.map((vacation, indx) => <Card key={vacation.id} currentUserFollows={isUserFollows(vacation)}  vocationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vocation={vacation} user={user}/>
         )}  
         </div>
         </div>

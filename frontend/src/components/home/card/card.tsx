@@ -13,6 +13,7 @@ interface vacationCardProps {
     user: User | undefined;
     follows: follower[];
     vocationFollowers: followerCount;
+    currentUserFollows:boolean;
     // setFollows: React.Dispatch<React.SetStateAction<follower[]>>;
 }
 function Card(props:vacationCardProps): JSX.Element {
@@ -25,7 +26,7 @@ function Card(props:vacationCardProps): JSX.Element {
        
 			<div className="image-container">
                 {/* MAKE LIKE BUTTON A DIFFERENT COMPONENT, cuz gotta switch between roles */}
-                <Card_like_btn vocation={props.vocation} user={props.user} follows={props.follows} vocationFollowers={props.vocationFollowers}/>
+                <Card_like_btn key={props.vocationFollowers.followers} currentUserFollows={props.currentUserFollows} vocation={props.vocation} user={props.user} follows={props.follows} vocationFollowers={props.vocationFollowers}/>
                 
                 <h3 className="card-title">{props.vocation.destination}</h3>
                 <img className="card-img" src={pool} alt="" />

@@ -10,6 +10,7 @@ interface card_props {
     user: User | undefined;
     follows: follower[];
     vocationFollowers: followerCount;
+    currentUserFollows:boolean;
     // setFollows: React.Dispatch<React.SetStateAction<follower[]>>;
 }
 function Card_like_btn(props:card_props): JSX.Element {
@@ -17,43 +18,49 @@ function Card_like_btn(props:card_props): JSX.Element {
     const [followed, setFollowed] = useState<boolean | undefined>(false);
     const [numberOfFollowers, setNumberOfFollowers] = useState<number>();
     useEffect(()=>{
-        setFollower({
-            userId: props.user?.id, vocationId: props.vocation?.id
-        })
-        setNumberOfFollowers(props.vocationFollowers.followers)
         checkFollowedVocations();
-    }, [])
+        setNumberOfFollowers(props.vocationFollowers.followers)
+        
+    }, []);
 
     //maybe make getFollowers and if vocationId for this userId is there set followed to true <---
    
 //save followers to redux ?????
      function  checkFollowedVocations(){  
-        const newFollower = {
+        const currentFollower = {
         userId: props.user?.id, vocationId: props.vocation?.id
     }
-     setFollower(newFollower)
-        for(let existingFollow of props.follows){
-            if(existingFollow.userId === newFollower?.userId){
-             if(existingFollow.vocationId === newFollower?.vocationId){   
-                 setFollowed(true);
-             }
-            }
-         }
+     setFollower(currentFollower)
+    
+    setFollowed(props.currentUserFollows)
+        
+     
+        // for(let existingFollow of props.follows){
+        //     if(existingFollow.userId === newFollower?.userId){
+        //      if(existingFollow.vocationId === newFollower?.vocationId){   
+        //          setFollowed(true);
+        //      }
+        //     }
+        //  }
+        //  console.log(newFollower);
+         
 
     }
    
 
     async function follow(){
-        followed ? setFollowed(false) : setFollowed(true)
+        // followed ? setFollowed(false) : setFollowed(true)
         //thought to set it on when follow button pressed again
         if(!followed) {
             await VocationsService.addFollower(follower);
             await getFollowerCount();
+            setFollowed(true);
         }
         // TO CHANGE, it deletes every vocation with this Id
         if(followed) { 
             await VocationsService.deleteFollow(follower?.vocationId, follower?.userId)
             await getFollowerCount();
+            setFollowed(false)
         }
         //wanted to set state from here up, didnt work
         
@@ -66,7 +73,7 @@ function Card_like_btn(props:card_props): JSX.Element {
   
     return (
         <div className="card_like_btn">
-			<button onClick={follow} className={followed ? "btn-like pressed" : "btn-like"}><span className="btn-heart"></span> {followed ? "Liked" : "Like"} {numberOfFollowers}</button>
+			<button  onClick={follow} className={followed ? "btn-like pressed" : "btn-like"}><span className="btn-heart"></span> {props.currentUserFollows ? "Liked" : "Like"} {numberOfFollowers}</button>
         </div>
     );
 }
