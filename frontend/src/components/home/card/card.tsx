@@ -7,6 +7,7 @@ import VocationsService from "../../../services/Vocations";
 import follower from "../../../models/follower";
 import { useEffect, useState } from "react";
 import followerCount from "../../../models/followerCount";
+import Card__like_btn from "../card__like_btn/card__like_btn";
 interface vacationCardProps {
     vocation: Vocation;
     user: User | undefined;
@@ -15,54 +16,8 @@ interface vacationCardProps {
     // setFollows: React.Dispatch<React.SetStateAction<follower[]>>;
 }
 function Card(props:vacationCardProps): JSX.Element {
-    const [follower, setFollower] = useState<follower>();
-    const [followed, setFollowed] = useState<boolean | undefined>(false);
-    const [numberOfFollowers, setNumberOfFollowers] = useState<number>();
-    useEffect(()=>{
-        setFollower({
-            userId: props.user?.id, vocationId: props.vocation?.id
-        })
-        setNumberOfFollowers(props.vocationFollowers.followers)
-        checkFollowedVocations();
-    }, [])
-
-    //maybe make getFollowers and if vocationId for this userId is there set followed to true <---
+  
     
-    async function follow(){
-        followed ? setFollowed(false) : setFollowed(true)
-        //thought to set it on when follow button pressed again
-        if(!followed) {
-            await VocationsService.addFollower(follower);
-            await getFollowerCount();
-        }
-        // TO CHANGE, it deletes every vocation with this Id
-        if(followed) { 
-            await VocationsService.deleteFollow(follower?.vocationId, follower?.userId)
-            await getFollowerCount();
-        }
-        //wanted to set state from here up, didnt work
-        
-    }
-    async function getFollowerCount(){
-        VocationsService.getFollowerCount().then(updatedFollowerCount => {
-            setNumberOfFollowers(updatedFollowerCount.find(item => item.id === follower?.vocationId)?.followers);
-        }).catch(err => console.log(err));
-    }
-//save followers to redux ?????
-     function  checkFollowedVocations(){  
-        const newFollower = {
-        userId: props.user?.id, vocationId: props.vocation?.id
-    }
-     setFollower(newFollower)
-        for(let existingFollow of props.follows){
-            if(existingFollow.userId === newFollower?.userId){
-             if(existingFollow.vocationId === newFollower?.vocationId){   
-                 setFollowed(true);
-             }
-            }
-         }
-
-    }
     
     
     return (
@@ -70,7 +25,8 @@ function Card(props:vacationCardProps): JSX.Element {
        
 			<div className="image-container">
                 {/* MAKE LIKE BUTTON A DIFFERENT COMPONENT, cuz gotta switch between roles */}
-                <button onClick={follow} className={followed ? "btn-like pressed" : "btn-like"}><span className="btn-heart"></span> {followed ? "Liked" : "Like"} {numberOfFollowers}</button>
+                <Card__like_btn vocation={props.vocation} user={props.user} follows={props.follows} vocationFollowers={props.vocationFollowers}/>
+                
                 <h3 className="card-title">{props.vocation.destination}</h3>
                 <img className="card-img" src={pool} alt="" />
             </div>
