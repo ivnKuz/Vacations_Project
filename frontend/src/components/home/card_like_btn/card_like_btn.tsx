@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./card__like_btn.css";
+import "./card_like_btn.css";
 import follower from "../../../models/follower";
 import Vocation from "../../../models/Vocation";
 import User from "../../../models/User";
@@ -12,7 +12,7 @@ interface card_props {
     vocationFollowers: followerCount;
     // setFollows: React.Dispatch<React.SetStateAction<follower[]>>;
 }
-function Card__like_btn(props:card_props): JSX.Element {
+function Card_like_btn(props:card_props): JSX.Element {
     const [follower, setFollower] = useState<follower>();
     const [followed, setFollowed] = useState<boolean | undefined>(false);
     const [numberOfFollowers, setNumberOfFollowers] = useState<number>();
@@ -65,10 +65,10 @@ function Card__like_btn(props:card_props): JSX.Element {
     }
   
     return (
-        <div className="card__like_btn">
+        <div className="card_like_btn">
 			<button onClick={follow} className={followed ? "btn-like pressed" : "btn-like"}><span className="btn-heart"></span> {followed ? "Liked" : "Like"} {numberOfFollowers}</button>
         </div>
     );
 }
 
-export default Card__like_btn;
+export default Card_like_btn;
