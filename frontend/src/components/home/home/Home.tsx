@@ -20,21 +20,18 @@ function Home(): JSX.Element {
     const [followerCount, setFollowerCount] = useState<followerCount[]>([]);
     const [sortBy, setSortBy] = useState("byDate");
     
-    if (sortBy === 'byDate') {
+ 
+  function sortVocations(value: string){
+    if (value === 'byDate') {
       vocations.sort((a,b) => {
           let firstDate = a.startDate as unknown as Date;
           let secondDate = b.startDate as unknown as Date;
           return firstDate > secondDate ?  1 :  -1;
       })
-  };
-  if (sortBy === 'following') {
-  
-    // setVocations(sortVocationsByFollow)
-
+      setSortBy('byDate')
   }
- 
-  function sortVocationsByFollow(){
-   const sortedVocations = vocations.reduce((acc:Vocation[], element:Vocation) => {
+    if(value === 'byFollow'){
+      const sortedVocations = vocations.reduce((acc:Vocation[], element:Vocation) => {
         for(let fol of follows){
             if (element.id === fol.vocationId && user?.id === fol.userId) {
                 return [element, ...acc];
@@ -42,7 +39,11 @@ function Home(): JSX.Element {
         }
         return [...acc, element];
       }, []);
-      return sortedVocations;
+      console.log(sortedVocations);
+      setSortBy('byFollow')
+      setVocations(sortedVocations)
+    }
+   
   }
     useEffect(()=>{
         Promise.all([
@@ -65,20 +66,21 @@ function Home(): JSX.Element {
     // console.log(follows);
     // console.log(vocations[0]?.id);
    
+    console.log(follows);
     
     return (
       
         <div className="Home">
          <div className="actions">
-        <select value={sortBy} onChange={e => setSortBy(e.target.value)}>
+        <select value={sortBy} onChange={e => sortVocations(e.target.value)}>
           <option value='byDate'>Sort by date</option>
-          <option value='following'>Sort by following</option>
+          <option value='byFollow'>Sort by following</option>
           <option value='packed'>Sort by the packed status</option>
 
         </select>
         </div>
         <div className="cardsContainer">
-               {vocations.map((vacation, indx) => <Card key={indx} vocationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vacation={vacation} user={user}/>
+               {vocations.map((vacation, indx) => <Card key={indx}  vocationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vocation={vacation} user={user}/>
         )}  
         </div>
         </div>

@@ -1,6 +1,6 @@
 import "./card.css";
 import pool from "../../../assets/images/pool.jpg"
-import Vacation from "../../../models/Vocation";
+import Vocation from "../../../models/Vocation";
 import dayjs from "dayjs";
 import User from "../../../models/User";
 import VocationsService from "../../../services/Vocations";
@@ -8,16 +8,20 @@ import follower from "../../../models/follower";
 import { useEffect, useState } from "react";
 import followerCount from "../../../models/followerCount";
 interface vacationCardProps {
-    vacation: Vacation;
+    vocation: Vocation;
     user: User | undefined;
     follows: follower[];
     vocationFollowers: followerCount;
+    // setFollows: React.Dispatch<React.SetStateAction<follower[]>>;
 }
 function Card(props:vacationCardProps): JSX.Element {
     const [follower, setFollower] = useState<follower>();
-    const [followed, setFollowed] = useState<boolean>(false);
+    const [followed, setFollowed] = useState<boolean | undefined>(false);
     const [numberOfFollowers, setNumberOfFollowers] = useState<number>();
     useEffect(()=>{
+        setFollower({
+            userId: props.user?.id, vocationId: props.vocation?.id
+        })
         setNumberOfFollowers(props.vocationFollowers.followers)
         checkFollowedVocations();
     }, [])
@@ -47,16 +51,17 @@ function Card(props:vacationCardProps): JSX.Element {
 //save followers to redux ?????
      function  checkFollowedVocations(){  
         const newFollower = {
-        userId: props.user?.id, vocationId: props.vacation?.id
+        userId: props.user?.id, vocationId: props.vocation?.id
     }
      setFollower(newFollower)
         for(let existingFollow of props.follows){
             if(existingFollow.userId === newFollower?.userId){
-             if(existingFollow.vocationId === newFollower?.vocationId){
+             if(existingFollow.vocationId === newFollower?.vocationId){   
                  setFollowed(true);
              }
             }
          }
+
     }
     
     
@@ -64,21 +69,22 @@ function Card(props:vacationCardProps): JSX.Element {
         <div className="card-container">
        
 			<div className="image-container">
+                {/* MAKE LIKE BUTTON A DIFFERENT COMPONENT, cuz gotta switch between roles */}
                 <button onClick={follow} className={followed ? "btn-like pressed" : "btn-like"}><span className="btn-heart"></span> {followed ? "Liked" : "Like"} {numberOfFollowers}</button>
-                <h3 className="card-title">{props.vacation.destination}</h3>
+                <h3 className="card-title">{props.vocation.destination}</h3>
                 <img className="card-img" src={pool} alt="" />
             </div>
             
             <div className="card-body">
                 <div className="first-layer">
-                     {dayjs(props.vacation.startDate?.toString()).format('DD.MM.YYYY')} - {dayjs(props.vacation.endDate?.toString()).format('DD.MM.YYYY')}
+                     {dayjs(props.vocation.startDate?.toString()).format('DD.MM.YYYY')} - {dayjs(props.vocation.endDate?.toString()).format('DD.MM.YYYY')}
                  </div>
                 <div className="second-layer">
-                {props.vacation.description}
+                {props.vocation.description}
                  </div>
                  <div className="btn-container">
                 <button  className="price-btn">
-                    <p>{props.vacation.price}</p>
+                    <p>{props.vocation.price}</p>
                 </button>
             </div>
             </div>
