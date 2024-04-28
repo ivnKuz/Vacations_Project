@@ -4,7 +4,7 @@ import followerCount from "../../../models/followerCount";
 import "./Home.css";
 // if you have an image to display, this is how you would import it
 // import Products2ImageSource from '../../../assets/images/products2.jpg';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Card from "../card/card";
 import Vocation from "../../../models/Vocation";
 import User from "../../../models/User";
@@ -20,7 +20,6 @@ function Home(): JSX.Element {
     const [follows, setFollows] = useState<follower[]>([]);
     const [followerCount, setFollowerCount] = useState<followerCount[]>([]);
     const [sortBy, setSortBy] = useState("byDate");
-    
     if(sortBy === 'byDate'){
       vocations.sort((a,b) => {
         let firstDate = a.startDate as unknown as Date;
@@ -30,9 +29,11 @@ function Home(): JSX.Element {
   }
  
  async function sortVocations(value: string){
-    setVocations(initialVocations);
+   
+    console.log('yoink');
     
     if (value === 'byDate') {
+      setVocations(initialVocations)
       vocations.sort((a,b) => {
           let firstDate = a.startDate as unknown as Date;
           let secondDate = b.startDate as unknown as Date;
@@ -40,8 +41,9 @@ function Home(): JSX.Element {
       })
       setSortBy(value)
   }
-    else if(value === 'byFollow'){
+     if(value === 'byFollow'){
     
+   setVocations(initialVocations)
       const filteredByFollow = vocations.filter(vocation => {
         for(let fol of follows){
           if(vocation.id === fol.vocationId && user?.id === fol.userId)  return true;
@@ -65,13 +67,14 @@ function Home(): JSX.Element {
       
       // setVocations(sortedVocations);
     }
-    else if(value === 'byActive'){
+     if(value === 'byActive'){
+      setVocations(initialVocations)
       const currentTime = new Date().getTime()
       const result = vocations.filter(d => {
-                                  const startDate = new Date(d.startDate as unknown as Date).getTime();
-                                  const endDate = new Date(d.endDate as unknown as Date).getTime();
-                                 return (currentTime < startDate && startDate < endDate);
-                                });
+         const startDate = new Date(d.startDate as unknown as Date).getTime();
+         const endDate = new Date(d.endDate as unknown as Date).getTime();
+               return (currentTime < startDate && startDate < endDate);
+         });
    
      setVocations(result)
      setSortBy(value)
@@ -79,7 +82,6 @@ function Home(): JSX.Element {
      console.log(vocations);
      
     }
-   
    
   }
 
@@ -95,7 +97,6 @@ function Home(): JSX.Element {
         setFollowerCount(results[2]);
         setInitialVocations(results[1]);
     }).catch()
-         
 
         if(token){
             const user = jwtDecode<{user: User}>(token).user;
