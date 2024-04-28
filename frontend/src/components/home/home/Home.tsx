@@ -16,6 +16,7 @@ function Home(): JSX.Element {
     const token = authStore.getState().token;
     const [user, setUser] = useState<User>();
     const [vocations, setVocations] = useState<Vocation[]>([]);
+    const [initialVocations, setInitialVocations] = useState<Vocation[]>([]);
     const [follows, setFollows] = useState<follower[]>([]);
     const [followerCount, setFollowerCount] = useState<followerCount[]>([]);
     const [sortBy, setSortBy] = useState("byDate");
@@ -28,44 +29,73 @@ function Home(): JSX.Element {
     })
   }
  
-  function sortVocations(value: string){
+ async function sortVocations(value: string){
+    setVocations(initialVocations);
+    
     if (value === 'byDate') {
       vocations.sort((a,b) => {
           let firstDate = a.startDate as unknown as Date;
           let secondDate = b.startDate as unknown as Date;
           return firstDate > secondDate ?  1 :  -1;
       })
-      setSortBy('byDate')
-  }
-    if(value === 'byFollow'){
-      // setVocations(vocations.filter(vocation => isUserFollows(vocation))
-      const sortedVocations = vocations.reduce((acc:Vocation[], element:Vocation) => {
-        for(let fol of follows){
-            if (element.id === fol.vocationId && user?.id === fol.userId) {
-                return [element, ...acc];
-              }
-        }
-        return [...acc, element];
-      }, []);
-      // console.log(sortedVocations);
       setSortBy(value)
-      setVocations(sortedVocations);
+  }
+    else if(value === 'byFollow'){
+    
+      const filteredByFollow = vocations.filter(vocation => {
+        for(let fol of follows){
+          if(vocation.id === fol.vocationId && user?.id === fol.userId)  return true;
+            }
+            return false;
+      })
+      
+      
+      // const sortedVocations = vocations.reduce((acc:Vocation[], element:Vocation) => {
+      //   for(let fol of follows){
+      //       if (element.id === fol.vocationId && user?.id === fol.userId) {
+      //           return [element, ...acc];
+      //         }
+      //   }
+      //   return [...acc, element];
+      // }, []);
+      // console.log(sortedVocations);
+      
+      setSortBy(value)
+     setVocations(filteredByFollow)
+      
+      // setVocations(sortedVocations);
+    }
+    else if(value === 'byActive'){
+      const currentTime = new Date().getTime()
+      const result = vocations.filter(d => {
+                                  const startDate = new Date(d.startDate as unknown as Date).getTime();
+                                  const endDate = new Date(d.endDate as unknown as Date).getTime();
+                                 return (currentTime < startDate && startDate < endDate);
+                                });
+   
+     setVocations(result)
+     setSortBy(value)
+     
+     console.log(vocations);
+     
     }
    
+   
   }
+
+
     useEffect(()=>{
-        Promise.all([
-            VocationsService.getAllFollowers(),
-            VocationsService.getAll(),
-            VocationsService.getFollowerCount()
-        ]).then(results => {
-            setFollows(results[0]);
-            setVocations(results[1]);
-            setFollowerCount(results[2]);
-        }).catch()
+      Promise.all([
+        VocationsService.getAllFollowers(),
+        VocationsService.getAll(),
+        VocationsService.getFollowerCount()
+    ]).then(results => {
+        setFollows(results[0]);
+        setVocations(results[1]);
+        setFollowerCount(results[2]);
+        setInitialVocations(results[1]);
+    }).catch()
          
-        
-        
 
         if(token){
             const user = jwtDecode<{user: User}>(token).user;
