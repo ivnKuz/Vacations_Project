@@ -1,5 +1,6 @@
 import express from "express";
 import authRouter from './routers/auth';
+import vacationRouter from './routers/vacations';
 import  config  from "config";
 import { notFound } from "./middlewares/not-found";
 import { errorHandler } from "./middlewares/error-handler";
@@ -19,6 +20,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use('/api', authRouter)
+server.use('/api', vacationRouter)
 
 // special middleware for not found error
 server.use(notFound)

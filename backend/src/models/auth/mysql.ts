@@ -6,9 +6,10 @@ import query from "../../db/mysql";
 import { createHash } from 'crypto';
 import  config  from "config";
 import { hashPassword } from "../../utils/crypto";
+import { v4 } from 'uuid';
 class User implements Model {
   
-    public async getOne(id: number): Promise<UserDTO> {
+    public async getOne(id: string): Promise<UserDTO> {
         const user = (await query(`
             SELECT  id,
                     password ,
@@ -36,15 +37,14 @@ class User implements Model {
       `, [email, hashPassword(password, config.get<string>('app.secret'))]))[0];
       return user;
     }
-
-
     public async signUp(user: UserDTO): Promise<UserDTO>{
         const {firstName, lastName, email, password} = user;
+        const id = v4();
         const result: OkPacketParams = await query(`
-        INSERT INTO Users(name, lastName, email, password, roleId) 
-        VALUES(?,?,?,?,?) 
-    `, [firstName, lastName, email, hashPassword(password, config.get<string>('app.secret')), Roles.USER]);
-    return this.getOne(result.insertId);
+        INSERT INTO Users(id, name, lastName, email, password, roleId) 
+        VALUES(?, ?,?,?,?,?) 
+    `, [id, firstName, lastName, email, hashPassword(password, config.get<string>('app.secret')), Roles.USER]);
+    return this.getOne(id);
     }
 }
 

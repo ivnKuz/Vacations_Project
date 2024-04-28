@@ -36,7 +36,7 @@ class Authentication {
  
      //now all that is left to do is to send this action to redux
      authStore.dispatch(action)
-     
+        
          return token;
      }
      public logout(){

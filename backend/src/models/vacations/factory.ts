@@ -1,6 +1,6 @@
 import Model from "./model";
-import loremIpsum from "./mysql";
+import vacation from "./mysql";
 
 export default function getModel(): Model {
-    return loremIpsum;
+    return vacation;
 }

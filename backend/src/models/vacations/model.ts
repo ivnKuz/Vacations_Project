@@ -1,5 +1,10 @@
 import DTO from './dto';
-
+import followDTO from './followDTO'
+import followerCountDTO from './followersCountDTO';
 export default interface Model {
-    loremIpsum(loremIpsum: DTO): Promise<DTO>;
+    getAll(): Promise<DTO[]>;
+    getAllFollowers(): Promise<followDTO[]>;
+    getFollowersCount(): Promise<followerCountDTO[]>
+    userFollowed(follower: followDTO): Promise<followDTO>;
+    deleteFollow(vocationId: number, userId:string): Promise<boolean>;
 }
