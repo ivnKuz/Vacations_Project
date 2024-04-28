@@ -28,12 +28,12 @@ function Home(): JSX.Element {
     })
   }
  
- async function sortVocations(value: string){
+  function sortVocations(value: string){
    
-    console.log('yoink');
+    setVocations(initialVocations)
+    console.log('idk wtf');
     
     if (value === 'byDate') {
-      setVocations(initialVocations)
       vocations.sort((a,b) => {
           let firstDate = a.startDate as unknown as Date;
           let secondDate = b.startDate as unknown as Date;
@@ -42,8 +42,6 @@ function Home(): JSX.Element {
       setSortBy(value)
   }
      if(value === 'byFollow'){
-    
-   setVocations(initialVocations)
       const filteredByFollow = vocations.filter(vocation => {
         for(let fol of follows){
           if(vocation.id === fol.vocationId && user?.id === fol.userId)  return true;
@@ -51,35 +49,19 @@ function Home(): JSX.Element {
             return false;
       })
       
-      
-      // const sortedVocations = vocations.reduce((acc:Vocation[], element:Vocation) => {
-      //   for(let fol of follows){
-      //       if (element.id === fol.vocationId && user?.id === fol.userId) {
-      //           return [element, ...acc];
-      //         }
-      //   }
-      //   return [...acc, element];
-      // }, []);
-      // console.log(sortedVocations);
-      
       setSortBy(value)
      setVocations(filteredByFollow)
-      
-      // setVocations(sortedVocations);
     }
      if(value === 'byActive'){
-      setVocations(initialVocations)
       const currentTime = new Date().getTime()
-      const result = vocations.filter(d => {
+      const filteredByActive = vocations.filter(d => {
          const startDate = new Date(d.startDate as unknown as Date).getTime();
          const endDate = new Date(d.endDate as unknown as Date).getTime();
                return (currentTime < startDate && startDate < endDate);
          });
    
-     setVocations(result)
+     setVocations(filteredByActive)
      setSortBy(value)
-     
-     console.log(vocations);
      
     }
    
