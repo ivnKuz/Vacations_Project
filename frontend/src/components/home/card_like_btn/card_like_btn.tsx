@@ -21,7 +21,7 @@ function Card_like_btn(props:card_props): JSX.Element {
         checkFollowedVocations();
         setNumberOfFollowers(props.vocationFollowers.followers)
         
-    }, []);
+    },[]);
 
     //maybe make getFollowers and if vocationId for this userId is there set followed to true <---
    
@@ -73,7 +73,7 @@ function Card_like_btn(props:card_props): JSX.Element {
   
     return (
         <div className="card_like_btn">
-			<button  onClick={follow} className={followed ? "btn-like pressed" : "btn-like"}><span className="btn-heart"></span> {props.currentUserFollows ? "Liked" : "Like"} {numberOfFollowers}</button>
+			<button onClick={follow} className={followed ? "btn-like pressed" : "btn-like"}><span className="btn-heart"></span> {props.currentUserFollows ? "Liked" : "Like"} {numberOfFollowers}</button>
         </div>
     );
 }
