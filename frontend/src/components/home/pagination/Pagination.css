@@ -1,3 +1,16 @@
 .Pagination {
-	
+	display: flex;
+    justify-content: center;
+}
+.page-item{
+    list-style-type: none;
+}
+.page-link{
+    margin: 3px;
+    border: 1px solid #000;
+    padding: 3px;
+}
+.page-link:hover{
+    cursor: pointer;
+    text-decoration: underline;
 }

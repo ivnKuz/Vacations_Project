@@ -19,9 +19,11 @@ function Pagination(props:pagination_props): JSX.Element {
                     <a onClick={()=> props.paginate(number)} className="page-link">
                         {number}
                     </a>
+
                 </li>
             ))}
         </nav>
+       
     );
 }
 

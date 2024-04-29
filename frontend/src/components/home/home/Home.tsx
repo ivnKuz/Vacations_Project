@@ -22,7 +22,7 @@ function Home(): JSX.Element {
     const [follows, setFollows] = useState<follower[]>([]);
     const [followerCount, setFollowerCount] = useState<followerCount[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [vocationsPerPage, setVocationsPerPage] = useState<number>(3)
+    const [vocationsPerPage] = useState<number>(3)
     const [sortBy, setSortBy] = useState("byDate");
     if(sortBy === 'byDate'){
       vocations.sort((a,b) => {
@@ -55,6 +55,7 @@ function Home(): JSX.Element {
       
       setSortBy(value)
      setVocations(filteredByFollow)
+     setCurrentPage(1);
     }
      if(value === 'byActive'){
       const currentTime = new Date().getTime()
@@ -66,7 +67,7 @@ function Home(): JSX.Element {
    
      setVocations(filteredByActive)
      setSortBy(value)
-     
+     setCurrentPage(1);
     }
    
   }
@@ -125,7 +126,9 @@ function Home(): JSX.Element {
                {currentVocations.map((vacation, indx) => <Card key={vacation.id} currentUserFollows={isUserFollows(vacation)}  vocationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vocation={vacation} user={user}/>
         )}  
         </div>
+        <div className="pagination">
         <Pagination paginate={paginate} vocationPerPage={vocationsPerPage} totalVocations={vocations.length}/>
+        </div>
         </div>
     );
     }
