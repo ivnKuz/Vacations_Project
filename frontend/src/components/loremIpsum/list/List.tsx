@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./List.css";
-import loremIpsumService from "../../../services/Vocations";
+import loremIpsumService from "../../../services/Vacations";
 import notify from "../../../services/Notify";
 import LoremIpsum from "../../../models/SignUp";
 

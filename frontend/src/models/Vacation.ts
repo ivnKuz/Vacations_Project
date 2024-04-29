@@ -1,5 +1,5 @@
 
-class Vocation{
+class Vacation{
     public id?: number;
     public destination?:string;
     public description?:string;
@@ -10,4 +10,4 @@ class Vocation{
     public imageName?:string;
 }
 
-export default Vocation;
+export default Vacation;

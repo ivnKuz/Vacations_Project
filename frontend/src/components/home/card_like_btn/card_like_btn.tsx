@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import "./card_like_btn.css";
 import follower from "../../../models/follower";
-import Vocation from "../../../models/Vocation";
+import Vacation from "../../../models/Vacation";
 import User from "../../../models/User";
 import followerCount from "../../../models/followerCount";
-import VocationsService from "../../../services/Vocations";
+import VacationsService from "../../../services/Vacations";
 interface card_props {
-    vocation: Vocation;
+    vacation: Vacation;
     user: User | undefined;
     follows: follower[];
-    vocationFollowers: followerCount;
+    vacationFollowers: followerCount;
     currentUserFollows:boolean;
     // setFollows: React.Dispatch<React.SetStateAction<follower[]>>;
 }
@@ -19,7 +19,7 @@ function Card_like_btn(props:card_props): JSX.Element {
     const [numberOfFollowers, setNumberOfFollowers] = useState<number>();
     useEffect(()=>{
         checkFollowedVocations();
-        setNumberOfFollowers(props.vocationFollowers.followers)
+        setNumberOfFollowers(props.vacationFollowers.followers)
         
     },[]);
 
@@ -28,7 +28,7 @@ function Card_like_btn(props:card_props): JSX.Element {
 //save followers to redux ?????
      function  checkFollowedVocations(){  
         const currentFollower = {
-        userId: props.user?.id, vocationId: props.vocation?.id
+        userId: props.user?.id, vocationId: props.vacation?.id
     }
      setFollower(currentFollower)
     
@@ -52,13 +52,13 @@ function Card_like_btn(props:card_props): JSX.Element {
         // followed ? setFollowed(false) : setFollowed(true)
         //thought to set it on when follow button pressed again
         if(!followed) {
-            await VocationsService.addFollower(follower);
+            await VacationsService.addFollower(follower);
             await getFollowerCount();
             setFollowed(true);
         }
         // TO CHANGE, it deletes every vocation with this Id
         if(followed) { 
-            await VocationsService.deleteFollow(follower?.vocationId, follower?.userId)
+            await VacationsService.deleteFollow(follower?.vocationId, follower?.userId)
             await getFollowerCount();
             setFollowed(false)
         }
@@ -66,7 +66,7 @@ function Card_like_btn(props:card_props): JSX.Element {
         
     }
     async function getFollowerCount(){
-        VocationsService.getFollowerCount().then(updatedFollowerCount => {
+        VacationsService.getFollowerCount().then(updatedFollowerCount => {
             setNumberOfFollowers(updatedFollowerCount.find(item => item.id === follower?.vocationId)?.followers);
         }).catch(err => console.log(err));
     }

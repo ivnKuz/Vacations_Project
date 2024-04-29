@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import "./Add.css";
 import LoremIpsum from "../../../models/SignUp";
-import loremIpsumService from "../../../services/Vocations";
+import loremIpsumService from "../../../services/Vacations";
 import { useNavigate } from "react-router-dom";
 import notify from "../../../services/Notify";
 
