@@ -5,3 +5,6 @@
     grid-gap: 30px;
     overflow: auto;
 }
+.pagination{
+    margin-top: 40px;
+}

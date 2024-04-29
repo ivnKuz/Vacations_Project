@@ -10,6 +10,8 @@ import Vocation from "../../../models/Vocation";
 import User from "../../../models/User";
 import { jwtDecode } from "jwt-decode";
 import follower from "../../../models/follower";
+import Pagination from "../pagination/Pagination";
+import notify from "../../../services/Notify";
 
 function Home(): JSX.Element {
     
@@ -19,6 +21,8 @@ function Home(): JSX.Element {
     const [initialVocations, setInitialVocations] = useState<Vocation[]>([]);
     const [follows, setFollows] = useState<follower[]>([]);
     const [followerCount, setFollowerCount] = useState<followerCount[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [vocationsPerPage] = useState<number>(3)
     const [sortBy, setSortBy] = useState("byDate");
     if(sortBy === 'byDate'){
       vocations.sort((a,b) => {
@@ -51,6 +55,7 @@ function Home(): JSX.Element {
       
       setSortBy(value)
      setVocations(filteredByFollow)
+     setCurrentPage(1);
     }
      if(value === 'byActive'){
       const currentTime = new Date().getTime()
@@ -62,23 +67,28 @@ function Home(): JSX.Element {
    
      setVocations(filteredByActive)
      setSortBy(value)
-     
+     setCurrentPage(1);
     }
    
   }
 
 
     useEffect(()=>{
-      Promise.all([
-        VocationsService.getAllFollowers(),
-        VocationsService.getAll(),
-        VocationsService.getFollowerCount()
-    ]).then(results => {
-        setFollows(results[0]);
-        setVocations(results[1]);
-        setFollowerCount(results[2]);
-        setInitialVocations(results[1]);
-    }).catch()
+        
+        Promise.all([
+          VocationsService.getAllFollowers(),
+          VocationsService.getAll(),
+          VocationsService.getFollowerCount()
+      ]).then(results => {
+          setFollows(results[0]);
+          setVocations(results[1]);
+          setFollowerCount(results[2]);
+          setInitialVocations(results[1]);
+          
+      }).catch(e=> notify.error(e));
+      
+      
+    
 
         if(token){
             const user = jwtDecode<{user: User}>(token).user;
@@ -95,8 +105,14 @@ function Home(): JSX.Element {
       }
       return false;
       }
+
+    //get current vocations
+    const indexOfLastVocation = currentPage * vocationsPerPage;
+    const indexOfFirstVocation = indexOfLastVocation - vocationsPerPage;
+    const currentVocations = vocations.slice(indexOfFirstVocation, indexOfLastVocation)
+    //Change page
+      const paginate = (pageNumber:number)=> setCurrentPage(pageNumber)
     return (
-      
         <div className="Home">
          <div className="actions">
         <select value={sortBy} onChange={e => sortVocations(e.target.value)}>
@@ -107,8 +123,11 @@ function Home(): JSX.Element {
         </select>
         </div>
         <div className="cardsContainer">
-               {vocations.map((vacation, indx) => <Card key={vacation.id} currentUserFollows={isUserFollows(vacation)}  vocationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vocation={vacation} user={user}/>
+               {currentVocations.map((vacation, indx) => <Card key={vacation.id} currentUserFollows={isUserFollows(vacation)}  vocationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vocation={vacation} user={user}/>
         )}  
+        </div>
+        <div className="pagination">
+        <Pagination paginate={paginate} vocationPerPage={vocationsPerPage} totalVocations={vocations.length}/>
         </div>
         </div>
     );
