@@ -15,24 +15,22 @@ interface card_props {
 }
 function Card_like_btn(props:card_props): JSX.Element {
     const [follower, setFollower] = useState<follower>();
-    const [followed, setFollowed] = useState<boolean | undefined>(false);
+    const [followed, setFollowed] = useState<boolean | undefined>(props.currentUserFollows);
     const [numberOfFollowers, setNumberOfFollowers] = useState<number>();
     useEffect(()=>{
         checkFollowedVocations();
         setNumberOfFollowers(props.vacationFollowers.followers)
         
-    },[]);
+    },[props.currentUserFollows]);
 
-    //maybe make getFollowers and if vocationId for this userId is there set followed to true <---
-   
-//save followers to redux ?????
+    
      function  checkFollowedVocations(){  
         const currentFollower = {
         userId: props.user?.id, vocationId: props.vacation?.id
     }
      setFollower(currentFollower)
     
-    setFollowed(props.currentUserFollows)
+    // setFollowed(props.currentUserFollows)
     }
    
 

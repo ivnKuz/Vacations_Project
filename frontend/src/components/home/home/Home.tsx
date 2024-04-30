@@ -74,7 +74,6 @@ function Home(): JSX.Element {
       }).catch(e=> notify.error(e));
       
       
-    
 
         if(token){
             const user = jwtDecode<{user: User}>(token).user;
@@ -86,7 +85,6 @@ function Home(): JSX.Element {
       function isUserFollows(vocation:Vacation): boolean{
         for(let fol of follows){
           if (vocation.id === fol.vocationId && user?.id === fol.userId) {
-
             return true;
             }
       }
