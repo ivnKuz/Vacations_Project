@@ -33,18 +33,6 @@ function Card_like_btn(props:card_props): JSX.Element {
      setFollower(currentFollower)
     
     setFollowed(props.currentUserFollows)
-        
-     
-        // for(let existingFollow of props.follows){
-        //     if(existingFollow.userId === newFollower?.userId){
-        //      if(existingFollow.vocationId === newFollower?.vocationId){   
-        //          setFollowed(true);
-        //      }
-        //     }
-        //  }
-        //  console.log(newFollower);
-         
-
     }
    
 

@@ -25,53 +25,38 @@ function Home(): JSX.Element {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [vocationsPerPage] = useState<number>(3)
     const [sortBy, setSortBy] = useState("byDate");
-    if(sortBy === 'byDate'){
-      vacations.sort((a,b) => {
-        let firstDate = a.startDate as unknown as Date;
-        let secondDate = b.startDate as unknown as Date;
-        return firstDate > secondDate ?  1 :  -1;
-    })
+    // Define sortVocations function
+    function sortVocations(value: string) {
+      setSortBy(value);
+      setCurrentPage(1);
   }
- 
-  function sortVocations(value: string){
-   
-    setVocations(initialVocations)
-    console.log('idk wtf');
-    
-    if (value === 'byDate') {
-      vacations.sort((a,b) => {
-          let firstDate = a.startDate as unknown as Date;
-          let secondDate = b.startDate as unknown as Date;
-          return firstDate > secondDate ?  1 :  -1;
-      })
-      setSortBy(value)
-  }
-     if(value === 'byFollow'){
-      const filteredByFollow = vacations.filter(vacation => {
-        for(let fol of follows){
-          if(vacation.id === fol.vocationId && user?.id === fol.userId)  return true;
+  //another use effect for filtering
+  useEffect(() => {
+    if (sortBy === 'byDate') {
+        const sortedByDate = [...initialVocations].sort((a, b) => {
+            let firstDate = new Date(a.startDate as unknown as string);
+            let secondDate = new Date(b.startDate as unknown as string);
+            return firstDate.getTime() - secondDate.getTime();
+        });
+        setVocations(sortedByDate);
+    } else if (sortBy === 'byFollow') {
+        const filteredByFollow = initialVocations.filter(vacation => {
+            for (let fol of follows) {
+                if (vacation.id === fol.vocationId && user?.id === fol.userId) return true;
             }
             return false;
-      })
-      
-      setSortBy(value)
-     setVocations(filteredByFollow)
-     setCurrentPage(1);
+        });
+        setVocations(filteredByFollow);
+    } else if (sortBy === 'byActive') {
+        const currentTime = new Date().getTime();
+        const filteredByActive = initialVocations.filter(d => {
+            const startDate = new Date(d.startDate as unknown as Date).getTime();
+            const endDate = new Date(d.endDate as unknown as Date).getTime();
+            return (currentTime < startDate && startDate < endDate);
+        });
+        setVocations(filteredByActive);
     }
-     if(value === 'byActive'){
-      const currentTime = new Date().getTime()
-      const filteredByActive = vacations.filter(d => {
-         const startDate = new Date(d.startDate as unknown as Date).getTime();
-         const endDate = new Date(d.endDate as unknown as Date).getTime();
-               return (currentTime < startDate && startDate < endDate);
-         });
-   
-     setVocations(filteredByActive)
-     setSortBy(value)
-     setCurrentPage(1);
-    }
-   
-  }
+}, [sortBy, initialVocations, follows, user]);
 
 
     useEffect(()=>{
@@ -101,6 +86,7 @@ function Home(): JSX.Element {
       function isUserFollows(vocation:Vacation): boolean{
         for(let fol of follows){
           if (vocation.id === fol.vocationId && user?.id === fol.userId) {
+
             return true;
             }
       }
