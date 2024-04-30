@@ -25,10 +25,13 @@ function Home(): JSX.Element {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [vocationsPerPage] = useState<number>(3)
     const [sortBy, setSortBy] = useState("byDate");
-    // Define sortVocations function
+    //creating this function to update followers when I add them in card like button component. It will only update when I press fliter below.
+    const updateFollowers = ()=> VacationService.getAllFollowers().then(follows => setFollows(follows)).catch(err => notify.error(err))
+  //sorting function changes sortBy state depending on value passed and the conditions are executed in useEffect below to update in real time
     function sortVocations(value: string) {
       setSortBy(value);
       setCurrentPage(1);
+      updateFollowers();
   }
   //another use effect for filtering
   useEffect(() => {
@@ -56,11 +59,12 @@ function Home(): JSX.Element {
         });
         setVocations(filteredByActive);
     }
+    
 }, [sortBy, initialVocations, follows, user]);
 
-
+  
     useEffect(()=>{
-        
+        //getting all the data from database and user data.
         Promise.all([
           VacationService.getAllFollowers(),
           VacationService.getAll(),
@@ -72,16 +76,13 @@ function Home(): JSX.Element {
           setInitialVocations(results[1]);
           
       }).catch(e=> notify.error(e));
-      
-      
-
         if(token){
             const user = jwtDecode<{user: User}>(token).user;
             setUser(user)
          }
     },[]);
-
-      
+      //MIGHT MOVE IT TO THE CARD LIKE COMPONENT, CHECK LATER
+      //passing this as props to card like button to set state of liked or not liked
       function isUserFollows(vocation:Vacation): boolean{
         for(let fol of follows){
           if (vocation.id === fol.vocationId && user?.id === fol.userId) {

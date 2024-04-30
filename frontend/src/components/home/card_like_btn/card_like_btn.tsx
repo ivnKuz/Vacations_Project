@@ -5,6 +5,7 @@ import Vacation from "../../../models/Vacation";
 import User from "../../../models/User";
 import followerCount from "../../../models/followerCount";
 import VacationsService from "../../../services/Vacations";
+import notify from "../../../services/Notify";
 interface card_props {
     vacation: Vacation;
     user: User | undefined;
@@ -20,8 +21,7 @@ function Card_like_btn(props:card_props): JSX.Element {
     useEffect(()=>{
         checkFollowedVocations();
         setNumberOfFollowers(props.vacationFollowers.followers)
-        
-    },[props.currentUserFollows]);
+    },[]);
 
     
      function  checkFollowedVocations(){  
