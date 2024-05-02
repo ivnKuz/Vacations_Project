@@ -8,6 +8,7 @@ import follower from "../../../models/follower";
 import { useEffect, useState } from "react";
 import followerCount from "../../../models/followerCount";
 import Card_like_btn from "../card_like_btn/card_like_btn";
+import Card_admin_btns from "../card_admin_btns/card_admin_btns";
 interface vacationCardProps {
     vacation: Vacation;
     user: User | undefined;
@@ -18,15 +19,17 @@ interface vacationCardProps {
 }
 function Card(props:vacationCardProps): JSX.Element {
   
+    console.log(props.user?.roleId);
     
-    
+
     
     return (
         <div className="card-container">
        
 			<div className="image-container">
                 {/* MAKE LIKE BUTTON A DIFFERENT COMPONENT, cuz gotta switch between roles */}
-                <Card_like_btn key={props.vacationFollowers.followers} currentUserFollows={props.currentUserFollows} vacation={props.vacation} user={props.user} follows={props.follows} vacationFollowers={props.vacationFollowers}/>
+               {props.user?.roleId === 1 ? <Card_like_btn key={props.vacationFollowers.followers} currentUserFollows={props.currentUserFollows} vacation={props.vacation} user={props.user} follows={props.follows} vacationFollowers={props.vacationFollowers}/> : null }
+               {props.user?.roleId === 2 ? <Card_admin_btns /> : null}
                 
                 <h3 className="card-title">{props.vacation.destination}</h3>
                 <img className="card-img" src={pool} alt="" />

@@ -56,7 +56,6 @@ function Card_like_btn(props:card_props): JSX.Element {
             setNumberOfFollowers(updatedFollowerCount.find(item => item.id === follower?.vocationId)?.followers);
         }).catch(err => console.log(err));
     }
-  
     return (
         <div className="card_like_btn">
 			<button onClick={follow} className={followed ? "btn-like pressed" : "btn-like"}><span className="btn-heart"></span> {props.currentUserFollows ? "Liked" : "Like"} {numberOfFollowers}</button>

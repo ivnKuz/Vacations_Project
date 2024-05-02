@@ -39,6 +39,7 @@ function Home(): JSX.Element {
         
     }).catch(e=> notify.error(e));
     } 
+    //DELETE LATER IN DEVELOPMENT: can try and move this get data function back to use effect, and make it just updateFollows and put followerCount in dependency array if it'll work
   //sorting function changes sortBy state depending on value passed and the conditions are executed in useEffect below to update in real time
     function sortVocations(value: string) {
       setSortBy(value);
