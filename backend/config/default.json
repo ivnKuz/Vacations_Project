@@ -4,7 +4,7 @@
         "port": 8080,
         "protocol": "http",
         "host": "localhost",
-        "secret": "lorem-ipsum-secret",
+        "secret": "highground-secret",
         "jwt": {
             "expires": "3h",
             "secret": "IhaveTheHighgroundAnakin"
