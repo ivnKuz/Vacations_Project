@@ -74,7 +74,7 @@ function Home(): JSX.Element {
         setVocations(filteredByActive);
     }
     
-}, [sortBy, initialVocations, follows, user]);
+}, [sortBy, initialVocations, follows, user, vacations]);
 
     useEffect(()=>{
         //getting all the data from database and user data.
@@ -105,16 +105,18 @@ function Home(): JSX.Element {
 
     return (
         <div className="Home">
-         <div className="actions">
-        <select value={sortBy} onChange={e => sortVocations(e.target.value)}>
+         
+         {user?.roleId === 1 ? <div className="actions"> 
+         <select value={sortBy} onChange={e => sortVocations(e.target.value)}>
           <option value='byDate'>Sort by date</option>
           <option value='byFollow'>Sort by following</option>
           <option value='byActive'>Sort by only active</option>
 
         </select>
-        </div>
+        </div> : null}
+       
         <div className="cardsContainer">
-               {currentVocations.map((vacation, indx) => <Card key={vacation.id} currentUserFollows={isUserFollows(vacation)}  vacationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vacation={vacation} user={user}/>
+               {currentVocations.map((vacation, indx) => <Card key={vacation.id} getData={getData} currentUserFollows={isUserFollows(vacation)}  vacationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vacation={vacation} user={user}/>
         )}  
         </div>
         <div className="pagination">

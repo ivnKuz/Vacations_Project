@@ -55,3 +55,12 @@ export const deleteFollow = async (req: Request, res: Response, next: NextFuncti
         next(err)
     }
 }
+export const deleteVacation = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+       const isDeleted = await getModel().deleteVacation(+req.params.id)
+       if(!isDeleted) return next(); //will pass it to 404
+        res.sendStatus(StatusCodes.NO_CONTENT)
+    } catch (err) {
+        next(err)
+    }
+}

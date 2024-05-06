@@ -7,4 +7,5 @@ export default interface Model {
     getFollowersCount(): Promise<followerCountDTO[]>
     userFollowed(follower: followDTO): Promise<followDTO>;
     deleteFollow(vocationId: number, userId:string): Promise<boolean>;
+    deleteVacation(id: number): Promise<boolean>;
 }

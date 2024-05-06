@@ -7,6 +7,7 @@ import { errorHandler } from "./middlewares/error-handler";
 import cors from 'cors';
 import { DraftHeadersVersion, rateLimit } from 'express-rate-limit'
 import authentication from "./middlewares/authenitcation";
+import userLogger from "./middlewares/user-logger";
 const server = express();
 
 const limiter = rateLimit({
@@ -15,8 +16,9 @@ const limiter = rateLimit({
 	standardHeaders: config.get<boolean | DraftHeadersVersion>('rateLimit.standardHeaders'), 
 	legacyHeaders: config.get<boolean>('rateLimit.legacyHeaders'), 
 })
-server.use(authentication);
 server.use(limiter);
+server.use(authentication);
+server.use(userLogger)
 server.use(cors());
 server.use(express.json());
 

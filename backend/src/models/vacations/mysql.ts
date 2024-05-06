@@ -66,6 +66,13 @@ class Vacation implements Model {
         `, [id]))[0];
         return user;
     }
+    public async deleteVacation(id: number): Promise<boolean> {
+        const result:OkPacketParams = await query(`
+            DELETE FROM vacations
+            WHERE       id = ?
+        `, [id]);
+        return Boolean(result.affectedRows);
+    }
 }
 
 const vacation = new Vacation();

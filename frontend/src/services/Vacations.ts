@@ -42,7 +42,9 @@ class Vacations {
     public async deleteFollow(id: number | undefined, userId: string | undefined): Promise<void>{
         await axios.delete( `${appConfig.FollowUrl}/${id}${userId}`);
     }
-    
+    public async deleteVacation(id: number | undefined): Promise<void>{
+        await axios.delete( `${appConfig.deleteVacation}/${id}`);
+    }
 
 
 }
