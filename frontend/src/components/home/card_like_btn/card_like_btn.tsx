@@ -29,10 +29,12 @@ function Card_like_btn(props:card_props): JSX.Element {
         userId: props.user?.id, vocationId: props.vacation?.id
     }
      setFollower(currentFollower)
+
     
     // setFollowed(props.currentUserFollows)
     }
-   
+    // console.log(follower);
+
 
     async function follow(){
         // followed ? setFollowed(false) : setFollowed(true)
@@ -42,9 +44,10 @@ function Card_like_btn(props:card_props): JSX.Element {
             await getFollowerCount();
             setFollowed(true);
         }
-        // TO CHANGE, it deletes every vocation with this Id
         if(followed) { 
-            await VacationsService.deleteFollow(follower?.vocationId, follower?.userId)
+            console.log(follower?.vocationId, follower?.userId);
+            
+            await VacationsService.deleteFollow(follower?.vocationId, follower?.userId);
             await getFollowerCount();
             setFollowed(false)
         }

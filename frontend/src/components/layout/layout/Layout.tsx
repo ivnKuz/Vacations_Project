@@ -28,8 +28,6 @@ function Layout(): JSX.Element {
 const token = authStore.getState().token;
     useEffect(()=>{
     !token ? navigator('/login') : navigator('/home');
-       
-
     },[])
     return ( 
       <div className="Layout">

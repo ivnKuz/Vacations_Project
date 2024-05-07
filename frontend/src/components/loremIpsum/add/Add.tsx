@@ -9,7 +9,7 @@ function Add(): JSX.Element {
 
     const { register, handleSubmit } = useForm<LoremIpsum>();
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     // async function addLoremIpsum(loremIpsum: LoremIpsum) {
     //     try {
@@ -22,8 +22,8 @@ function Add(): JSX.Element {
 
     return (
         <div className="AddProduct">
-            {/* <h2>Add Product</h2>
-            <form onSubmit={handleSubmit(addLoremIpsum)}>
+            <h2>Add Product</h2>
+            {/* <form onSubmit={handleSubmit(addLoremIpsum)}>
 
                 <label>Name:</label>
                 <input type="text" {...register('name')} />

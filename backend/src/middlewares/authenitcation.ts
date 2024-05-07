@@ -24,7 +24,7 @@ export default async function authentication (req: Request, res: Response, next:
         // if we're here, we have an authorization header
         //we expect it to look something like: Bearer dwqfrqwrqwqwqtwt.qwtqwtqwtq.tqwtqwtwqt
         const token = header.split(' ') [1];
-        console.log(token);
+        // console.log(token);
         
         //this creates an array of ['bearer', 'ewqtqwtqw.tqwtqwtwq.tqwt'] ^
     try{

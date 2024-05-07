@@ -74,7 +74,7 @@ function Home(): JSX.Element {
         setVocations(filteredByActive);
     }
     
-}, [sortBy, initialVocations, follows, user, vacations]);
+}, [sortBy, initialVocations, follows, user]);
 
     useEffect(()=>{
         //getting all the data from database and user data.
@@ -116,7 +116,7 @@ function Home(): JSX.Element {
         </div> : null}
        
         <div className="cardsContainer">
-               {currentVocations.map((vacation, indx) => <Card key={vacation.id} getData={getData} currentUserFollows={isUserFollows(vacation)}  vacationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vacation={vacation} user={user}/>
+               {currentVocations.map((vacation) => <Card key={vacation.id}  currentUserFollows={isUserFollows(vacation)} getData={getData}  vacationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vacation={vacation} user={user}/>
         )}  
         </div>
         <div className="pagination">

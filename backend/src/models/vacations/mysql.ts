@@ -53,7 +53,7 @@ class Vacation implements Model {
         const result:OkPacketParams = await query(`
             DELETE FROM Followers
             WHERE       vocationId  = ? && userId = ?
-        `, [vocationId, userId]);
+        `, [ vocationId, userId]);
         return Boolean(result.affectedRows);
     }
 

@@ -9,8 +9,8 @@ const router = Router();
 router.get('/vacations', getAll);
 router.get('/followers', getAllFollowers)
 router.get('/followersCount', getFollowersCount)
-router.post('/followed', enforceAuth, userFollowed);
-router.delete('/followed/:id:userId', enforceAuth, deleteFollow);
-router.delete('/vacations/delete/:id', enforceAdmin, deleteVacation)
+router.post('/followed', userFollowed);
+router.delete('/followed/:id/:userId', deleteFollow);
+router.delete('/vacations/delete/:id', enforceAdmin, deleteVacation);
 
 export default router;
