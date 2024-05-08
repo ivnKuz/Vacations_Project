@@ -1,4 +1,4 @@
-.Add {
+.addVacation {
     width: 250px;
     border: 1px solid;
     text-align: left;
@@ -8,8 +8,8 @@
     border-radius: 10px;
 }
 
-.Add input,
-.Add button {
+.addVacation input,
+.addVacation button {
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 20px;

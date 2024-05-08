@@ -1,14 +1,14 @@
 import axios from "axios";
 import followerCount from "../models/followerCount";
 import appConfig from "../utils/AppConfig";
-import VocationModel from "../models/Vacation";
+import VacationModel from "../models/Vacation";
 import follower from "../models/follower";
 
 class Vacations {
 
-    public async getAll(): Promise<VocationModel[]> {
+    public async getAll(): Promise<VacationModel[]> {
 
-        const response = await axios.get<VocationModel[]>(appConfig.getAllVacationsUrl);
+        const response = await axios.get<VacationModel[]>(appConfig.VacationsUrl);
 
         const vacations = response.data;
 
@@ -29,6 +29,20 @@ class Vacations {
         const followersCount = response.data;
 
         return followersCount;
+    }
+
+    public async addVacation(vacation: VacationModel): Promise<VacationModel>{
+        //need to do it to send image
+        const options = {
+            headers:{
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+
+        const response = await axios.post<VacationModel>(appConfig.VacationsUrl, vacation, options);
+        const addedVacation = response.data;
+
+        return addedVacation;
     }
 
     public async addFollower(follower: follower | undefined): Promise<follower> {

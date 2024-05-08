@@ -14,7 +14,7 @@ router.get('/vacations', getAll);
 router.get('/vacations/:id([0-9]+)', getOne);
 router.get('/followers', getAllFollowers);
 router.get('/followersCount', getFollowersCount);
-router.post('/vacations', addImageToBody, validate(addVacationValidator), uploadImage,  add)
+router.post('/vacations', enforceAdmin, addImageToBody, validate(addVacationValidator), uploadImage,  add)
 router.post('/followed', enforceAuth, userFollowed);
 router.delete('/followed/:id/:userId', enforceAuth, deleteFollow);
 router.delete('/vacations/delete/:id', enforceAdmin, deleteVacation);
