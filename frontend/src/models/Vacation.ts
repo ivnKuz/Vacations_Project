@@ -6,8 +6,8 @@ class Vacation{
     public startDate?:Date;
     public endDate?:Date;
     public price?:number;
-    // public image?:File;
-    public imageName?:string;
+    public image?:File;
+    public imageUrl?:string;
 }
 
 export default Vacation;

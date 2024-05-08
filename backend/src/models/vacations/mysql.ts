@@ -47,6 +47,28 @@ class Vacation implements Model {
         `, [userId, vocationId]);
         return this.getOneFollower(userId);
     }
+    public async getOne(id: number): Promise<DTO> {
+        const vacations = await query(`
+            SELECT   id,
+                    destination,
+                    description,
+                    startDate,
+                    endDate,
+                    price,
+                    imageName
+            FROM    vacations  
+            WHERE   id = ?
+        `, [id]);
+        return vacations[0];
+    }
+    public async add(vacation: DTO): Promise<DTO> {
+        const {destination, description, startDate, endDate, price, imageName} = vacation;
+        const result: OkPacketParams = await query(`
+            INSERT INTO vacations(destination, description, startDate, endDate, price, imageName) 
+            VALUES(?,?,?,?,?,?) 
+        `, [destination, description, startDate, endDate, price, imageName]);
+        return this.getOne(result.insertId);
+    }
     
     //change sql
     public async deleteFollow(vocationId: number, userId:string): Promise<boolean> {

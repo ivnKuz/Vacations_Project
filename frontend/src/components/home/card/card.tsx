@@ -33,7 +33,7 @@ function Card(props:vacationCardProps): JSX.Element {
                {props.user?.roleId === 2 ? <Card_admin_btns vacation={props.vacation} getData={props.getData}/> : null}
                 
                 <h3 className="card-title">{props.vacation.destination}</h3>
-                <img className="card-img" src={pool} alt="" />
+                <img className="card-img" src={props.vacation.imageUrl} alt="" />
             </div>
             
             <div className="card-body">

@@ -19,7 +19,7 @@ export default async function authentication (req: Request, res: Response, next:
     // console.log(header);
     
         if(!header) return next();
-        console.log('works');
+       
         
         // if we're here, we have an authorization header
         //we expect it to look something like: Bearer dwqfrqwrqwqwqtwt.qwtqwtqwtq.tqwtqwtwqt
@@ -29,10 +29,10 @@ export default async function authentication (req: Request, res: Response, next:
         //this creates an array of ['bearer', 'ewqtqwtqw.tqwtqwtwq.tqwt'] ^
     try{
        const {user} = verify(token, config.get<string>('app.jwt.secret')) as JwtPayload;
-       console.log(user);
+     
        
        req.user = await getModel().getOne(user.id);
-       console.log(req.user);
+     
        
         return next();
     }catch(err){

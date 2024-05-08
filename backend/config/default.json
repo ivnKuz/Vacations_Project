@@ -8,6 +8,9 @@
         "jwt": {
             "expires": "3h",
             "secret": "IhaveTheHighgroundAnakin"
+        }, 
+        "images": {
+            "path": "/Users/cybersandwich/Desktop/webDevJB/vacation-images/"
         }
     },
     "mysql": {
