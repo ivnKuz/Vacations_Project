@@ -4,12 +4,12 @@ import binImage from  "../../../assets/images/bin.png"
 import vacations from "../../../services/Vacations";
 import Vacation from "../../../models/Vacation";
 import notify from "../../../services/Notify";
+import { NavLink } from "react-router-dom";
 interface adminProps {
     vacation: Vacation;
     getData: () => void;
 }
 function Card_admin_btns(props: adminProps): JSX.Element {
-
 
     
 
@@ -28,7 +28,8 @@ function Card_admin_btns(props: adminProps): JSX.Element {
     return (
         <div className="card_admin_btns">
             <button className="btn-edit">
-            <img className="btn-image" src={editImage} alt=""/> Edit</button>
+            <img className="btn-image" src={editImage} alt=""/> 
+            <NavLink to={`/controlls/edit-vacation/${props.vacation.id}`}>Edit</NavLink></button>
             <button onClick={deleteVacation} className="btn-delete">
             <img className="btn-image" src={binImage} alt=""/>Delete</button>
         </div>

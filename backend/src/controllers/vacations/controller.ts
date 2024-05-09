@@ -77,6 +77,17 @@ export const add = async (req: Request, res: Response, next: NextFunction) => {
         next(err)
     }
 }
+export const edit = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = +req.params.id;
+        const existingProduct = await getModel().getOne(id);
+        const updatedProduct = {...existingProduct, ...req.body};
+        const product = await getModel().update(updatedProduct);
+        res.json(convertVacationImageToImageUrl(product));
+    } catch (err) {
+        next(err)
+    }
+}
 
 export const deleteFollow = async (req: Request, res: Response, next: NextFunction) => {
     try {

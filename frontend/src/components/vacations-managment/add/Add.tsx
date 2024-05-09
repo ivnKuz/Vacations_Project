@@ -1,14 +1,33 @@
-import { useForm } from "react-hook-form";
+import { Control, useForm, useWatch } from "react-hook-form";
 import "./Add.css";
 
 import { useNavigate } from "react-router-dom";
 import notify from "../../../services/Notify";
 import vacationsService from "../../../services/Vacations";
 import Vacation from "../../../models/Vacation";
+import { useState } from "react";
 
 function Add(): JSX.Element {
-    const {register, handleSubmit} = useForm<Vacation>();
+    const {register, handleSubmit, control} = useForm<Vacation>();
     const navigate = useNavigate();
+
+    const [src, setSrc] = useState<string>('');
+    
+    function ImageWatched({ control }: { control: Control<Vacation> }) {
+        const imageSrc = useWatch({
+            control,
+            name: 'image',
+        })
+        if (imageSrc) {
+            const file = ((imageSrc as unknown as FileList)[0])
+            if (file) {
+                const newSrc = window.URL.createObjectURL(file)
+                return <img src={newSrc} />
+            }
+        }
+        return <img src={src} />
+    }
+
     async function submitVacation(vacation: Vacation){
         console.log(vacation);
         try{
@@ -38,7 +57,7 @@ function Add(): JSX.Element {
                 <input type="number" step="0.01" {...register('price')}/>
                 <label>Image:</label>
                 <input type="file" accept="image/*" {...register("image")}/>
-
+                <ImageWatched control={control} />
                 <button>add</button>
             </form>
         </div>

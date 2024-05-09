@@ -14,3 +14,7 @@
     box-sizing: border-box;
     margin-bottom: 20px;
 }
+.addVacation img {
+    width: 250px;
+    height: 200px;
+  }

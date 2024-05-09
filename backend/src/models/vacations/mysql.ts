@@ -69,6 +69,22 @@ class Vacation implements Model {
         `, [destination, description, startDate, endDate, price, imageName]);
         return this.getOne(result.insertId);
     }
+    public async update(vacation: DTO): Promise<DTO> {
+        const {id, destination, description, startDate, endDate, price, imageName} = vacation;
+        console.log(id);
+        
+        await query(`
+            UPDATE  vacations
+            SET     destination = ?, 
+                    description = ?,
+                    startDate = ?,
+                    endDate = ?,
+                    price = ?,
+                    imageName = ?
+            WHERE   id = ?
+        `, [destination, description, startDate, endDate, price, imageName, id]);
+        return this.getOne(id);
+    }
     
     //change sql
     public async deleteFollow(vocationId: number, userId:string): Promise<boolean> {

@@ -9,9 +9,9 @@ const router = Router();
 // })
 
 
-router.get('/:filename', (req: Request, res: Response, next: NextFunction) =>{
-    const absolutePath = path.join(__dirname, `../assets/images/${req.params.filename}`)
-    res.sendFile(absolutePath)
-})
+// router.get('/:filename', (req: Request, res: Response, next: NextFunction) =>{
+//     const absolutePath = path.join(__dirname, `../assets/images/${req.params.filename}`)
+//     res.sendFile(absolutePath)
+// })
 
 export default router;

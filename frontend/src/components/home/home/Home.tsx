@@ -23,7 +23,7 @@ function Home(): JSX.Element {
     const [follows, setFollows] = useState<follower[]>([]);
     const [followerCount, setFollowerCount] = useState<followerCount[]>([]);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [vocationsPerPage] = useState<number>(3)
+    const [vocationsPerPage] = useState<number>(9)
     const [sortBy, setSortBy] = useState("byDate");
     //getting all the data needed
     const getData = ()=> {

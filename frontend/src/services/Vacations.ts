@@ -31,6 +31,12 @@ class Vacations {
         return followersCount;
     }
 
+    public async getOne(id: number): Promise<VacationModel | undefined>{
+            const vacations = await this.getAll();
+             const vacation = vacations.find(v => v.id === id);
+        return vacation;
+    }
+
     public async addVacation(vacation: VacationModel): Promise<VacationModel>{
         //need to do it to send image
         const options = {
@@ -53,6 +59,20 @@ class Vacations {
 
         return addedFollower;
     }
+    public async editVacation(vacation: VacationModel): Promise<VacationModel>{
+        //need to do it to send image
+        const options = {
+            headers:{
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        const response = await axios.patch<VacationModel>(appConfig.VacationsUrl + `/${vacation.id}`, vacation, options);
+        const updatedVAcation = response.data;
+       
+        return updatedVAcation;
+    }
+
+
     public async deleteFollow(id: number | undefined, userId: string | undefined): Promise<void>{
         await axios.delete( `${appConfig.FollowUrl}/${id}/${userId}`);
     }
