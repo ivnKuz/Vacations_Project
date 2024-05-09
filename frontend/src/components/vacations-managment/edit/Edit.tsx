@@ -35,14 +35,31 @@ function Edit(): JSX.Element {
             .then(vacationsFromServer => {
                 setValue('destination', vacationsFromServer?.destination);
                 setValue('description', vacationsFromServer?.description);
-                setValue('startDate', vacationsFromServer?.startDate);
-                setValue('endDate', vacationsFromServer?.endDate);
+                setValue('startDate', formatDate(vacationsFromServer?.startDate) || '');
+                setValue('endDate', formatDate(vacationsFromServer?.endDate) || '');
                 setValue('price', vacationsFromServer?.price);
                 setSrc(vacationsFromServer?.imageUrl || '')
             })
             .catch(err => notify.error(err))
 
-    }, [])
+    }, []);
+
+    //format date because format that is coming from the server is not assignable to yyyy-MM-dd input date format
+    function formatDate(dateStr: string | Date | undefined): string | undefined {
+        if (!dateStr) return undefined;
+        if (typeof dateStr === 'string') {
+            // Parse the ISO 8601 formatted string as UTC to avoid time zone conversion
+            const date = new Date(dateStr);
+            // setting + 1 day to date because when it formats it to UTC time zone it gets the date of one day earlier
+            date.setDate(date.getDate() + 1);
+            return date.toISOString().split('T')[0];
+        } else {
+            // Convert Date object to string in yyyy-MM-dd format
+            return dateStr.toISOString().split('T')[0];
+        }
+    }
+    
+ 
     async function submitVacation(vacation: Vacation) {
         try {
             vacation.image = (vacation.image as unknown as FileList)[0];
