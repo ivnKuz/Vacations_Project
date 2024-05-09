@@ -5,6 +5,7 @@ import Add from "../../vacations-managment/add/Add";
 import Edit from "../../vacations-managment/edit/Edit";
 import Page404 from "../page404/Page404";
 import { Routes, Route, Navigate } from 'react-router-dom';
+import VacationsReport from "../../vacations-managment/vacationsReport/vacationsReport";
 function Routing(): JSX.Element {
     return (
         <Routes>
@@ -14,6 +15,7 @@ function Routing(): JSX.Element {
              <Route path="/signUp" element={<SignUp />} />
             <Route path="/controlls/edit-vacation/:id" element={<Edit />} />
             <Route path="/controlls/add-vacation" element={<Add />} />
+            <Route path="/controlls/vacations-report" element={<VacationsReport />} />
             <Route path="*" element={<Page404 />} />
 
         </Routes>

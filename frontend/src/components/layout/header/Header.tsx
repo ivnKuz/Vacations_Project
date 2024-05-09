@@ -42,6 +42,7 @@ function Header(): JSX.Element {
             <div className="Menu">
             <NavLink to="/home">Home</NavLink>
             {user?.roleId === 2 ? <NavLink to="/controlls/add-vacation">Add Vacation</NavLink> : null}
+            {user?.roleId === 2 ? <NavLink to="/controlls/vacations-report">See Vacations Report</NavLink> : null}
             
             <NavLink to="/about">About</NavLink>
 
