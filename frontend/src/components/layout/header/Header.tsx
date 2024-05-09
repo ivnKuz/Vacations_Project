@@ -38,7 +38,7 @@ function Header(): JSX.Element {
     }
     return (
         <div className='Header'>
-             <h1>Travelground: Best Vacations for you</h1> 
+             <h1>JoJo's Travels</h1> 
             <div className="Menu">
             <NavLink to="/home">Home</NavLink>
             {user?.roleId === 2 ? <NavLink to="/controlls/add-vacation">Add Vacation</NavLink> : null}
