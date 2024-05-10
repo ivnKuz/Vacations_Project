@@ -48,7 +48,7 @@ function VacationsReport(): JSX.Element {
     return (
         <ResponsiveContainer width="100%" height="100%">
         <BarChart
-          width={500}
+          width={300}
           height={300}
           data={chartsVacationsData}
           margin={{
@@ -59,7 +59,7 @@ function VacationsReport(): JSX.Element {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="destination" />
+          <XAxis dataKey="destination" interval={0} stroke="#8884d8" tick={{ fontSize: 10 }} />
           <YAxis allowDecimals={false} />
           <Tooltip />
           <Legend />
