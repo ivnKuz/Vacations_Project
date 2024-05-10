@@ -1,14 +1,13 @@
 .card_like_btn {
 	
 }
-.btn-like::before,
-.btn-like--pressed::before{
+.btn-like::before{
     position: absolute;
     left: 2px;
     top: 50%;
     transform: translateY(-50%);
     content: '';
-    --c: rgb(131, 120, 120);
+    --c: rgb(181, 173, 173);
     width: 15px;
     aspect-ratio: 1;
     background:
@@ -17,10 +16,16 @@
      linear-gradient(var(--c) 0 0) bottom/100% 50% no-repeat;
     clip-path: polygon(-43% 0,50% 91%, 143% 0);
 }
+
+.pressed::before{
+   background: rgba(228, 36, 36, 0.987);
+}
 .btn-like{
     position: absolute;
+    background: rgba(128, 128, 128, 0.695);
     top: 5px;
     left: 10px;
+    color: antiquewhite;
     padding: 8px;
     width: 27%;
     border-radius: 15px;
@@ -28,7 +33,7 @@
     animation: ease-in-out;
 }
 .pressed{
-    background: red;
+    background: rgba(255, 0, 0, 0.43);
     color: white;
 }
 .btn-like:hover{
