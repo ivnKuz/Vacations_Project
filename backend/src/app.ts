@@ -6,6 +6,9 @@ import { notFound } from "./middlewares/not-found";
 import { errorHandler } from "./middlewares/error-handler";
 import cors from 'cors';
 import { DraftHeadersVersion, rateLimit } from 'express-rate-limit'
+import authentication from "./middlewares/authenitcation";
+import expressFileUpload from 'express-fileupload'
+import path from "path";
 const server = express();
 
 const limiter = rateLimit({
@@ -14,13 +17,15 @@ const limiter = rateLimit({
 	standardHeaders: config.get<boolean | DraftHeadersVersion>('rateLimit.standardHeaders'), 
 	legacyHeaders: config.get<boolean>('rateLimit.legacyHeaders'), 
 })
-
 server.use(limiter);
+server.use(authentication);
 server.use(cors());
 server.use(express.json());
+server.use(expressFileUpload());
 
 server.use('/api', authRouter)
 server.use('/api', vacationRouter)
+server.use('/images', express.static(path.resolve(config.get<string>('app.images.path'))));
 
 // special middleware for not found error
 server.use(notFound)

@@ -38,11 +38,12 @@ function Header(): JSX.Element {
     }
     return (
         <div className='Header'>
-             <h1>Travelground: Best Vacations for you</h1> 
+             <h1>JoJo's Travels</h1> 
             <div className="Menu">
             <NavLink to="/home">Home</NavLink>
-            <NavLink to="/lorem-ipsums">LoremIposums</NavLink>
-            <NavLink to="/lorem-ipsums/add">Add LoremIposum</NavLink>
+            {user?.roleId === 2 ? <NavLink to="/controlls/add-vacation">Add Vacation</NavLink> : null}
+            {user?.roleId === 2 ? <NavLink to="/controlls/vacations-report">See Vacations Report</NavLink> : null}
+            
             <NavLink to="/about">About</NavLink>
 
            

@@ -1,0 +1,41 @@
+.card_admin_btns {
+	
+}
+
+.btn-image{
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    --c: rgb(131, 120, 120);
+    width: 17px;
+    height: 17px;
+    aspect-ratio: 1;
+}
+.btn-edit{
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    padding: 8px;
+    color:rgb(85, 85, 85);
+    width: 27%;
+    border-radius: 15px;
+    transition: 0.5s;
+    animation: ease-in-out;
+}
+.btn-delete{
+    position: absolute;
+    top: 5px;
+    left: 30%;
+    color:rgb(85, 85, 85);
+    padding: 8px;
+    width: 27%;
+    border-radius: 15px;
+    transition: 0.5s;
+    animation: ease-in-out;
+}
+
+.btn-edit:hover, .btn-delete:hover{
+    cursor: pointer;
+    transform: scale(1.10);
+}

@@ -1,0 +1,20 @@
+.editVacation {
+  width: 250px;
+  border: 1px solid;
+  text-align: left;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 10px 10px 10px;
+  border-radius: 10px;
+}
+
+.editVacation input,
+.editVacation button {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+.editVacation img {
+  width: 250px;
+  height: 200px;
+}

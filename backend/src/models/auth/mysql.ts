@@ -12,7 +12,8 @@ class User implements Model {
     public async getOne(id: string): Promise<UserDTO> {
         const user = (await query(`
             SELECT  id,
-                    password ,
+                    password,
+                    email,
                     name,
                     lastName,
                     roleId

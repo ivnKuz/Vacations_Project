@@ -5,7 +5,6 @@ import { signup, login } from "../controllers/auth/controller";
 
 
 const router = Router();
-
 router.post('/signUp', validate(signupValidator), signup);
 router.post('/login', validate(loginValidator), login);
 

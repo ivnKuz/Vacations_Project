@@ -47,13 +47,51 @@ class Vacation implements Model {
         `, [userId, vocationId]);
         return this.getOneFollower(userId);
     }
+    public async getOne(id: number): Promise<DTO> {
+        const vacations = await query(`
+            SELECT   id,
+                    destination,
+                    description,
+                    startDate,
+                    endDate,
+                    price,
+                    imageName
+            FROM    vacations  
+            WHERE   id = ?
+        `, [id]);
+        return vacations[0];
+    }
+    public async add(vacation: DTO): Promise<DTO> {
+        const {destination, description, startDate, endDate, price, imageName} = vacation;
+        const result: OkPacketParams = await query(`
+            INSERT INTO vacations(destination, description, startDate, endDate, price, imageName) 
+            VALUES(?,?,?,?,?,?) 
+        `, [destination, description, startDate, endDate, price, imageName]);
+        return this.getOne(result.insertId);
+    }
+    public async update(vacation: DTO): Promise<DTO> {
+        const {id, destination, description, startDate, endDate, price, imageName} = vacation;
+        console.log(id);
+        
+        await query(`
+            UPDATE  vacations
+            SET     destination = ?, 
+                    description = ?,
+                    startDate = ?,
+                    endDate = ?,
+                    price = ?,
+                    imageName = ?
+            WHERE   id = ?
+        `, [destination, description, startDate, endDate, price, imageName, id]);
+        return this.getOne(id);
+    }
     
     //change sql
     public async deleteFollow(vocationId: number, userId:string): Promise<boolean> {
         const result:OkPacketParams = await query(`
             DELETE FROM Followers
             WHERE       vocationId  = ? && userId = ?
-        `, [vocationId, userId]);
+        `, [ vocationId, userId]);
         return Boolean(result.affectedRows);
     }
 
@@ -65,6 +103,13 @@ class Vacation implements Model {
             WHERE   userId = ?
         `, [id]))[0];
         return user;
+    }
+    public async deleteVacation(id: number): Promise<boolean> {
+        const result:OkPacketParams = await query(`
+            DELETE FROM vacations
+            WHERE       id = ?
+        `, [id]);
+        return Boolean(result.affectedRows);
     }
 }
 

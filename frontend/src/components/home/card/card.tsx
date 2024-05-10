@@ -1,6 +1,6 @@
 import "./card.css";
 import pool from "../../../assets/images/pool.jpg"
-import Vocation from "../../../models/Vocation";
+import Vacation from "../../../models/Vacation";
 import dayjs from "dayjs";
 import User from "../../../models/User";
 // import VocationsService from "../../../services/Vocations";
@@ -8,40 +8,44 @@ import follower from "../../../models/follower";
 import { useEffect, useState } from "react";
 import followerCount from "../../../models/followerCount";
 import Card_like_btn from "../card_like_btn/card_like_btn";
+import Card_admin_btns from "../card_admin_btns/card_admin_btns";
 interface vacationCardProps {
-    vocation: Vocation;
+    vacation: Vacation;
     user: User | undefined;
     follows: follower[];
-    vocationFollowers: followerCount;
+    vacationFollowers: followerCount;
     currentUserFollows:boolean;
+    getData: () => void;
     // setFollows: React.Dispatch<React.SetStateAction<follower[]>>;
 }
 function Card(props:vacationCardProps): JSX.Element {
   
+    console.log(props.user?.roleId);
     
-    
+
     
     return (
         <div className="card-container">
        
 			<div className="image-container">
                 {/* MAKE LIKE BUTTON A DIFFERENT COMPONENT, cuz gotta switch between roles */}
-                <Card_like_btn key={props.vocationFollowers.followers} currentUserFollows={props.currentUserFollows} vocation={props.vocation} user={props.user} follows={props.follows} vocationFollowers={props.vocationFollowers}/>
+               {props.user?.roleId === 1 ? <Card_like_btn key={props.vacationFollowers.followers} currentUserFollows={props.currentUserFollows} vacation={props.vacation} user={props.user} follows={props.follows} vacationFollowers={props.vacationFollowers}/> : null }
+               {props.user?.roleId === 2 ? <Card_admin_btns vacation={props.vacation} getData={props.getData}/> : null}
                 
-                <h3 className="card-title">{props.vocation.destination}</h3>
-                <img className="card-img" src={pool} alt="" />
+                <h3 className="card-title">{props.vacation.destination}</h3>
+                <img className="card-img" src={props.vacation.imageUrl} alt="" />
             </div>
             
             <div className="card-body">
                 <div className="first-layer">
-                     {dayjs(props.vocation.startDate?.toString()).format('DD.MM.YYYY')} - {dayjs(props.vocation.endDate?.toString()).format('DD.MM.YYYY')}
+                     {dayjs(props.vacation.startDate?.toString()).format('DD.MM.YYYY')} - {dayjs(props.vacation.endDate?.toString()).format('DD.MM.YYYY')}
                  </div>
                 <div className="second-layer">
-                {props.vocation.description}
+                {props.vacation.description}
                  </div>
                  <div className="btn-container">
                 <button  className="price-btn">
-                    <p>{props.vocation.price}</p>
+                    <p>{props.vacation.price}</p>
                 </button>
             </div>
             </div>
