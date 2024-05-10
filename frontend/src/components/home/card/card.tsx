@@ -43,11 +43,10 @@ function Card(props:vacationCardProps): JSX.Element {
                 <div className="second-layer">
                 {props.vacation.description}
                  </div>
-                 <div className="btn-container">
                 <button  className="price-btn">
-                    <p>{props.vacation.price}</p>
+                {props.vacation.price}
                 </button>
-            </div>
+           
             </div>
             
         </div>

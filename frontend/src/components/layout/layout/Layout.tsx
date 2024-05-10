@@ -16,6 +16,7 @@ const token = authStore.getState().token;
     return ( 
       <div className="Layout">
              <header>
+                {!token && <h1>Welcome to JoJo's Travels</h1>}
                 {token && <Header />}
             </header>
 
