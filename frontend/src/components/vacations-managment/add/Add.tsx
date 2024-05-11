@@ -25,7 +25,7 @@ function Add(): JSX.Element {
                 return <img src={newSrc} />
             }
         }
-        return <img src={src} />
+        return <img src='' />
     }
 
     async function submitVacation(vacation: Vacation){
