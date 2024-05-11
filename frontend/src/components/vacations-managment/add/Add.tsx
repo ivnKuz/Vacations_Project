@@ -45,20 +45,26 @@ function Add(): JSX.Element {
         <div className="addVacation">
 			<h2>Add new vacation</h2>
             <form onSubmit={handleSubmit(submitVacation)}>
-                <label>Destination:</label>
-                <input type="text" {...register('destination')} />
-                <label>Description:</label>
-                <input type="text" {...register('description')} />
-                <label>Begining Date:</label>
-                <input type="date" {...register('startDate')} />
-                <label>End Date:</label>
-                <input type="date" {...register('endDate')} />
-                <label>Price:</label>
-                <input type="number" step="0.01" {...register('price')}/>
-                <label>Image:</label>
-                <input type="file" accept="image/*" {...register("image")}/>
+                <label className="addVacation__label">Destination:</label>
+                <input className="addVacation__input" type="text" {...register('destination')} />
+
+                <label className="addVacation__label">Description:</label>
+                <textarea className="addVacation__input" rows={5} {...register('description')} />
+
+                <label className="addVacation__label">Begining Date:</label>
+                <input className="addVacation__input" type="date" {...register('startDate')} />
+
+                <label className="addVacation__label">End Date:</label>
+                <input className="addVacation__input" type="date" {...register('endDate')} />
+
+                <label className="addVacation__label">Price:</label>
+                <input className="addVacation__input" type="number" step="0.01" {...register('price')}/>
+
+                <label className="addVacation__label">Image:</label>
+                <input className="addVacation__input" type="file" accept="image/*" {...register("image")}/>
+
                 <ImageWatched control={control} />
-                <button>add</button>
+                <button id="btn-submit">add</button>
             </form>
         </div>
     );

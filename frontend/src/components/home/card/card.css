@@ -32,6 +32,8 @@ background: rgb(255, 255, 255);
 color: gray;
 font-size: 1.1rem;
 font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
 font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 height: 10vh;
 border-top-left-radius: 10px;

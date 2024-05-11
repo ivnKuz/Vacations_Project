@@ -40,9 +40,9 @@ function Header(): JSX.Element {
         <div className='Header'>
              <h1>JoJo's Travels</h1> 
             <div className="Menu">
-            <NavLink to="/home">Home</NavLink>
-            {user?.roleId === 2 ? <NavLink to="/controlls/add-vacation">Add Vacation</NavLink> : null}
-            {user?.roleId === 2 ? <NavLink to="/controlls/vacations-report">See Vacations Report</NavLink> : null}
+            {user?.roleId === 2 ?<NavLink className="headerLink" to="/home">Home</NavLink> : null }
+            {user?.roleId === 2 ? <NavLink className="headerLink" to="/controlls/add-vacation">Add Vacation</NavLink> : null}
+            {user?.roleId === 2 ? <NavLink className="headerLink" to="/controlls/vacations-report">See Vacations Report</NavLink> : null}
            
            
             <div className='userProfile'>
