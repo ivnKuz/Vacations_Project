@@ -51,7 +51,7 @@ function Header(): JSX.Element {
             {user?.roleId === 2 ? <button onClick={downloadCSV}>Download CSV File</button> : null}
            
             <div className='userProfile'>
-                <span>Hello {user?.name } | </span>
+                <span>Hello {user?.name} {user?.lastName}| </span>
                 <NavLink to="/login" onClick={logout}>Logout</NavLink>
             </div>
             

@@ -13,7 +13,6 @@ import follower from "../../../models/follower";
 import Pagination from "../pagination/Pagination";
 import notify from "../../../services/Notify";
 import VacationService from "../../../services/Vacations";
-
 function Home(): JSX.Element {
     
     const token = authStore.getState().token;
@@ -49,14 +48,14 @@ function Home(): JSX.Element {
   }
   //another use effect for filtering
   useEffect(() => {
-    if (sortBy === 'byDate') {
+    if (sortBy === 'byDate') { // sort by date,this one is also default sort.
         const sortedByDate = [...initialVocations].sort((a, b) => {
             let firstDate = new Date(a.startDate as unknown as string);
             let secondDate = new Date(b.startDate as unknown as string);
             return firstDate.getTime() - secondDate.getTime();
         });
         setVocations(sortedByDate);
-    } else if (sortBy === 'byFollow') {
+    } else if (sortBy === 'byFollow') { // sort by vacations current user follows
         const filteredByFollow = initialVocations.filter(vacation => {
             for (let fol of follows) {
                 if (vacation.id === fol.vocationId && user?.id === fol.userId) return true;
@@ -64,7 +63,7 @@ function Home(): JSX.Element {
             return false;
         });
         setVocations(filteredByFollow);
-    } else if (sortBy === 'byActive') {
+    } else if (sortBy === 'byAvailable') { //sort by available vacations that didnt start yet
         const currentTime = new Date().getTime();
         const filteredByActive = initialVocations.filter(d => {
             const startDate = new Date(d.startDate as unknown as Date).getTime();
@@ -72,7 +71,15 @@ function Home(): JSX.Element {
             return (currentTime < startDate && startDate < endDate);
         });
         setVocations(filteredByActive);
-    }
+    } else if (sortBy === 'byActive') { //sort by vacations that currently happening
+      const currentTime = new Date().getTime();
+      const filteredByActive = initialVocations.filter(d => {
+          const startDate = new Date(d.startDate as unknown as Date).getTime();
+          const endDate = new Date(d.endDate as unknown as Date).getTime();
+          return (currentTime >= startDate && currentTime <= endDate);
+      });
+      setVocations(filteredByActive);
+  }
     
 }, [sortBy, initialVocations, follows, user]);
 
@@ -110,8 +117,8 @@ function Home(): JSX.Element {
          <select value={sortBy} onChange={e => sortVocations(e.target.value)}>
           <option value='byDate'>Sort by date</option>
           <option value='byFollow'>Sort by following</option>
-          <option value='byActive'>Sort by only active</option>
-
+          <option value='byAvailable'>Sort by available</option>
+          <option value='byActive'>Sort by currently active</option>
         </select>
         </div> : null}
        

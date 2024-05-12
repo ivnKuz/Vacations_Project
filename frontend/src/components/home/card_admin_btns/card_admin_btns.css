@@ -34,7 +34,7 @@
     height: fit-content;
     top: 30%;
     left: 50%;
-    background-color: rgba(14, 153, 245, 0.622);
+    background-color: rgba(14, 153, 245, .9);
     color: white;
     z-index: 3;
     transform: translateX(-50%);
