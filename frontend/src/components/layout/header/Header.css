@@ -4,7 +4,6 @@
     flex-direction: column;
     justify-content: center;
 }
-
 .Header .Menu{
    margin: auto
 }
@@ -16,4 +15,11 @@
     right: 3vw;
     border: 1px solid #0000;
     border-radius: 10px;
+}
+.Header .headerLink{
+    text-decoration: none;
+    font-size: large;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgba(30, 114, 40, 0.939);
+    margin: 1vw;
 }

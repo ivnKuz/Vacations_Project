@@ -5,7 +5,7 @@ import addImageToBody from "../../middlewares/add-image-to-body";
 import config from 'config';
 import createHttpError, { Unauthorized } from "http-errors";
 import vacationDTO from "../../models/vacations/dto";
-
+import { json2csv } from 'json-2-csv';
 
 function convertVacationImageToImageUrl(vacation: vacationDTO) {
     const productWithImageUrl = {
@@ -21,14 +21,39 @@ function convertVacationImageToImageUrl(vacation: vacationDTO) {
 
 export const getAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        // throw new Error('custom error')
         const vacations = await getModel().getAll();
-        res.json(vacations.map(convertVacationImageToImageUrl)); // same as ^
+        res.json(vacations.map(convertVacationImageToImageUrl)); 
     } catch (err) {
         next(err);
     }
     
 }
+export const getVacationsCSV = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        //have to map over this csv because I have an id there, so I can show duplicate names in csv file
+        const vacationsCsv = await getModel().getVacationsCSV();
+        const mappedVacationsData = vacationsCsv.map(({destination, followers}) => ({destination, followers}));
+        res.setHeader('Content-type', 'text/csv')
+        res.setHeader('Content-Disposition','attachment;filename=vacations.csv')
+        const convertToCsv = await json2csv(mappedVacationsData, {});
+        res.send(convertToCsv)
+    } catch (err) {
+        next(err);
+    }
+    
+}
+export const getDataForCharts = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        //same in here, have to cut id out, because i dont need it
+        const chartsData = await getModel().getVacationsCSV();
+        const mappedchartsData = chartsData.map(({destination, followers}) => ({destination, followers}))
+        res.send(mappedchartsData)
+    } catch (err) {
+        next(err);
+    }
+    
+}
+
 export const getAllFollowers = async (req: Request, res: Response, next: NextFunction) => {
     try {
         // throw new Error('custom error')

@@ -3,6 +3,8 @@ class AppConfig {
     public signUpUrl = `${this.baseUrl}/signUp`
     public loginUrl = `${this.baseUrl}/login`
     public VacationsUrl = `${this.baseUrl}/vacations`
+    public getVacationsCSV = `${this.baseUrl}/vacations/csv`
+    public getChartReport = `${this.baseUrl}/vacations/report`
     public getAllFollowers = `${this.baseUrl}/followers`
     public getFollowersCount = `${this.baseUrl}/followersCount`
     public deleteVacation = `${this.baseUrl}/vacations/delete`

@@ -3,6 +3,7 @@ import followerCount from "../models/followerCount";
 import appConfig from "../utils/AppConfig";
 import VacationModel from "../models/Vacation";
 import follower from "../models/follower";
+import vacationsCharts from "../models/vacationsChart";
 
 class Vacations {
 
@@ -14,6 +15,48 @@ class Vacations {
 
         return vacations;
     }
+
+    public async getReportsData(): Promise<vacationsCharts[]> {
+
+        const response = await axios.get<vacationsCharts[]>(appConfig.getChartReport);
+
+        const reportChart = response.data;
+
+        return reportChart;
+    }
+
+
+    public async getVacationsCSV(): Promise<void> {
+       
+            try {
+                // Setting the response type to blob
+              const response = await axios.get(appConfig.getVacationsCSV, {
+                responseType: 'blob', 
+              });
+              
+              // Create a URL for the blob data
+              const url = window.URL.createObjectURL(new Blob([response.data]));
+              
+              // Create a link element
+              const link = document.createElement('a');
+              link.href = url;
+              
+              // Set the download attribute with the desired file name
+              link.setAttribute('download', 'vacations.csv');
+              
+              // Append the link to the body and trigger the download
+              document.body.appendChild(link);
+              link.click();
+              
+              // Cleanup
+              document.body.removeChild(link);
+            } catch (error) {
+              console.error('Error downloading CSV:', error);
+            }
+          
+
+    }
+
     public async getAllFollowers(): Promise<follower[]> {
 
         const response = await axios.get<follower[]>(appConfig.getAllFollowers);
