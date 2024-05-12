@@ -6,6 +6,7 @@ import authentication from '../../../services/Authentication';
 import notify from '../../../services/Notify';
 import { jwtDecode } from 'jwt-decode';
 import User from '../../../models/User';
+import vacations from '../../../services/Vacations';
 
 
 
@@ -36,6 +37,10 @@ function Header(): JSX.Element {
         notify.success(`Logged out successfully`)
         authentication.logout();
     }
+    async function downloadCSV(){
+        await vacations.getVacationsCSV()
+         
+    }
     return (
         <div className='Header'>
              <h1>JoJo's Travels</h1> 
@@ -43,7 +48,7 @@ function Header(): JSX.Element {
             {user?.roleId === 2 ?<NavLink className="headerLink" to="/home">Home</NavLink> : null }
             {user?.roleId === 2 ? <NavLink className="headerLink" to="/controlls/add-vacation">Add Vacation</NavLink> : null}
             {user?.roleId === 2 ? <NavLink className="headerLink" to="/controlls/vacations-report">See Vacations Report</NavLink> : null}
-           
+            {user?.roleId === 2 ? <button onClick={downloadCSV}>Download CSV File</button> : null}
            
             <div className='userProfile'>
                 <span>Hello {user?.name } | </span>

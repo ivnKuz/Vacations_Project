@@ -1,5 +1,6 @@
 .editVacation {
-  width: 250px;
+  position: relative;
+  width: 40vw;
   border: 1px solid;
   text-align: left;
   margin: 20px auto;
@@ -8,11 +9,24 @@
   border-radius: 10px;
 }
 
-.editVacation input,
-.editVacation button {
+.editVacation .editVacation__input,
+.editVacation #btn-submit {
+  resize: none;
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 20px;
+}
+#btn-submit{
+  height: 5vh;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-color: rgb(72, 72, 233);
+  color: white;
+}
+.editVacation__label{
+  font-size: large;
+  font-weight: 700;
 }
 .editVacation img {
   width: 250px;

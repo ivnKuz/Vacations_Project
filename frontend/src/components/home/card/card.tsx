@@ -44,7 +44,7 @@ function Card(props:vacationCardProps): JSX.Element {
                 {props.vacation.description}
                  </div>
                 <button  className="price-btn">
-                {props.vacation.price}
+                {props.vacation.price}$
                 </button>
            
             </div>

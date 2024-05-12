@@ -5,6 +5,7 @@ import query from "../../db/mysql";
 import config from "config";
 import followersDTO from "./followDTO";
 import followerCountDTO from "./followersCountDTO";
+import csvDTO from "./csvDTO";
 
 class Vacation implements Model {
     public async getAll(): Promise<DTO[]> {
@@ -20,6 +21,18 @@ class Vacation implements Model {
         `)
         return vacations;
     }
+    public async getVacationsCSV(): Promise<csvDTO[]> {
+        const vacationsCsv = await query(`
+        SELECT v.id, v.destination, COUNT(f.vocationId) AS followers
+        FROM vacations AS v
+        LEFT JOIN Followers AS f ON f.vocationId = v.id 
+        GROUP BY v.id, v.destination;
+        `)
+        return vacationsCsv;
+    }
+
+    
+
     public async getAllFollowers(): Promise<followersDTO[]> {
         const followers = await query(`
             SELECT  userId,

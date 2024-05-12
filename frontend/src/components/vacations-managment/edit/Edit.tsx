@@ -66,9 +66,7 @@ function Edit(): JSX.Element {
             console.log(vacation.image)
             vacation.id = vacationId;
             const updatedVacation = await vacationsService.editVacation(vacation);
-            // alert(`updated a product with id ${updatedProduct.id}`)
             notify.success(`updated Vacation: ${updatedVacation.destination}`)
-            // navigate(`/products/details/${updatedProduct.id}`);
             navigate(`/home`);
 
         } catch (err) {
@@ -81,19 +79,19 @@ function Edit(): JSX.Element {
 			<h2>Edit Vacation</h2>
             <form onSubmit={handleSubmit(submitVacation)}>
                 <label>Destination:</label>
-                <input type="text" {...register('destination')} />
-                <label>Description:</label>
-                <input type="text" {...register('description')} />
-                <label>Begining Date:</label>
-                <input type="date" {...register('startDate')} />
-                <label>End Date:</label>
-                <input type="date" {...register('endDate')} />
-                <label>Price:</label>
-                <input type="number" step="0.01" {...register('price')}/>
-                <label>Image:</label>
-                <input type="file" accept="image/*" {...register("image")}/>
+                <input className="editVacation__input" type="text" {...register('destination')} />
+                <label className="editVacation__label">Description:</label>
+                <textarea className="editVacation__input" rows={5} {...register('description')} />
+                <label className="editVacation__label">Begining Date:</label>
+                <input className="editVacation__input" type="date" {...register('startDate')} />
+                <label className="editVacation__label">End Date:</label>
+                <input className="editVacation__input" type="date" {...register('endDate')} />
+                <label className="editVacation__label">Price:</label>
+                <input className="editVacation__input" type="number" step="0.01" {...register('price')}/>
+                <label className="editVacation__label">Image:</label>
+                <input className="editVacation__input" type="file" accept="image/*" {...register("image")}/>
                 <ImageWatched control={control} />
-                <button>Update</button>
+                <button id="btn-submit">Update</button>
             </form>
         </div>
     );

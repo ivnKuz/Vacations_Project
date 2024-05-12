@@ -1,8 +1,10 @@
 import DTO from './dto';
 import followDTO from './followDTO'
 import followerCountDTO from './followersCountDTO';
+import csvDTO from './csvDTO'
 export default interface Model {
     getAll(): Promise<DTO[]>;
+    getVacationsCSV(): Promise<csvDTO[]>;
     getAllFollowers(): Promise<followDTO[]>;
     getFollowersCount(): Promise<followerCountDTO[]>
     userFollowed(follower: followDTO): Promise<followDTO>;
