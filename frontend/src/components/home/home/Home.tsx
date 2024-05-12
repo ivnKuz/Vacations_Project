@@ -1,5 +1,4 @@
 import { authStore } from "../../../redux/authState";
-import VocationsService from "../../../services/Vacations";
 import followerCount from "../../../models/followerCount";
 import "./Home.css";
 // if you have an image to display, this is how you would import it
@@ -114,11 +113,11 @@ function Home(): JSX.Element {
         <div className="Home">
          
          {user?.roleId === 1 ? <div className="actions"> 
-         <select value={sortBy} onChange={e => sortVocations(e.target.value)}>
+         <select role="combobox" value={sortBy} onChange={e => sortVocations(e.target.value)}>
           <option value='byDate'>Sort by date</option>
           <option value='byFollow'>Sort by following</option>
           <option value='byAvailable'>Sort by available</option>
-          <option value='byActive'>Sort by currently active</option>
+          <option value='byActive'>Sort by active</option>
         </select>
         </div> : null}
        
