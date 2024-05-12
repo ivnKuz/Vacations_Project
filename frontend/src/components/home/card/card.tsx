@@ -1,11 +1,9 @@
 import "./card.css";
-import pool from "../../../assets/images/pool.jpg"
 import Vacation from "../../../models/Vacation";
 import dayjs from "dayjs";
 import User from "../../../models/User";
 // import VocationsService from "../../../services/Vocations";
 import follower from "../../../models/follower";
-import { useEffect, useState } from "react";
 import followerCount from "../../../models/followerCount";
 import Card_like_btn from "../card_like_btn/card_like_btn";
 import Card_admin_btns from "../card_admin_btns/card_admin_btns";
