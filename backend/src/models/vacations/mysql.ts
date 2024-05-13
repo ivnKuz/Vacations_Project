@@ -78,12 +78,22 @@ class Vacation implements Model {
     public async getPaginatedVacations(pageNumber:number, pageSize:number): Promise<DTO[]> {
         const offset = (pageNumber - 1) * pageSize;
         const limit = pageSize;
-          const vacations = await query('SELECT * FROM vacations LIMIT ?, ?', [offset, limit]);
+          const vacations = await query('SELECT * FROM vacations ORDER BY startDate ASC LIMIT ?, ?', [offset, limit]);
           return vacations;
       }
       public async countVacations():Promise<{totalCount:number}>{
-        const totalCount =  await query('SELECT COUNT(*) as totalCount FROM vacations');
+        const totalCount =  await query(`SELECT COUNT(*) as totalCount FROM vacations`);
         return totalCount;
+      }
+      public async filterByFollow(userId:string, pageNumber:number, pageSize:number): Promise<DTO[]>{
+        const offset = (pageNumber - 1) * pageSize;
+        const limit = pageSize;
+        const vacations = await query(`SELECT *
+        FROM vacations v
+        JOIN Followers f ON v.id = f.vocationId
+        WHERE f.userId = ?
+        LIMIT ?, ?;`,[userId, offset, limit]);
+        return vacations
       }
 
 

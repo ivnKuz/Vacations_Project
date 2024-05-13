@@ -49,7 +49,14 @@ export const getTotalCount = async (req: Request, res: Response, next: NextFunct
     }
 }
 
-
+export const filterByFollow = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+    const filteredVacations = await getModel().filterByFollow(req.params.userId, +req.params.pageNumber, +req.params.pageSize)
+    res.json(filteredVacations.map(convertVacationImageToImageUrl));
+    }catch(err){
+        next(err)
+    }
+}
 
 
 export const getVacationsCSV = async (req: Request, res: Response, next: NextFunction) => {
