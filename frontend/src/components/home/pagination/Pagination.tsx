@@ -1,28 +1,23 @@
 import "./Pagination.css";
 
 interface pagination_props {
-    vocationPerPage:number;
-    totalVocations:number;
-    paginate(number:number):void;
+    prevPage:() => void;
+    nextPage:()=> void;
+    pageNumber:number;
+    totalPages:number;
 }
 
 function Pagination(props:pagination_props): JSX.Element {
-    const pageNumbers = [];
-
-    for(let i=1; i <= Math.ceil(props.totalVocations / props.vocationPerPage); i++){
-        pageNumbers.push(i)
-    }
+  
     return (
-        <nav className="Pagination">
-			{pageNumbers.map(number => (
-                <li key={number} className="page-item">
-                    <a onClick={()=> props.paginate(number)} className="page-link">
-                        {number}
-                    </a>
-
-                </li>
-            ))}
-        </nav>
+        <div className="pagination">
+     
+        <div>
+          <button onClick={props.prevPage} disabled={props.pageNumber === 1}>Previous</button>
+          <span>Page {props.pageNumber} of {props.totalPages}</span>
+          <button onClick={props.nextPage} disabled={props.pageNumber === props.totalPages}>Next</button>
+        </div>
+      </div>
        
     );
 }

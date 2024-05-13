@@ -23,11 +23,35 @@ export const getAll = async (req: Request, res: Response, next: NextFunction) =>
     try {
         const vacations = await getModel().getAll();
         res.json(vacations.map(convertVacationImageToImageUrl)); 
+        console.log('lol');
+        
     } catch (err) {
         next(err);
     }
     
 }
+export const getPaginatedVacations = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const vacations = await getModel().getPaginatedVacations(+req.params.pageNumber, +req.params.pageSize);
+        res.json(vacations.map(convertVacationImageToImageUrl)); 
+    } catch (err) {
+        next(err);
+    }
+    
+}
+export const getTotalCount = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+    const totalCount = await getModel().countVacations();
+    //setting header, to know total count of vacations, to know how many pages to put
+    res.json(totalCount)
+    } catch(err){
+        next(err)
+    }
+}
+
+
+
+
 export const getVacationsCSV = async (req: Request, res: Response, next: NextFunction) => {
     try {
         //have to map over this csv because I have an id there, so I can show duplicate names in csv file

@@ -4,6 +4,8 @@ import followerCountDTO from './followersCountDTO';
 import csvDTO from './csvDTO'
 export default interface Model {
     getAll(): Promise<DTO[]>;
+    getPaginatedVacations(pageNumber:number, pageSize:number): Promise<DTO[]> 
+    countVacations():Promise<{totalCount:number}>;
     getVacationsCSV(): Promise<csvDTO[]>;
     getAllFollowers(): Promise<followDTO[]>;
     getFollowersCount(): Promise<followerCountDTO[]>

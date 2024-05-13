@@ -74,6 +74,19 @@ class Vacation implements Model {
         `, [id]);
         return vacations[0];
     }
+    
+    public async getPaginatedVacations(pageNumber:number, pageSize:number): Promise<DTO[]> {
+        const offset = (pageNumber - 1) * pageSize;
+        const limit = pageSize;
+          const vacations = await query('SELECT * FROM vacations LIMIT ?, ?', [offset, limit]);
+          return vacations;
+      }
+      public async countVacations():Promise<{totalCount:number}>{
+        const totalCount =  await query('SELECT COUNT(*) as totalCount FROM vacations');
+        return totalCount;
+      }
+
+
     public async add(vacation: DTO): Promise<DTO> {
         const {destination, description, startDate, endDate, price, imageName} = vacation;
         const result: OkPacketParams = await query(`

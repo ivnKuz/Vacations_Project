@@ -15,6 +15,17 @@ class Vacations {
 
         return vacations;
     }
+    public async getPaginatedVacations(pageNumber:number, pageSize:number): Promise<VacationModel[]>{
+        const response = await axios.get<VacationModel[]>(`${appConfig.VacationsUrl}/page=${pageNumber}&pageSize=${pageSize}`);
+        const vacations = response.data;
+        return vacations
+    }
+    public async getTotalVacationCount():Promise<number>{
+        const countRes = await axios.get<[{totalCount:number}]>('http://localhost:8080/api/vacations/count')
+        const totalCountRes = await countRes.data[0];
+          const {totalCount} = totalCountRes;
+          return totalCount;
+    }
 
     public async getReportsData(): Promise<vacationsCharts[]> {
 
