@@ -20,7 +20,7 @@ function Home(): JSX.Element {
     const [initialVocations, setInitialVocations] = useState<Vacation[]>([]);
     const [follows, setFollows] = useState<follower[]>([]);
     const [followerCount, setFollowerCount] = useState<followerCount[]>([]);
-    const [totalCount, setTotalCount] = useState<number>(0)
+    const [totalCount, setTotalCount] = useState<number>(1)
     const [sortBy, setSortBy] = useState("byDate");
     //getting all the data needed
     // const [vacations, setVacations] = useState([]);
@@ -33,9 +33,9 @@ function Home(): JSX.Element {
         const user = jwtDecode<{user: User}>(token).user;
         setUser(user)
      }
-     
      getData();
      fetchVacations();
+     
       
     }, [pageNumber, pageSize]);
 
@@ -43,8 +43,7 @@ function Home(): JSX.Element {
       try {
         VacationService.getPaginatedVacations(pageNumber, pageSize).then(data=>{
           setVacations(data)
-        setInitialVocations(data)
-        // setTotalCount(data[0].totalVacationsCount as number)
+        setTotalCount(data[0].totalVacationsCount as number)
        }
        
         ).catch(notify.error)
@@ -67,10 +66,12 @@ function Home(): JSX.Element {
     const getData = ()=> {
       Promise.all([
         VacationService.getAllFollowers(),
+        VacationService.getPaginatedVacations(pageNumber,pageSize),
         VacationService.getFollowerCount()
     ]).then(results => {
         setFollows(results[0]);
-        setFollowerCount(results[1]);
+        setVacations(results[1]);
+        setFollowerCount(results[2]);
         
     }).catch(e=> notify.error(e));
     } 
@@ -81,20 +82,28 @@ function Home(): JSX.Element {
       setPageNumber(1);
       //updating data for filters to be up to date when filter triggered.
       getData();
+      fetchVacations();
   }
   useEffect(() => {
       if (sortBy === 'byDate') { // sort by date,this one is also default sort.
-        VacationService.getPaginatedVacations(pageNumber, pageSize).then(setInitialVocations).catch(notify.error);
-        // setTotalCount(vacations[0].totalVacationsCount as number)
+        VacationService.getPaginatedVacations(pageNumber, pageSize).then(data => {
+          setVacations(data)
+          setTotalCount(vacations[0].totalVacationsCount as number)
+        }).catch(notify.error);
+      
             if (totalCount) {
               const totalPagesCount = Math.ceil(totalCount / pageSize);
             setTotalPages(totalPagesCount);
             }
       } else if (sortBy === 'byFollow') { // sort by vacations current user follows
-        VacationService.getFilteredByFollowVacations(user?.id, pageNumber, pageSize).then(setVacations).catch(notify.error);
-        setTotalCount(vacations[0].totalVacationsCount as number);
+        VacationService.getFilteredByFollowVacations(user?.id, pageNumber, pageSize).then(data => {
+          setVacations(data)
+          setTotalCount(vacations[0].totalVacationsCount as number);
+        }).catch(notify.error);
+        if (totalCount) {
           const totalPagesCount = Math.ceil(totalCount / pageSize);
         setTotalPages(totalPagesCount);
+        }
         console.log(totalCount);
          
       } else if (sortBy === 'byAvailable') { //sort by available vacations that didnt start yet
@@ -117,7 +126,7 @@ function Home(): JSX.Element {
     
 
     
-}, [sortBy, initialVocations, follows, user]);
+}, [sortBy, vacations, follows, user]);
 
    
 
