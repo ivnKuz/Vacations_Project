@@ -20,12 +20,7 @@ class Vacations {
         const vacations = response.data;
         return vacations
     }
-    public async getTotalVacationCount():Promise<number>{
-        const countRes = await axios.get<[{totalCount:number}]>('http://localhost:8080/api/vacations/count')
-        const totalCountRes = countRes.data[0];
-          const {totalCount} = totalCountRes;
-          return totalCount;
-    }
+    
     public async getFilteredByFollowVacations(userId:string | undefined, pageNumber:number, pageSize:number): Promise<VacationModel[]>{
         const response = await axios.get<VacationModel[]>(`${appConfig.VacationsUrl}/filter/page=${pageNumber}&pageSize=${pageSize}&userId=${userId}`);
         const vacations = response.data;

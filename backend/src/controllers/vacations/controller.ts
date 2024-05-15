@@ -39,15 +39,6 @@ export const getPaginatedVacations = async (req: Request, res: Response, next: N
     }
     
 }
-export const getTotalCount = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-    const totalCount = await getModel().countVacations();
-    //setting header, to know total count of vacations, to know how many pages to put
-    res.json(totalCount)
-    } catch(err){
-        next(err)
-    }
-}
 
 export const filterByFollow = async (req: Request, res: Response, next: NextFunction) => {
     try {

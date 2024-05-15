@@ -20,9 +20,7 @@ function Home(): JSX.Element {
     const [initialVocations, setInitialVocations] = useState<Vacation[]>([]);
     const [follows, setFollows] = useState<follower[]>([]);
     const [followerCount, setFollowerCount] = useState<followerCount[]>([]);
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [vocationsPerPage] = useState<number>(9)
-    const [totalCount, setTotalCount] = useState<number>(9)
+    const [totalCount, setTotalCount] = useState<number>(0)
     const [sortBy, setSortBy] = useState("byDate");
     //getting all the data needed
     // const [vacations, setVacations] = useState([]);
@@ -35,6 +33,7 @@ function Home(): JSX.Element {
         const user = jwtDecode<{user: User}>(token).user;
         setUser(user)
      }
+     
      getData();
      fetchVacations();
       
@@ -44,8 +43,11 @@ function Home(): JSX.Element {
       try {
         VacationService.getPaginatedVacations(pageNumber, pageSize).then(data=>{
           setVacations(data)
-        setInitialVocations(data)}).catch(notify.error)
-        VacationService.getTotalVacationCount().then(setTotalCount).catch(notify.error)
+        setInitialVocations(data)
+        // setTotalCount(data[0].totalVacationsCount as number)
+       }
+       
+        ).catch(notify.error)
         if (totalCount) {
           const totalPagesCount = Math.ceil(totalCount / pageSize);
         setTotalPages(totalPagesCount);
@@ -82,15 +84,15 @@ function Home(): JSX.Element {
   }
   useEffect(() => {
       if (sortBy === 'byDate') { // sort by date,this one is also default sort.
-        VacationService.getPaginatedVacations(pageNumber, pageSize).then(setVacations).catch(notify.error);
-        VacationService.getTotalVacationCount().then(setTotalCount);
+        VacationService.getPaginatedVacations(pageNumber, pageSize).then(setInitialVocations).catch(notify.error);
+        // setTotalCount(vacations[0].totalVacationsCount as number)
             if (totalCount) {
               const totalPagesCount = Math.ceil(totalCount / pageSize);
             setTotalPages(totalPagesCount);
             }
       } else if (sortBy === 'byFollow') { // sort by vacations current user follows
-        VacationService.getFilteredByFollowVacations(user?.id, pageNumber, pageSize).then(setInitialVocations).catch(notify.error);
-        setTotalCount(vacations.length);
+        VacationService.getFilteredByFollowVacations(user?.id, pageNumber, pageSize).then(setVacations).catch(notify.error);
+        setTotalCount(vacations[0].totalVacationsCount as number);
           const totalPagesCount = Math.ceil(totalCount / pageSize);
         setTotalPages(totalPagesCount);
         console.log(totalCount);
@@ -143,7 +145,7 @@ function Home(): JSX.Element {
         </div> : null}
        
         <div className="cardsContainer">
-               {initialVocations.map((vacation) => <Card key={vacation.id}  currentUserFollows={isUserFollows(vacation)} getData={getData}  vacationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vacation={vacation} user={user}/>
+               {vacations.map((vacation) => <Card key={vacation.id}  currentUserFollows={isUserFollows(vacation)} getData={getData}  vacationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vacation={vacation} user={user}/>
         )}  
         </div>
         <Pagination prevPage={prevPage} nextPage={nextPage} pageNumber={pageNumber} totalPages={totalPages}></Pagination>

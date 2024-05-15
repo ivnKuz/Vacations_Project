@@ -9,4 +9,5 @@ export default interface DTO {
     price:number;
     image:UploadedFile;
     imageName: string;
+    totalVacationsCount:number;
 }
