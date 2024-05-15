@@ -1,18 +1,25 @@
 .Header {
+    position: relative;
     height: 100%;
     display: flex;
     flex-direction: column;
+    color: rgb(228, 23, 187);
+    font-weight: 700;
+    text-shadow: 0.2rem 0.1rem black;
     justify-content: center;
+    background-image: url('../../../assets//images/beach.jpeg')
 }
 .Header .Menu{
    margin: auto
 }
+
 .userProfile{
     position: absolute;
     font-size: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     top: 3vh;
     right: 3vw;
+    color: white;
     border: 1px solid #0000;
     border-radius: 10px;
 }
@@ -22,4 +29,26 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgba(30, 114, 40, 0.939);
     margin: 1vw;
+}
+.Header .headerLink:hover{
+    cursor: pointer;
+    color: white;
+}
+.Header .logOutLink{
+    text-decoration: none;
+    font-size: large;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgba(14, 197, 225, 0.939);
+    font-size: 1.3rem;
+    margin: 1vw;
+}
+.Header .logOutLink:hover{
+    cursor: pointer;
+    color: rgb(235, 235, 235);
+}
+.Header .userName{
+    color: rgb(84, 240, 12);
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-shadow: 0.2rem 0.1rem black;
 }

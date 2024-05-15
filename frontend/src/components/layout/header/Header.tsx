@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Header.css';
 import { useEffect, useState } from 'react';
 import { authStore } from '../../../redux/authState';
@@ -51,8 +51,8 @@ function Header(): JSX.Element {
             {user?.roleId === 2 ? <button onClick={downloadCSV}>Download CSV File</button> : null}
            
             <div className='userProfile'>
-                <span>Hello {user?.name} {user?.lastName}| </span>
-                <NavLink to="/login" onClick={logout}>Logout</NavLink>
+                <span className='userName'>Greetings {user?.name} {user?.lastName} </span>
+                <NavLink className="logOutLink" to="/login" onClick={logout}>Logout</NavLink>
             </div>
             
         </div>
