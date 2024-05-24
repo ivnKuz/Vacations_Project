@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec ts-node src/server.ts",
+    "start:dev": "nodemon --exec ts-node src/server.ts",
     "test": "jest --verbose --detectOpenHandles",
-    "build": "tsc && cp -r /config dist/config"
+    "start": "node dist/server.js",
+    "build": "tsc && cp -r src/config dist/config"
   },
   "keywords": [],
   "author": "",

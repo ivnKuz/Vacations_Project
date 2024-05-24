@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  database:
+    container_name: northwind-database
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_TCP_PORT=3306
+      - MYSQL_DATABASE=northwind
+    ports:
+      - 3306:3306
+    image: shaharsol/northwind-database:1.0
+#    build: ./database 
+    volumes:
+      - northwind-database:/var/lib/mysql
+  backend:
+    depends_on:
+      - database
+    container_name: northwind-backend
+    ports:
+      - 8082:8082
+    environment:
+      - NODE_ENV=compose
+    build: ./backend
+  frontend:
+    depends_on:
+      - backend
+    container_name: northwind-frontend
+    ports:
+      - 3000:80
+    build: ./frontend
+
+volumes:
+  northwind-database:

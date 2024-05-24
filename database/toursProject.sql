@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 19, 2024 at 10:30 AM
+-- Generation Time: May 24, 2024 at 12:21 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -39,10 +39,42 @@ CREATE TABLE `Followers` (
 --
 
 INSERT INTO `Followers` (`userId`, `vocationId`) VALUES
-('303c964a-f7d4-11ee-8eed-96c860496580', 4),
-('303c964a-f7d4-11ee-8eed-96c860496580', 6),
-('303c964a-f7d4-11ee-8eed-96c860496580', 5),
-('303c964a-f7d4-11ee-8eed-96c860496580', 7);
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 12),
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 9),
+('a5e95965-7159-4c3c-a1d0-a7c37608db70', 16),
+('a5e95965-7159-4c3c-a1d0-a7c37608db70', 22),
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 21),
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 22),
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 16),
+('8c8a47df-87a6-4ce2-95c6-1cf8a8b11d5d', 12),
+('8c8a47df-87a6-4ce2-95c6-1cf8a8b11d5d', 21),
+('40f79182-32e9-444c-8fae-a59731356465', 23),
+('40f79182-32e9-444c-8fae-a59731356465', 24),
+('40f79182-32e9-444c-8fae-a59731356465', 21),
+('40f79182-32e9-444c-8fae-a59731356465', 14),
+('a5e95965-7159-4c3c-a1d0-a7c37608db70', 26),
+('a5e95965-7159-4c3c-a1d0-a7c37608db70', 9),
+('a5e95965-7159-4c3c-a1d0-a7c37608db70', 21),
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 33),
+('a5e95965-7159-4c3c-a1d0-a7c37608db70', 27),
+('a5e95965-7159-4c3c-a1d0-a7c37608db70', 29),
+('a5e95965-7159-4c3c-a1d0-a7c37608db70', 32),
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 23),
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 29),
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 26),
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 34),
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 32),
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 27),
+('40f79182-32e9-444c-8fae-a59731356465', 9),
+('40f79182-32e9-444c-8fae-a59731356465', 26),
+('848f90f1-2959-4b5b-9260-bf07913b1d39', 23),
+('848f90f1-2959-4b5b-9260-bf07913b1d39', 12),
+('848f90f1-2959-4b5b-9260-bf07913b1d39', 33),
+('848f90f1-2959-4b5b-9260-bf07913b1d39', 27),
+('848f90f1-2959-4b5b-9260-bf07913b1d39', 21),
+('848f90f1-2959-4b5b-9260-bf07913b1d39', 22),
+('848f90f1-2959-4b5b-9260-bf07913b1d39', 16),
+('848f90f1-2959-4b5b-9260-bf07913b1d39', 14);
 
 -- --------------------------------------------------------
 
@@ -83,14 +115,13 @@ CREATE TABLE `Users` (
 --
 
 INSERT INTO `Users` (`id`, `roleId`, `name`, `lastName`, `email`, `password`) VALUES
-('303c964a-f7d4-11ee-8eed-96c860496580', 1, 'Zohan', 'DontMessWith', 'zohan444@gmail.com', 'caba051e552aefbbfa144d8155dac7da'),
-('3296667a-f354-11ee-a803-96c860496580', 1, 'tester111', 'QA', 'tester111@mail.com', '9104fad76b5b5212c0994b65d46fe9d0'),
-('7aa9d3d4-f354-11ee-a803-96c860496580', 1, 'actualsignupName', 'QA', 'tester222@mail.com', '617e4c6a46121c6e2388462a93f8af80'),
-('7d927cce-f352-11ee-a803-96c860496580', 1, 'tester', 'lol', 'test134@mail.com', 'caba051e552aefbbfa144d8155dac7da'),
-('89264424-759a-4bb3-849d-06735af10b0d', 1, 'testuuid', 'QA', 'tester436@mail.com', '617e4c6a46121c6e2388462a93f8af80'),
-('b086d426-f51f-11ee-8eed-96c860496580', 1, 'JarJar', 'Binks', 'Binks@mail.com', 'caba051e552aefbbfa144d8155dac7da'),
-('f0f7ee4c-f352-11ee-a803-96c860496580', 1, 'tester222', 'lol', 'test124@mail.com', 'caba051e552aefbbfa144d8155dac7da'),
-('fee5be10-f345-11ee-a803-96c860496580', 1, 'test555', 'QA', 'tester555@mail.com', '9104fad76b5b5212c0994b65d46fe9d0');
+('40f79182-32e9-444c-8fae-a59731356465', 1, 'test5', 'QA5', 'tester5@mail.com', 'e4b146f41c9cfd8d33c7609be85e3d0a'),
+('61537bde-6360-406e-9571-c13e744f7a07', 2, 'Evanikus', 'QA', 'tester@mail.com', 'e4b146f41c9cfd8d33c7609be85e3d0a'),
+('80d7b3c3-c865-432d-a62d-cf2fb7534735', 1, 'JarJar', 'Binks', 'Binks@mail.com', 'e4b146f41c9cfd8d33c7609be85e3d0a'),
+('848f90f1-2959-4b5b-9260-bf07913b1d39', 1, 'Evanikus', 'Highground', 'Evanikus@gmoil.com', 'd10de999ac7fc66f6603c89f657d1b69'),
+('8c8a47df-87a6-4ce2-95c6-1cf8a8b11d5d', 1, 'Ivan', 'Unemplyed', 'unemployed@mail.com', 'e4b146f41c9cfd8d33c7609be85e3d0a'),
+('a5e95965-7159-4c3c-a1d0-a7c37608db70', 1, 'Zohan', 'DontMessWith', 'zohan444@gmail.com', 'e4b146f41c9cfd8d33c7609be85e3d0a'),
+('ef54c064-cd90-4bf6-9c7f-cab694a69e9f', 2, 'Admin', 'Adminovich', 'admin@mail.com', '57695ddbf891860c3e05c27903108f47');
 
 -- --------------------------------------------------------
 
@@ -101,7 +132,7 @@ INSERT INTO `Users` (`id`, `roleId`, `name`, `lastName`, `email`, `password`) VA
 CREATE TABLE `vacations` (
   `id` int(11) NOT NULL,
   `destination` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
+  `description` varchar(500) NOT NULL,
   `startDate` date NOT NULL,
   `endDate` date NOT NULL,
   `price` int(11) NOT NULL,
@@ -113,11 +144,20 @@ CREATE TABLE `vacations` (
 --
 
 INSERT INTO `vacations` (`id`, `destination`, `description`, `startDate`, `endDate`, `price`, `imageName`) VALUES
-(3, 'Tokyo, Japan', 'Visit capital of Japan\'s 5 star hotel. Travel in the streets of Tokyo, visit pubs and all sorts of stores. You\'ll find your time here quite enjoyable!', '2024-03-20', '2024-04-10', 10999, 'Tokyo.jpg'),
-(4, 'Santorini, Greece', 'Santorini is an island in the southern Aegean Sea, about 200 km (120 mi) southeast from the Greek mainland. Come and visit this beautiful island in the hotel with the nicest view!', '2024-04-06', '2024-04-20', 6000, 'Santorini.jpg'),
-(5, 'Citadel, Space', 'Citadel is my favorite place in the galaxy', '2024-04-11', '2024-04-19', 10000, 'citadel.png'),
-(6, 'Citadel, The Serpent Nebula', 'something well described as this vacation, such a great vacation, so good, buy it now, but fast or u miss out. holy moly this vacation is the best, better buy while u can btw. DO buy it yes.', '2024-05-10', '2024-05-23', 99999, 'myFavoriteStore.jpeg'),
-(7, 'New York, USA', 'New York is a noice place especially at winter, and bla bla bla bla bla blabalbalbablalblalalbalbablbl rrarararar arar ra ', '2024-04-02', '2024-04-09', 9999, 'new_york.jpeg');
+(9, 'Citadel, serpent Nebula', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s', '2024-05-01', '2024-05-07', 5000, 'citadel.jpeg'),
+(12, 'newer vacation', 'lwqowrqwjkeqwnfkjdkhfbweqfewhfhweifuhbjwebfklwejhjfewjfknewbgfbkjwenfbjhewbfkwenhjfbewkfnbghwejbfknwebhjfbewjbfjhwefwe', '2024-05-13', '2024-05-16', 200, '96b862ed-8c60-4150-b18e-a8c5184a622f.jpg'),
+(14, 'backrooms', 'Come and visit, or don\'t come you can fall into the backrooms by the accident, by clipping through the floor lewl', '2024-05-29', '2024-06-19', 6000, 'cdadbf02-7f16-45c5-b7d5-ce75d3197019.png'),
+(16, 'New York, USA', 'come and visit the most famous and hella goddam expensive city in usa, bery nice at winter cuz of movies u watched as a kid.', '2024-12-24', '2025-01-01', 40000, 'b1a86a0e-c5f8-40db-aa32-39cb86e036f4.jpg'),
+(21, 'Mountain dew, Norway', 'drinkin chai is good, but drinking chai at Norway mountains is way better!', '2024-05-24', '2024-05-31', 7000, '274a615a-958a-4c29-9db0-7837887809b9.jpg'),
+(22, 'Cool Mountain, Canada', 'Some cool place in Canada, I hope there\'s a hotel for you to stay in and chill too.', '2024-05-23', '2024-05-30', 200, 'a21d7a57-5578-4af3-aae5-c99ce5a1ab6a.jpg'),
+(23, 'Tokyo, Japan', 'tasty bike', '2024-05-10', '2024-05-16', 200, '066fee37-cc48-4d5a-83e0-74b2ece394b7.jpg'),
+(24, 'Level 177, Backrooms', 'well, you can not buy it, but you can still end up in the backrooms, and what better place than chill poolrooms vibe synthwave vaporwave level', '2024-05-24', '2024-05-30', 2000, 'b90d50bb-05e1-4588-9d2c-d62b314527f9.jpg'),
+(26, 'test', 'testitty testing QA', '2024-05-10', '2024-05-15', 200, 'e6748aea-3233-43b0-84cd-07ce1c63ac13.jpg'),
+(27, 'city, Coruscant', 'Coruscant also known as Jewel of the Core Worlds, or Imperial Center during the rule of the Galactic Empire, was an ecumenopolis—a city-covered planet, collectively known as Imperial City— in the Coruscant system of the Core Worlds. ', '2024-05-17', '2024-05-31', 10000, 'e1b49ba5-aed7-40db-9682-fe7b75dc7eab.webp'),
+(29, 'yokohama, japan', 'Coruscant (pronounced /\'kɔɹəsɑnt/), also known as Jewel of the Core Worlds, or Imperial Center during the rule of the Galactic Empire, was an ecumenopolis—a city-covered planet, collectively known as Imperial City— in the Coruscant system of the Core Worlds. and also lorem with lorem ipsum that is japan but coruscant', '2024-05-12', '2024-05-13', 2000, 'b79828bb-a12b-4845-9c83-f0dcdc7c4561.jpg'),
+(32, 'Promenade, Nar Shadaa', 'come to nar shadaa, bery cool place if u wanna gamble all your credits away. Best enterntaiment planet in the hutt space', '2024-05-15', '2024-05-30', 65, 'd322ec99-7d14-48f0-bf97-5f2fa94eabac.jpeg'),
+(33, 'Lorem2, Lorem Ipsum2', 'test', '2024-05-13', '2024-05-16', 200, '3133add8-aa14-405a-9a43-40b6f99dc408.jpeg'),
+(34, 'Hong Kong, SAR of China', 'come visit cool city of Hong Kong, bery nice place, visit cool stuff in the city.', '2024-05-15', '2024-05-30', 7500, 'a6e5e6b6-6d42-4b53-96cf-c0864a0f70b9.webp');
 
 --
 -- Indexes for dumped tables
@@ -164,7 +204,7 @@ ALTER TABLE `Roles`
 -- AUTO_INCREMENT for table `vacations`
 --
 ALTER TABLE `vacations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Constraints for dumped tables
