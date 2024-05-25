@@ -18,7 +18,7 @@ RUN npm i
 # Now we want to add the source code of our app
 COPY ./ ./
 
-
+COPY src/config ./config
 # Now we want to compile the TypeScript into JavaScript
 RUN npm run build
 
