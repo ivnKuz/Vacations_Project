@@ -1,5 +1,5 @@
 class AppConfig {
-    public baseUrl = 'http://localhost:8080/api';
+    public baseUrl = 'http://localhost:3001/api';
     public signUpUrl = `${this.baseUrl}/signUp`
     public loginUrl = `${this.baseUrl}/login`
     public VacationsUrl = `${this.baseUrl}/vacations`

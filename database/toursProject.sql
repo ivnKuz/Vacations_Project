@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 24, 2024 at 12:21 AM
+-- Generation Time: May 25, 2024 at 10:40 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -55,7 +55,6 @@ INSERT INTO `Followers` (`userId`, `vocationId`) VALUES
 ('a5e95965-7159-4c3c-a1d0-a7c37608db70', 26),
 ('a5e95965-7159-4c3c-a1d0-a7c37608db70', 9),
 ('a5e95965-7159-4c3c-a1d0-a7c37608db70', 21),
-('80d7b3c3-c865-432d-a62d-cf2fb7534735', 33),
 ('a5e95965-7159-4c3c-a1d0-a7c37608db70', 27),
 ('a5e95965-7159-4c3c-a1d0-a7c37608db70', 29),
 ('a5e95965-7159-4c3c-a1d0-a7c37608db70', 32),
@@ -69,7 +68,6 @@ INSERT INTO `Followers` (`userId`, `vocationId`) VALUES
 ('40f79182-32e9-444c-8fae-a59731356465', 26),
 ('848f90f1-2959-4b5b-9260-bf07913b1d39', 23),
 ('848f90f1-2959-4b5b-9260-bf07913b1d39', 12),
-('848f90f1-2959-4b5b-9260-bf07913b1d39', 33),
 ('848f90f1-2959-4b5b-9260-bf07913b1d39', 27),
 ('848f90f1-2959-4b5b-9260-bf07913b1d39', 21),
 ('848f90f1-2959-4b5b-9260-bf07913b1d39', 22),
@@ -102,7 +100,7 @@ INSERT INTO `Roles` (`id`, `roleName`) VALUES
 --
 
 CREATE TABLE `Users` (
-  `id` varchar(36) NOT NULL DEFAULT uuid(),
+  `id` varchar(36) NOT NULL,
   `roleId` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `lastName` varchar(255) NOT NULL,
@@ -156,8 +154,8 @@ INSERT INTO `vacations` (`id`, `destination`, `description`, `startDate`, `endDa
 (27, 'city, Coruscant', 'Coruscant also known as Jewel of the Core Worlds, or Imperial Center during the rule of the Galactic Empire, was an ecumenopolis—a city-covered planet, collectively known as Imperial City— in the Coruscant system of the Core Worlds. ', '2024-05-17', '2024-05-31', 10000, 'e1b49ba5-aed7-40db-9682-fe7b75dc7eab.webp'),
 (29, 'yokohama, japan', 'Coruscant (pronounced /\'kɔɹəsɑnt/), also known as Jewel of the Core Worlds, or Imperial Center during the rule of the Galactic Empire, was an ecumenopolis—a city-covered planet, collectively known as Imperial City— in the Coruscant system of the Core Worlds. and also lorem with lorem ipsum that is japan but coruscant', '2024-05-12', '2024-05-13', 2000, 'b79828bb-a12b-4845-9c83-f0dcdc7c4561.jpg'),
 (32, 'Promenade, Nar Shadaa', 'come to nar shadaa, bery cool place if u wanna gamble all your credits away. Best enterntaiment planet in the hutt space', '2024-05-15', '2024-05-30', 65, 'd322ec99-7d14-48f0-bf97-5f2fa94eabac.jpeg'),
-(33, 'Lorem2, Lorem Ipsum2', 'test', '2024-05-13', '2024-05-16', 200, '3133add8-aa14-405a-9a43-40b6f99dc408.jpeg'),
-(34, 'Hong Kong, SAR of China', 'come visit cool city of Hong Kong, bery nice place, visit cool stuff in the city.', '2024-05-15', '2024-05-30', 7500, 'a6e5e6b6-6d42-4b53-96cf-c0864a0f70b9.webp');
+(34, 'Hong Kong, SAR of China', 'come visit cool city of Hong Kong, bery nice place, visit cool stuff in the city.', '2024-05-15', '2024-05-30', 7500, 'a6e5e6b6-6d42-4b53-96cf-c0864a0f70b9.webp'),
+(35, 'Lorem, Lorem Ipsum', 'test', '2024-05-25', '2024-05-30', 200, 'b8800dd1-6ed7-4de5-891a-8d25dcff1656.jpeg');
 
 --
 -- Indexes for dumped tables
@@ -204,7 +202,7 @@ ALTER TABLE `Roles`
 -- AUTO_INCREMENT for table `vacations`
 --
 ALTER TABLE `vacations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables

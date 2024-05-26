@@ -7,7 +7,7 @@
     "start:dev": "nodemon --exec ts-node src/server.ts",
     "test": "jest --verbose --detectOpenHandles",
     "start": "node dist/server.js",
-    "build": "tsc && cp -r src/config dist/config"
+    "build": "tsc && cp -r ./config dist/config"
   },
   "keywords": [],
   "author": "",
