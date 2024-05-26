@@ -15,7 +15,7 @@ export const addVacationValidator = Joi.object<DTO>({
         .messages({
             'any.only': 'Invalid image mimetype. Only JPG, JPEG, PNG, and WebP formats are allowed.'
         })
-    }).unknown(true).optional()
+    }).unknown(true).required().messages({'any.required': 'Image is required.'})
 });
 //start date can be past date, cuz u should be able to edit those that ended(in the description of project)
 export const editVacationValidator = Joi.object<DTO>({
