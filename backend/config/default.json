@@ -1,0 +1,30 @@
+{
+    "app": {
+        "name": "vacation-tours",
+        "port": 3001,
+        "protocol": "http",
+        "host": "localhost",
+        "secret": "highground-secret",
+        "jwt": {
+            "expires": "24h",
+            "secret": "IhaveTheHighgroundAnakin"
+        }, 
+        "images": {
+            "path": "./src/assets/vacation-images"
+        }
+    },
+    "mysql": {
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "toursProject",
+        "port": 3306,
+        "connectionLimit": 10
+    },
+    "rateLimit":{
+        "windowMs": 90000, 
+        "limit": 100,
+        "standardHeaders": "draft-7",
+        "legacyHeaders": false
+    }
+}

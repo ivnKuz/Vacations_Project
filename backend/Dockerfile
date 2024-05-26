@@ -18,12 +18,12 @@ RUN npm i
 # Now we want to add the source code of our app
 COPY ./ ./
 
-COPY src/config ./config
+COPY ./config ./config
 # Now we want to compile the TypeScript into JavaScript
 RUN npm run build
 
 # We want to expose the port the app will listen to
-EXPOSE 8080
+EXPOSE 3001
 
 # Now I want to provide some command to start the app 
 # in Node.js we usually use "npm start" for this
