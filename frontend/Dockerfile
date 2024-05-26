@@ -1,5 +1,5 @@
 # stage 1: we want to produce the react build:
-FROM node:15-alpine AS builder
+FROM node:latest AS builder
 
 # go to /app
 WORKDIR /app
@@ -20,7 +20,7 @@ RUN npm run build
 # Now we start over with a fresh nginx machine
 # nginx is 2nd most popular web server after apache
 # it is not neccessarily CGI
-FROM nginx:alpine
+FROM nginx:latest
 
 # we go to this directory
 WORKDIR /usr/share/nginx/html
