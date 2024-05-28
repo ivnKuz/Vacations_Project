@@ -18,9 +18,9 @@ RUN npm i
 # Now we want to add the source code of our app
 COPY ./ ./
 
-COPY ./config ./config
-# Now we want to compile the TypeScript into JavaScript
 RUN npm run build
+# COPY ./dist/config ./config
+# Now we want to compile the TypeScript into JavaScript
 
 # We want to expose the port the app will listen to
 EXPOSE 3001

@@ -9,7 +9,7 @@ services:
       - MYSQL_DATABASE=toursProject
     ports:
       - 3306:3306
-    image: sandwichproger/tours-db:1.0
+    # image: sandwichproger/tours-db:1.0
     build: ./database 
     volumes:
       - tours-database:/var/lib/mysql
