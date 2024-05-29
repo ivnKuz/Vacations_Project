@@ -15,6 +15,16 @@ class Vacations {
 
         return vacations;
     }
+    public async getPaginatedVacations(pageNumber:number, pageSize:number): Promise<VacationModel[]>{
+        const response = await axios.get<VacationModel[]>(`${appConfig.VacationsUrl}/page=${pageNumber}&pageSize=${pageSize}`);
+        const vacations = response.data;
+        return vacations
+    }
+    public async getFilteredByFollowVacations(userId:string | undefined, pageNumber:number, pageSize:number): Promise<VacationModel[]>{
+        const response = await axios.get<VacationModel[]>(`${appConfig.VacationsUrl}/filter/page=${pageNumber}&pageSize=${pageSize}&userId=${userId}`);
+        const vacations = response.data;
+        return vacations
+    }
 
     public async getReportsData(): Promise<vacationsCharts[]> {
 
@@ -24,6 +34,7 @@ class Vacations {
 
         return reportChart;
     }
+
 
 
     public async getVacationsCSV(): Promise<void> {

@@ -10,7 +10,7 @@ class AppConfig {
     public deleteVacation = `${this.baseUrl}/vacations/delete`
     public FollowUrl = `${this.baseUrl}/followed`
     public successNotificationDuration = 2000;
-    public errorNotificationDuration = 6000;
+    public errorNotificationDuration = 3000;
 }
 
 const appConfig = new AppConfig();
