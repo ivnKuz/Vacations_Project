@@ -30,7 +30,7 @@ function Home(): JSX.Element {
         }
         fetchData();
     }, [pageNumber]);
-
+    
     useEffect(() => {
       fetchVacations();
     }, [user, sortBy, follows]);
@@ -46,29 +46,25 @@ function Home(): JSX.Element {
             notify.error(error);
         }
     };
-
+    //filtering and fetching vacations. 'byDate' is always default state so it will always be true when page loads.
     const fetchVacations = async () => {
         try {
             let data: Vacation[] = [];
             if(sortBy === 'byDate') {
               data = await VacationService.getPaginatedVacations(pageNumber, pageSize);
-              setVacations(data);
-            }
-            else if (sortBy === 'byFollow') {
+            } else if (sortBy === 'byFollow') {
                 data = await VacationService.getFilteredByFollowVacations(user?.id, pageNumber, pageSize);
-                setVacations(data);
             } else if (sortBy === 'byAvailable'){
               data = await VacationService.getFilteredByAvailable(pageNumber, pageSize);
-              setVacations(data);
-            }else if (sortBy === 'byActive'){
+            } else if (sortBy === 'byActive'){
               data = await VacationService.getFilteredByActive(pageNumber, pageSize);
-              setVacations(data);
             }
             
             //if there is data, then set total count of vacations retrieved from sql query, and set total pages by amount of vacations
             if (data.length > 0) {
-                setTotalCount(data[0].totalVacationsCount as number);
-                setTotalPages(Math.ceil(data[0].totalVacationsCount as number / pageSize));
+              setVacations(data);
+              setTotalCount(data[0].totalVacationsCount as number);
+              setTotalPages(Math.ceil(data[0].totalVacationsCount as number / pageSize));
             }
         } catch (error) {
             notify.error('Failed to fetch vacations:' + error);
