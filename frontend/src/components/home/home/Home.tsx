@@ -29,12 +29,11 @@ function Home(): JSX.Element {
             setUser(decodedUser);
         }
         fetchData();
-    }, [token]);
+    }, [pageNumber]);
 
     useEffect(() => {
-        fetchVacations();
-    }, [pageNumber, sortBy]);
-
+      fetchVacations();
+    }, [user, sortBy, follows]);
     const fetchData = async () => {
         try {
             const [followsData, followerCountData] = await Promise.all([
@@ -50,29 +49,41 @@ function Home(): JSX.Element {
 
     const fetchVacations = async () => {
         try {
-            let data;
-            if (sortBy === 'byFollow') {
-                data = await VacationService.getFilteredByFollowVacations(user?.id, pageNumber, pageSize);
-            } else {
-                data = await VacationService.getPaginatedVacations(pageNumber, pageSize);
+            let data: Vacation[] = [];
+            if(sortBy === 'byDate') {
+              data = await VacationService.getPaginatedVacations(pageNumber, pageSize);
+              setVacations(data);
             }
-
-            setVacations(data);
+            else if (sortBy === 'byFollow') {
+                data = await VacationService.getFilteredByFollowVacations(user?.id, pageNumber, pageSize);
+                setVacations(data);
+            } else if (sortBy === 'byAvailable'){
+              data = await VacationService.getFilteredByAvailable(pageNumber, pageSize);
+              setVacations(data);
+            }else if (sortBy === 'byActive'){
+              data = await VacationService.getFilteredByActive(pageNumber, pageSize);
+              setVacations(data);
+            }
+            
+            //if there is data, then set total count of vacations retrieved from sql query, and set total pages by amount of vacations
             if (data.length > 0) {
                 setTotalCount(data[0].totalVacationsCount as number);
                 setTotalPages(Math.ceil(data[0].totalVacationsCount as number / pageSize));
             }
         } catch (error) {
-            notify.error('Failed to fetch paginated vacations:' + error);
+            notify.error('Failed to fetch vacations:' + error);
         }
     };
 
     const sortVacations = (value: string) => {
         setSortBy(value);
         setPageNumber(1); // Reset to the first page when sort order changes
+        fetchData();
     };
 
-    const paginate = (pageNumber: number) => setPageNumber(pageNumber);
+    const paginate = (pageNumber: number) => {
+      setPageNumber(pageNumber)
+    }
 
     const isUserFollows = (vacation: Vacation): boolean => {
         return follows.some(fol => vacation.id === fol.vocationId && user?.id === fol.userId);

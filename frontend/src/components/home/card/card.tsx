@@ -17,17 +17,13 @@ interface vacationCardProps {
     // setFollows: React.Dispatch<React.SetStateAction<follower[]>>;
 }
 function Card(props:vacationCardProps): JSX.Element {
-  
-    console.log(props.user?.roleId);
-    
-
     
     return (
         <div className="card-container">
        
 			<div className="image-container">
                 {/* MAKE LIKE BUTTON A DIFFERENT COMPONENT, cuz gotta switch between roles */}
-               {props.user?.roleId === 1 ? <Card_like_btn key={props.vacationFollowers.followers} currentUserFollows={props.currentUserFollows} vacation={props.vacation} user={props.user} follows={props.follows} vacationFollowers={props.vacationFollowers}/> : null }
+               {props.user?.roleId === 1 && props.vacationFollowers ? <Card_like_btn key={props.vacationFollowers.followers} currentUserFollows={props.currentUserFollows} vacation={props.vacation} user={props.user} follows={props.follows} vacationFollowers={props.vacationFollowers}/> : null }
                {props.user?.roleId === 2 ? <Card_admin_btns vacation={props.vacation} getData={props.getData}/> : null}
                 
                 <h3 className="card-title">{props.vacation.destination}</h3>

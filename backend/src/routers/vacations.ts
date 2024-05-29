@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { add, deleteFollow, deleteVacation, edit, filterByFollow, getAll, getAllFollowers, getDataForCharts, getFollowersCount, getOne, getPaginatedVacations, getVacationsCSV, userFollowed } from "../controllers/vacations/controller";
+import { add, deleteFollow, deleteVacation, edit, filterByActive, filterByAvailable, filterByFollow, getAll, getAllFollowers, getDataForCharts, getFollowersCount, getOne, getPaginatedVacations, getVacationsCSV, userFollowed } from "../controllers/vacations/controller";
 import enforceAuth from "../middlewares/enforce-auth";
 import enforceAdmin from "../middlewares/enforce-admin";
 import addImageToBody from "../middlewares/add-image-to-body";
@@ -12,7 +12,9 @@ const router = Router();
 // router.use(enforceAuth)
 router.get('/vacations', getAll);
 router.get('/vacations/page=:pageNumber&pageSize=:pageSize', getPaginatedVacations);
-router.get('/vacations/filter/page=:pageNumber&pageSize=:pageSize&userId=:userId', filterByFollow)
+router.get('/vacations/filter/page=:pageNumber&pageSize=:pageSize&userId=:userId', filterByFollow);
+router.get('/vacations/available/page=:pageNumber&pageSize=:pageSize', filterByAvailable);
+router.get('/vacations/active/page=:pageNumber&pageSize=:pageSize', filterByActive);
 router.get('/vacations/csv', enforceAdmin, getVacationsCSV);
 router.get('/vacations/report', enforceAdmin, getDataForCharts)
 router.get('/vacations/:id([0-9]+)', getOne);

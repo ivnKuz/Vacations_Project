@@ -39,6 +39,29 @@ class Vacation implements Model {
         LIMIT ?, ?;`,[userId, offset, limit]);
         return vacations
       }
+      public async filterByAvailable(pageNumber:number, pageSize:number): Promise<DTO[]> {
+        const offset = (pageNumber - 1) * pageSize;
+        const limit = pageSize;
+          const vacations = await query(`
+          SELECT *
+          FROM   vacations
+          WHERE  startDate > CURRENT_DATE
+          LIMIT ?, ?;`, [offset, limit]);
+          return vacations;
+      }
+      public async filterByActive(pageNumber:number, pageSize:number): Promise<DTO[]> {
+        const offset = (pageNumber - 1) * pageSize;
+        const limit = pageSize;
+          const vacations = await query(`
+          SELECT *
+          FROM   vacations
+          WHERE  startDate < CURRENT_DATE 
+          AND  CURRENT_DATE < endDate
+          LIMIT ?, ?;`, [offset, limit]);
+          return vacations;
+      }
+
+      
 
 
     public async getVacationsCSV(): Promise<csvDTO[]> {

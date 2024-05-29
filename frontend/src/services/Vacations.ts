@@ -25,6 +25,16 @@ class Vacations {
         const vacations = response.data;
         return vacations
     }
+    public async getFilteredByActive(pageNumber:number, pageSize:number): Promise<VacationModel[]>{
+        const response = await axios.get<VacationModel[]>(`${appConfig.VacationsUrl}/active/page=${pageNumber}&pageSize=${pageSize}`);
+        const vacations = response.data;
+        return vacations
+    }
+    public async getFilteredByAvailable(pageNumber:number, pageSize:number): Promise<VacationModel[]>{
+        const response = await axios.get<VacationModel[]>(`${appConfig.VacationsUrl}/available/page=${pageNumber}&pageSize=${pageSize}`);
+        const vacations = response.data;
+        return vacations
+    }
 
     public async getReportsData(): Promise<vacationsCharts[]> {
 

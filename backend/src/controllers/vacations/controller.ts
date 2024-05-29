@@ -45,6 +45,25 @@ export const filterByFollow = async (req: Request, res: Response, next: NextFunc
         next(err)
     }
 }
+export const filterByAvailable = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const availableVacations = await getModel().filterByAvailable(+req.params.pageNumber, +req.params.pageSize);
+        res.json(availableVacations.map(convertVacationImageToImageUrl)); 
+    } catch (err) {
+        next(err);
+    }
+    
+}
+export const filterByActive= async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const activeVacations = await getModel().filterByActive(+req.params.pageNumber, +req.params.pageSize);
+        res.json(activeVacations.map(convertVacationImageToImageUrl)); 
+    } catch (err) {
+        next(err);
+    }
+    
+}
+
 
 export const getVacationsCSV = async (req: Request, res: Response, next: NextFunction) => {
     try {
