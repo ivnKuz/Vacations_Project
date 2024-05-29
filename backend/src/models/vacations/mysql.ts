@@ -43,7 +43,8 @@ class Vacation implements Model {
         const offset = (pageNumber - 1) * pageSize;
         const limit = pageSize;
           const vacations = await query(`
-          SELECT *
+          SELECT *,
+          COUNT(*) OVER () AS totalVacationsCount
           FROM   vacations
           WHERE  startDate > CURRENT_DATE
           LIMIT ?, ?;`, [offset, limit]);
@@ -53,7 +54,8 @@ class Vacation implements Model {
         const offset = (pageNumber - 1) * pageSize;
         const limit = pageSize;
           const vacations = await query(`
-          SELECT *
+          SELECT *,
+          COUNT(*) OVER () AS totalVacationsCount
           FROM   vacations
           WHERE  startDate < CURRENT_DATE 
           AND  CURRENT_DATE < endDate
