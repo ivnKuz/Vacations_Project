@@ -5,6 +5,7 @@ import Vacation from "../../../models/Vacation";
 import User from "../../../models/User";
 import followerCount from "../../../models/followerCount";
 import VacationsService from "../../../services/Vacations";
+import vacations from "../../../services/Vacations";
 interface card_props {
     vacation: Vacation;
     user: User | undefined;
@@ -38,6 +39,8 @@ function Card_like_btn(props:card_props): JSX.Element {
     async function follow(){
         // followed ? setFollowed(false) : setFollowed(true)
         //thought to set it on when follow button pressed again
+        console.log(props.vacation.id);
+        
         if(!followed) {
             await VacationsService.addFollower(follower);
             await getFollowerCount();

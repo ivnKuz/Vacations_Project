@@ -29,10 +29,14 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgba(30, 114, 40, 0.939);
     margin: 1vw;
+    font-size: 1.2rem;
+    transition: 0.25s ease-out;
 }
 .Header .headerLink:hover{
     cursor: pointer;
-    color: white;
+    color: rgb(255, 0, 247);
+    text-shadow: 0.2rem 0.2rem 1rem black;
+    font-size: 1.3rem;
 }
 .Header .logOutLink{
     text-decoration: none;

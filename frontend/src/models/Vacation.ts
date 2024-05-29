@@ -8,6 +8,7 @@ class Vacation{
     public price?:number;
     public image?:File;
     public imageUrl?:string;
+    public totalVacationsCount?: number;
 }
 
 export default Vacation;

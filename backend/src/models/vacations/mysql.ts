@@ -21,6 +21,49 @@ class Vacation implements Model {
         `)
         return vacations;
     }
+
+    public async getPaginatedVacations(pageNumber:number, pageSize:number): Promise<DTO[]> {
+        const offset = (pageNumber - 1) * pageSize;
+        const limit = pageSize;
+          const vacations = await query('SELECT *, COUNT(*) OVER () AS totalVacationsCount FROM vacations ORDER BY startDate ASC LIMIT ?, ?', [offset, limit]);
+          return vacations;
+      }
+      public async filterByFollow(userId:string, pageNumber:number, pageSize:number): Promise<DTO[]>{
+        const offset = (pageNumber - 1) * pageSize;
+        const limit = pageSize;
+        const vacations = await query(`SELECT *,
+        COUNT(*) OVER () AS totalVacationsCount
+        FROM vacations v
+        JOIN Followers f ON v.id = f.vocationId
+        WHERE f.userId = ?
+        LIMIT ?, ?;`,[userId, offset, limit]);
+        return vacations
+      }
+      public async filterByAvailable(pageNumber:number, pageSize:number): Promise<DTO[]> {
+        const offset = (pageNumber - 1) * pageSize;
+        const limit = pageSize;
+          const vacations = await query(`
+          SELECT *
+          FROM   vacations
+          WHERE  startDate > CURRENT_DATE
+          LIMIT ?, ?;`, [offset, limit]);
+          return vacations;
+      }
+      public async filterByActive(pageNumber:number, pageSize:number): Promise<DTO[]> {
+        const offset = (pageNumber - 1) * pageSize;
+        const limit = pageSize;
+          const vacations = await query(`
+          SELECT *
+          FROM   vacations
+          WHERE  startDate < CURRENT_DATE 
+          AND  CURRENT_DATE < endDate
+          LIMIT ?, ?;`, [offset, limit]);
+          return vacations;
+      }
+
+      
+
+
     public async getVacationsCSV(): Promise<csvDTO[]> {
         const vacationsCsv = await query(`
         SELECT v.id, v.destination, COUNT(f.vocationId) AS followers

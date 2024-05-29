@@ -28,6 +28,43 @@ export const getAll = async (req: Request, res: Response, next: NextFunction) =>
     }
     
 }
+export const getPaginatedVacations = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const vacations = await getModel().getPaginatedVacations(+req.params.pageNumber, +req.params.pageSize);
+        res.json(vacations.map(convertVacationImageToImageUrl)); 
+    } catch (err) {
+        next(err);
+    }
+    
+}
+export const filterByFollow = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+    const filteredVacations = await getModel().filterByFollow(req.params.userId, +req.params.pageNumber, +req.params.pageSize)
+    res.json(filteredVacations.map(convertVacationImageToImageUrl));
+    }catch(err){
+        next(err)
+    }
+}
+export const filterByAvailable = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const availableVacations = await getModel().filterByAvailable(+req.params.pageNumber, +req.params.pageSize);
+        res.json(availableVacations.map(convertVacationImageToImageUrl)); 
+    } catch (err) {
+        next(err);
+    }
+    
+}
+export const filterByActive= async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const activeVacations = await getModel().filterByActive(+req.params.pageNumber, +req.params.pageSize);
+        res.json(activeVacations.map(convertVacationImageToImageUrl)); 
+    } catch (err) {
+        next(err);
+    }
+    
+}
+
+
 export const getVacationsCSV = async (req: Request, res: Response, next: NextFunction) => {
     try {
         //have to map over this csv because I have an id there, so I can show duplicate names in csv file

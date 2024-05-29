@@ -1,119 +1,94 @@
 import { authStore } from "../../../redux/authState";
 import followerCount from "../../../models/followerCount";
 import "./Home.css";
-// if you have an image to display, this is how you would import it
-// import Products2ImageSource from '../../../assets/images/products2.jpg';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../card/card";
 import Vacation from "../../../models/Vacation";
 import User from "../../../models/User";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import follower from "../../../models/follower";
 import Pagination from "../pagination/Pagination";
 import notify from "../../../services/Notify";
 import VacationService from "../../../services/Vacations";
+
 function Home(): JSX.Element {
-    
     const token = authStore.getState().token;
     const [user, setUser] = useState<User>();
-    const [vacations, setVocations] = useState<Vacation[]>([]);
-    const [initialVocations, setInitialVocations] = useState<Vacation[]>([]);
+    const [vacations, setVacations] = useState<Vacation[]>([]);
     const [follows, setFollows] = useState<follower[]>([]);
     const [followerCount, setFollowerCount] = useState<followerCount[]>([]);
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [vocationsPerPage] = useState<number>(9)
+    const [totalCount, setTotalCount] = useState<number>(1);
     const [sortBy, setSortBy] = useState("byDate");
-    //getting all the data needed
-    const getData = ()=> {
-      Promise.all([
-        VacationService.getAllFollowers(),
-        VacationService.getAll(),
-        VacationService.getFollowerCount()
-    ]).then(results => {
-        setFollows(results[0]);
-        setVocations(results[1]);
-        setFollowerCount(results[2]);
-        setInitialVocations(results[1]);
-        
-    }).catch(e=> notify.error(e));
-    } 
-    //DELETE LATER IN DEVELOPMENT: can try and move this get data function back to use effect, and make it just updateFollows and put followerCount in dependency array if it'll work
-  //sorting function changes sortBy state depending on value passed and the conditions are executed in useEffect below to update in real time
-    function sortVocations(value: string) {
-      setSortBy(value);
-      setCurrentPage(1);
-      //updating data for filters to be up to date when filter triggered.
-      getData();
-  }
-  //another use effect for filtering
-  useEffect(() => {
-    if (sortBy === 'byDate') { // sort by date,this one is also default sort.
-        const sortedByDate = [...initialVocations].sort((a, b) => {
-            let firstDate = new Date(a.startDate as unknown as string);
-            let secondDate = new Date(b.startDate as unknown as string);
-            return firstDate.getTime() - secondDate.getTime();
-        });
-        setVocations(sortedByDate);
-    } else if (sortBy === 'byFollow') { // sort by vacations current user follows
-        const filteredByFollow = initialVocations.filter(vacation => {
-            for (let fol of follows) {
-                if (vacation.id === fol.vocationId && user?.id === fol.userId) return true;
-            }
-            return false;
-        });
-        setVocations(filteredByFollow);
-    } else if (sortBy === 'byAvailable') { //sort by available vacations that didnt start yet
-        const currentTime = new Date().getTime();
-        const filteredByActive = initialVocations.filter(d => {
-            const startDate = new Date(d.startDate as unknown as Date).getTime();
-            const endDate = new Date(d.endDate as unknown as Date).getTime();
-            return (currentTime < startDate && startDate < endDate);
-        });
-        setVocations(filteredByActive);
-    } else if (sortBy === 'byActive') { //sort by vacations that currently happening
-      const currentTime = new Date().getTime();
-      const filteredByActive = initialVocations.filter(d => {
-          const startDate = new Date(d.startDate as unknown as Date).getTime();
-          const endDate = new Date(d.endDate as unknown as Date).getTime();
-          return (currentTime >= startDate && currentTime <= endDate);
-      });
-      setVocations(filteredByActive);
-  }
+    const [pageNumber, setPageNumber] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const pageSize = 9;
+
+    useEffect(() => {
+        if (token) {
+            const decodedUser = jwtDecode<{ user: User }>(token).user;
+            setUser(decodedUser);
+        }
+        fetchData();
+    }, [pageNumber]);
     
-}, [sortBy, initialVocations, follows, user]);
-
-    useEffect(()=>{
-        //getting all the data from database and user data.
-      getData();
-        if(token){
-            const user = jwtDecode<{user: User}>(token).user;
-            setUser(user)
-         }
-    },[]);
-
-      //MIGHT MOVE IT TO THE CARD LIKE COMPONENT, CHECK LATER
-      //passing this as props to card like button to set state of liked or not liked
-      function isUserFollows(vocation:Vacation): boolean{
-        for(let fol of follows){
-          if (vocation.id === fol.vocationId && user?.id === fol.userId) {
-            return true;
+    useEffect(() => {
+      fetchVacations();
+    }, [user, sortBy, follows]);
+    const fetchData = async () => {
+        try {
+            const [followsData, followerCountData] = await Promise.all([
+                VacationService.getAllFollowers(),
+                VacationService.getFollowerCount()
+            ]);
+            setFollows(followsData);
+            setFollowerCount(followerCountData);
+        } catch (error) {
+            notify.error(error);
+        }
+    };
+    //filtering and fetching vacations. 'byDate' is always default state so it will always be true when page loads.
+    const fetchVacations = async () => {
+        try {
+            let data: Vacation[] = [];
+            if(sortBy === 'byDate') {
+              data = await VacationService.getPaginatedVacations(pageNumber, pageSize);
+            } else if (sortBy === 'byFollow') {
+                data = await VacationService.getFilteredByFollowVacations(user?.id, pageNumber, pageSize);
+            } else if (sortBy === 'byAvailable'){
+              data = await VacationService.getFilteredByAvailable(pageNumber, pageSize);
+            } else if (sortBy === 'byActive'){
+              data = await VacationService.getFilteredByActive(pageNumber, pageSize);
             }
-      }
-      return false;
-      }
-      //PAGINATION 
-    //get current vocations
-    const indexOfLastVocation = currentPage * vocationsPerPage;
-    const indexOfFirstVocation = indexOfLastVocation - vocationsPerPage;
-    const currentVocations = vacations.slice(indexOfFirstVocation, indexOfLastVocation)
-    //Change page
-      const paginate = (pageNumber:number)=> setCurrentPage(pageNumber)
+            
+            //if there is data, then set total count of vacations retrieved from sql query, and set total pages by amount of vacations
+            if (data.length > 0) {
+              setVacations(data);
+              setTotalCount(data[0].totalVacationsCount as number);
+              setTotalPages(Math.ceil(data[0].totalVacationsCount as number / pageSize));
+            }
+        } catch (error) {
+            notify.error('Failed to fetch vacations:' + error);
+        }
+    };
 
+    const sortVacations = (value: string) => {
+        setSortBy(value);
+        setPageNumber(1); // Reset to the first page when sort order changes
+        fetchData();
+    };
+
+    const paginate = (pageNumber: number) => {
+      setPageNumber(pageNumber)
+    }
+
+    const isUserFollows = (vacation: Vacation): boolean => {
+        return follows.some(fol => vacation.id === fol.vocationId && user?.id === fol.userId);
+    };
     return (
         <div className="Home">
          
          {user?.roleId === 1 ? <div className="actions"> 
-         <select role="combobox" value={sortBy} onChange={e => sortVocations(e.target.value)}>
+         <select role="combobox" value={sortBy} onChange={e => sortVacations(e.target.value)}>
           <option value='byDate'>Sort by date</option>
           <option value='byFollow'>Sort by following</option>
           <option value='byAvailable'>Sort by available</option>
@@ -122,12 +97,17 @@ function Home(): JSX.Element {
         </div> : null}
        
         <div className="cardsContainer">
-               {currentVocations.map((vacation) => <Card key={vacation.id}  currentUserFollows={isUserFollows(vacation)} getData={getData}  vacationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]} follows={follows}  vacation={vacation} user={user}/>
+               {vacations.map((vacation) => <Card key={vacation.id} 
+                currentUserFollows={isUserFollows(vacation)}
+                 getData={fetchData}  
+                 vacationFollowers={followerCount.filter(vocation => vocation.id === vacation.id)[0]}
+                  follows={follows}  
+                  vacation={vacation}
+                   user={user}/>
         )}  
         </div>
-        <div className="pagination">
-        <Pagination paginate={paginate} vocationPerPage={vocationsPerPage} totalVocations={vacations.length}/>
-        </div>
+        <Pagination paginate={paginate} vocationPerPage={pageSize} totalVocations={vacations.length ? vacations[0].totalVacationsCount as number : 1}/>
+       
         </div>
     );
     }

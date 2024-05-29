@@ -23,7 +23,7 @@
     },
     "rateLimit":{
         "windowMs": 90000, 
-        "limit": 100,
+        "limit": 1000,
         "standardHeaders": "draft-7",
         "legacyHeaders": false
     }
