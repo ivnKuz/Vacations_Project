@@ -1,7 +1,5 @@
 import "./Login.css";
-// if you have an image to display, this is how you would import it
-// import Products2ImageSource from '../../../assets/images/products2.jpg';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import LoginData from "../../../models/Login";
 import passwordIcon from "../../../assets/images/password-icon.jpeg"
 import emailIcon from "../../../assets/images/email-icon.webp"

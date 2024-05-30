@@ -7,19 +7,18 @@ import validate from "../middlewares/input-validation";
 import { addVacationValidator, editVacationValidator } from "../controllers/vacations/validator";
 import uploadImage from "../middlewares/upload-image";
 
-
+//all these routes require authentication or a specific role
 const router = Router();
-// router.use(enforceAuth)
-router.get('/vacations', getAll);
-router.get('/vacations/page=:pageNumber&pageSize=:pageSize', getPaginatedVacations);
-router.get('/vacations/filter/page=:pageNumber&pageSize=:pageSize&userId=:userId', filterByFollow);
-router.get('/vacations/available/page=:pageNumber&pageSize=:pageSize', filterByAvailable);
-router.get('/vacations/active/page=:pageNumber&pageSize=:pageSize', filterByActive);
+router.get('/vacations', enforceAuth, getAll);
+router.get('/vacations/page=:pageNumber&pageSize=:pageSize', enforceAuth, getPaginatedVacations);
+router.get('/vacations/filter/page=:pageNumber&pageSize=:pageSize&userId=:userId', enforceAuth, filterByFollow);
+router.get('/vacations/available/page=:pageNumber&pageSize=:pageSize', enforceAuth, filterByAvailable);
+router.get('/vacations/active/page=:pageNumber&pageSize=:pageSize', enforceAuth, filterByActive);
 router.get('/vacations/csv', enforceAdmin, getVacationsCSV);
 router.get('/vacations/report', enforceAdmin, getDataForCharts)
-router.get('/vacations/:id([0-9]+)', getOne);
-router.get('/followers', getAllFollowers);
-router.get('/followersCount', getFollowersCount);
+router.get('/vacations/:id([0-9]+)', enforceAuth, getOne);
+router.get('/followers', enforceAuth, getAllFollowers);
+router.get('/followersCount', enforceAuth, getFollowersCount);
 router.post('/vacations', enforceAdmin, addImageToBody, validate(addVacationValidator), uploadImage,  add);
 router.patch('/vacations/:id([0-9]+)',enforceAdmin, addImageToBody, validate(editVacationValidator), uploadImage, edit);
 router.post('/followed', enforceAuth, userFollowed);

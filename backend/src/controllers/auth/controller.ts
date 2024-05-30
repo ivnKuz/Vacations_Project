@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import getModel from "../../models/auth/factory";
-import { StatusCodes, ReasonPhrases } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { generateJWT } from "../../utils/crypto";
 import config from "config";
 import createHttpError, {Unauthorized} from "http-errors";
@@ -25,8 +25,6 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         const jwt = generateJWT(user, config.get<string>('app.jwt.secret'), config.get<string>('app.jwt.expires'));
         res.json({jwt})
     }catch(err){    
-        //we need to examine the err to see if it really the duplicate username error 
-        // if not, we need to raiese another error ww
         next(createHttpError(err));
     }
   

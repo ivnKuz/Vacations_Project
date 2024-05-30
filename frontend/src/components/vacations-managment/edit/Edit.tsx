@@ -63,7 +63,6 @@ function Edit(): JSX.Element {
     async function submitVacation(vacation: Vacation) {
         try {
             vacation.image = (vacation.image as unknown as FileList)[0];
-            console.log(vacation.image)
             vacation.id = vacationId;
             const updatedVacation = await vacationsService.editVacation(vacation);
             notify.success(`updated Vacation: ${updatedVacation.destination}`)

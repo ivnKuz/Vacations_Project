@@ -12,28 +12,17 @@ declare global {
         }
     }
 }
-
+//check for authorization
 export default async function authentication (req: Request, res: Response, next: NextFunction) {
     const header = req.header('authorization');
-    // console.log('works');
-    // console.log(header);
-    
         if(!header) return next();
-       
-        
         // if we're here, we have an authorization header
         //we expect it to look something like: Bearer dwqfrqwrqwqwqtwt.qwtqwtqwtq.tqwtqwtwqt
         const token = header.split(' ') [1];
-        // console.log(token);
-        
         //this creates an array of ['bearer', 'ewqtqwtqw.tqwtqwtwq.tqwt'] ^
     try{
        const {user} = verify(token, config.get<string>('app.jwt.secret')) as JwtPayload;
-     
-       
        req.user = await getModel().getOne(user.id);
-     
-       
         return next();
     }catch(err){
         return next(createHttpError(Unauthorized(err.message || err)))

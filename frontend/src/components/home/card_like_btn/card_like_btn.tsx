@@ -33,22 +33,16 @@ function Card_like_btn(props:card_props): JSX.Element {
     
     // setFollowed(props.currentUserFollows)
     }
-    // console.log(follower);
+  
 
 
     async function follow(){
-        // followed ? setFollowed(false) : setFollowed(true)
-        //thought to set it on when follow button pressed again
-        console.log(props.vacation.id);
-        
         if(!followed) {
             await VacationsService.addFollower(follower);
             await getFollowerCount();
             setFollowed(true);
         }
         if(followed) { 
-            console.log(follower?.vocationId, follower?.userId);
-            
             await VacationsService.deleteFollow(follower?.vocationId, follower?.userId);
             await getFollowerCount();
             setFollowed(false)

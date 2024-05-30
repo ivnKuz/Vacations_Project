@@ -10,7 +10,7 @@ import authentication from "./middlewares/authenitcation";
 import expressFileUpload from 'express-fileupload'
 import path from "path";
 const server = express();
-
+//setting a limiter
 const limiter = rateLimit({
 	windowMs: config.get<number>('rateLimit.windowMs'), 
 	limit: config.get<number>('rateLimit.limit'),
@@ -22,7 +22,6 @@ server.use(authentication);
 server.use(cors());
 server.use(express.json());
 server.use(expressFileUpload());
-
 server.use('/api', authRouter)
 server.use('/api', vacationRouter)
 server.use('/images', express.static(path.resolve(config.get<string>('app.images.path'))));

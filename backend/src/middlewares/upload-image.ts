@@ -5,7 +5,9 @@ import { v4 } from "uuid";
 import { promisify } from "util";
 import config from "config";
 
+//if uploading image, saving it somewhere, in this case in backend/assets folder
 export default async function uploadImage(req: Request, res: Response, next: NextFunction){
+    //if no image, then skip
     if(!req.body.image) return next();
 
     const image = req.body.image as UploadedFile;

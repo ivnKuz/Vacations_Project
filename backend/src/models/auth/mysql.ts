@@ -3,7 +3,6 @@ import CredentialsDTO from './credentials-dto';
 import UserDTO, {Roles} from './user-dto'
 import { OkPacketParams } from "mysql2";
 import query from "../../db/mysql";
-import { createHash } from 'crypto';
 import  config  from "config";
 import { hashPassword } from "../../utils/crypto";
 import { v4 } from 'uuid';
@@ -38,6 +37,7 @@ class User implements Model {
       `, [email, hashPassword(password, config.get<string>('app.secret'))]))[0];
       return user;
     }
+
     public async signUp(user: UserDTO): Promise<UserDTO>{
         const {firstName, lastName, email, password} = user;
         const id = v4();

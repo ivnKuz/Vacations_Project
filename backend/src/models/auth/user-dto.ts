@@ -10,5 +10,4 @@ export default interface DTO extends CredentialsDTO{
 export enum Roles{
     USER = 1,
     ADMIN = 2,
-  
 }

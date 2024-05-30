@@ -26,7 +26,6 @@ function Add(): JSX.Element {
     }
 
     async function submitVacation(vacation: Vacation){
-        console.log(vacation);
         try{
             //to turn File to FileList we gotta first make it unknown then FileList
             vacation.image = (vacation.image as unknown as FileList)[0];

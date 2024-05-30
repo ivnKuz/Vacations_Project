@@ -2,7 +2,7 @@ import Joi from "joi"
 import DTO from '../../models/vacations/dto';
 
 // const date = new Date();
-// date.setHours(date.getHours()- 24);
+// date.setHours(date.getHours()- 24); CAN ADD this and pass into min date if I need to change it to allow new vacation to start from today
 export const addVacationValidator = Joi.object<DTO>({
     id: Joi.number().optional(),
     destination: Joi.string().max(40).required().messages({'string.max': 'Destination title should not be longer than 40 characters.'}),
