@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import createHttpError, { BadRequest, InternalServerError } from "http-errors";
 import Joi from "joi";
 
-
+//using this middleware for Joi validations
 const validate = (validator: Joi.ObjectSchema) => async (req: Request, res: Response, next: NextFunction) => { 
     try{
        req.body = await validator.validateAsync(req.body, {

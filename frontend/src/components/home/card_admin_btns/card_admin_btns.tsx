@@ -31,7 +31,6 @@ function Card_admin_btns(props: adminProps): JSX.Element {
             <button onClick={() => setModalIsOpen(true)} className="btn-delete">
             <img className="btn-image" src={binImage} alt=""/>Delete</button>
             <div className="react-modal-overlay">
-      {/* <button onClick={}>Open Modal</button> */}
       <Modal
   isOpen={modalIsOpen}
   onRequestClose={() => setModalIsOpen(false)}

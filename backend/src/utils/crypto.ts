@@ -1,7 +1,8 @@
   
-import { createHash, createHmac } from 'crypto';
+import { createHmac } from 'crypto';
 import userDTO from '../models/auth/user-dto'
 import { sign } from 'jsonwebtoken';
+//hashing password
   export function hashPassword(plainTextPassword:string, salt:string): string{
     return createHmac('md5', salt)// <= spreading salt in password 
     .update(`${plainTextPassword}`) 

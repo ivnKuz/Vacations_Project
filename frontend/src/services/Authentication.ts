@@ -23,7 +23,7 @@ class Authentication {
         return token;
     }
     public async login(login: login):Promise<string>{
-        //cuz jwt is {jwt} on backend
+        //because jwt is {jwt} on backend
         const response = await axios.post<{jwt: string}>(appConfig.loginUrl, login);
         const token = response.data.jwt;
  

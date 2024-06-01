@@ -5,6 +5,10 @@
 .page-item{
     list-style-type: none;
 }
+.current_page{
+    background-color: rgba(0, 0, 0, 0.648);
+    color: white;
+}
 .page-link{
     margin: 3px;
     border: 1px solid #000;

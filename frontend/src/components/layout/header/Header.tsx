@@ -29,7 +29,6 @@ function Header(): JSX.Element {
             setUser(undefined)
         }
      });
-     console.log(user);
      return unsubscribe
     },[]);
 

@@ -1,6 +1,5 @@
 import { Control, useForm, useWatch } from "react-hook-form";
 import "./Add.css";
-
 import { useNavigate } from "react-router-dom";
 import notify from "../../../services/Notify";
 import vacationsService from "../../../services/Vacations";
@@ -26,7 +25,6 @@ function Add(): JSX.Element {
     }
 
     async function submitVacation(vacation: Vacation){
-        console.log(vacation);
         try{
             //to turn File to FileList we gotta first make it unknown then FileList
             vacation.image = (vacation.image as unknown as FileList)[0];
