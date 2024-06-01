@@ -1,5 +1,6 @@
 .details {
     display: flex;
+    margin-top: 2.5rem;
     flex-direction: row;
     width: 100vw;
     padding: 0 0.3rem;
