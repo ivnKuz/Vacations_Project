@@ -8,14 +8,17 @@ import { useNavigate } from 'react-router-dom';
 
 function Layout(): JSX.Element {
     const navigator = useNavigate();
+//if usert doesn't have token, meaning they're not logged in, automatically navigate to one of those.
+    const token = authStore.getState().token;
 
-const token = authStore.getState().token;
     useEffect(()=>{
     !token ? navigator('/login') : navigator('/home');
-    },[])
+    },[]);
+
+
     return ( 
       <div className="Layout">
-             <header>
+            <header>
                 {!token && <h1>Welcome to JoJo's Travels</h1>}
                 {token && <Header />}
             </header>

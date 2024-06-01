@@ -34,6 +34,7 @@ function Home(): JSX.Element {
     useEffect(() => {
       fetchVacations();
     }, [user, sortBy, follows]);
+
     const fetchData = async () => {
         try {
             const [followsData, followerCountData] = await Promise.all([
@@ -46,6 +47,7 @@ function Home(): JSX.Element {
             notify.error(error);
         }
     };
+
     //filtering and fetching vacations. 'byDate' is always default state so it will always be true when page loads.
     const fetchVacations = async () => {
         try {
@@ -59,7 +61,6 @@ function Home(): JSX.Element {
             } else if (sortBy === 'byActive'){
               data = await VacationService.getFilteredByActive(pageNumber, pageSize);
             }
-            
             //if there is data, then set total count of vacations retrieved from sql query, and set total pages by amount of vacations
             if (data.length > 0) {
               setVacations(data);
@@ -70,7 +71,7 @@ function Home(): JSX.Element {
             notify.error('Failed to fetch vacations:' + error);
         }
     };
-
+    //onChange select function for filtering
     const sortVacations = (value: string) => {
         setSortBy(value);
         setPageNumber(1); // Reset to the first page when sort order changes
@@ -86,7 +87,6 @@ function Home(): JSX.Element {
     };
     return (
         <div className="Home">
-         
          {user?.roleId === 1 ? <div className="actions"> 
          <select role="combobox" value={sortBy} onChange={e => sortVacations(e.target.value)}>
           <option value='byDate'>Sort by date</option>
@@ -106,7 +106,7 @@ function Home(): JSX.Element {
                    user={user}/>
         )}  
         </div>
-        <Pagination paginate={paginate} vocationPerPage={pageSize} totalVocations={vacations.length ? vacations[0].totalVacationsCount as number : 1}/>
+        <Pagination pageNumber={pageNumber} paginate={paginate} vocationPerPage={pageSize} totalVocations={vacations.length ? vacations[0].totalVacationsCount as number : 1}/>
        
         </div>
     );

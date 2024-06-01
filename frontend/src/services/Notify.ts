@@ -4,7 +4,7 @@ import appConfig from "../utils/AppConfig";
 class Notify {
 
     private successNotification = new Notyf({
-        duration: appConfig.successNotificationDuration, // in milliseconds
+        duration: appConfig.successNotificationDuration,
         position: {
             x: 'center',
             y: 'center'
@@ -12,7 +12,7 @@ class Notify {
     })
 
     private errorNotification = new Notyf({
-        duration: appConfig.errorNotificationDuration, // in milliseconds
+        duration: appConfig.errorNotificationDuration, 
         position: {
             x: 'center',
             y: 'center'

@@ -2,7 +2,6 @@ import "./card.css";
 import Vacation from "../../../models/Vacation";
 import dayjs from "dayjs";
 import User from "../../../models/User";
-// import VocationsService from "../../../services/Vocations";
 import follower from "../../../models/follower";
 import followerCount from "../../../models/followerCount";
 import Card_like_btn from "../card_like_btn/card_like_btn";
@@ -14,7 +13,6 @@ interface vacationCardProps {
     vacationFollowers: followerCount;
     currentUserFollows:boolean;
     getData: () => void;
-    // setFollows: React.Dispatch<React.SetStateAction<follower[]>>;
 }
 function Card(props:vacationCardProps): JSX.Element {
     
@@ -22,7 +20,6 @@ function Card(props:vacationCardProps): JSX.Element {
         <div className="card-container">
        
 			<div className="image-container">
-                {/* MAKE LIKE BUTTON A DIFFERENT COMPONENT, cuz gotta switch between roles */}
                {props.user?.roleId === 1 && props.vacationFollowers ? <Card_like_btn key={props.vacationFollowers.followers} currentUserFollows={props.currentUserFollows} vacation={props.vacation} user={props.user} follows={props.follows} vacationFollowers={props.vacationFollowers}/> : null }
                {props.user?.roleId === 2 ? <Card_admin_btns vacation={props.vacation} getData={props.getData}/> : null}
                 

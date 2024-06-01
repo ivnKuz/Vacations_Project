@@ -1,6 +1,5 @@
 import { Control, useForm, useWatch } from "react-hook-form";
 import "./Add.css";
-
 import { useNavigate } from "react-router-dom";
 import notify from "../../../services/Notify";
 import vacationsService from "../../../services/Vacations";

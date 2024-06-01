@@ -5,37 +5,31 @@ import Vacation from "../../../models/Vacation";
 import User from "../../../models/User";
 import followerCount from "../../../models/followerCount";
 import VacationsService from "../../../services/Vacations";
-import vacations from "../../../services/Vacations";
+
 interface card_props {
     vacation: Vacation;
     user: User | undefined;
     follows: follower[];
     vacationFollowers: followerCount;
     currentUserFollows:boolean;
-    // setFollows: React.Dispatch<React.SetStateAction<follower[]>>;
 }
 function Card_like_btn(props:card_props): JSX.Element {
     const [follower, setFollower] = useState<follower>();
     const [followed, setFollowed] = useState<boolean | undefined>(props.currentUserFollows);
     const [numberOfFollowers, setNumberOfFollowers] = useState<number>();
+    
     useEffect(()=>{
         checkFollowedVocations();
         setNumberOfFollowers(props.vacationFollowers.followers)
     },[]);
 
-    
      function  checkFollowedVocations(){  
         const currentFollower = {
         userId: props.user?.id, vocationId: props.vacation?.id
     }
      setFollower(currentFollower)
-
-    
-    // setFollowed(props.currentUserFollows)
     }
   
-
-
     async function follow(){
         if(!followed) {
             await VacationsService.addFollower(follower);
@@ -47,9 +41,8 @@ function Card_like_btn(props:card_props): JSX.Element {
             await getFollowerCount();
             setFollowed(false)
         }
-        //wanted to set state from here up, didnt work
-        
     }
+
     async function getFollowerCount(){
         VacationsService.getFollowerCount().then(updatedFollowerCount => {
             setNumberOfFollowers(updatedFollowerCount.find(item => item.id === follower?.vocationId)?.followers);
