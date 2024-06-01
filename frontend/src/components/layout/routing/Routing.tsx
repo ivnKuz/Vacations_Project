@@ -6,12 +6,14 @@ import Edit from "../../vacations-managment/edit/Edit";
 import Page404 from "../page404/Page404";
 import { Routes, Route } from 'react-router-dom';
 import VacationsReport from "../../vacations-managment/vacationsReport/vacationsReport";
+import Details from "../../home/details/details";
 function Routing(): JSX.Element {
     return (
         <Routes>
             <Route path="/home" element={<Home />} />
-             <Route path="/login" element={<Login />} />
-             <Route path="/signUp" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signUp" element={<SignUp />} />
+            <Route path="/home/details/:id" element={<Details />} />
             <Route path="/controlls/edit-vacation/:id" element={<Edit />} />
             <Route path="/controlls/add-vacation" element={<Add />} />
             <Route path="/controlls/vacations-report" element={<VacationsReport />} />

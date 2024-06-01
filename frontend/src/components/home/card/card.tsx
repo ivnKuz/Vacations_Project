@@ -6,6 +6,7 @@ import follower from "../../../models/follower";
 import followerCount from "../../../models/followerCount";
 import Card_like_btn from "../card_like_btn/card_like_btn";
 import Card_admin_btns from "../card_admin_btns/card_admin_btns";
+import { NavLink } from "react-router-dom";
 interface vacationCardProps {
     vacation: Vacation;
     user: User | undefined;
@@ -34,9 +35,11 @@ function Card(props:vacationCardProps): JSX.Element {
                 <div className="second-layer">
                 {props.vacation.description}
                  </div>
+                 <NavLink to={`/home/details/${props.vacation.id}`}>
                 <button  className="price-btn">
                 {props.vacation.price}$
                 </button>
+                </NavLink>
            
             </div>
             
