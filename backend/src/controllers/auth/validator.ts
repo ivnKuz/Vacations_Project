@@ -1,4 +1,3 @@
-
 import Joi from "joi";
 import UserDTO from '../../models/auth/user-dto'
 import CredentialsDTO from '../../models/auth/credentials-dto'

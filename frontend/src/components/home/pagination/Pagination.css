@@ -6,8 +6,13 @@
     list-style-type: none;
 }
 .current_page{
-    background-color: rgba(0, 0, 0, 0.648);
-    color: white;
+    margin: 3px;
+    padding: 3px;
+    font-weight: 600;
+    text-shadow: 0.2rem 0.2rem 1rem black;
+    color: rgb(214, 68, 225);
+    background: transparent;
+    border: transparent;
 }
 .page-link{
     margin: 3px;

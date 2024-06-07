@@ -11,8 +11,6 @@ export const signup = async (req: Request, res: Response, next: NextFunction) =>
         const jwt = generateJWT(user, config.get<string>('app.jwt.secret'), config.get<string>('app.jwt.expires'));
         res.status(StatusCodes.CREATED).json({jwt})
     }catch(err){    
-        //we need to examine the err to see if it really the duplicate username error 
-        // if not, we need to raiese another error
         next(createHttpError(err));
     }
   
