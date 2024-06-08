@@ -17,10 +17,8 @@ function Home(): JSX.Element {
     const [vacations, setVacations] = useState<Vacation[]>([]);
     const [follows, setFollows] = useState<follower[]>([]);
     const [followerCount, setFollowerCount] = useState<followerCount[]>([]);
-    const [totalCount, setTotalCount] = useState<number>(1);
     const [sortBy, setSortBy] = useState("byDate");
     const [pageNumber, setPageNumber] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
     const pageSize = 9;
 
     useEffect(() => {
@@ -31,6 +29,7 @@ function Home(): JSX.Element {
         fetchData();
     }, [pageNumber]);
     
+    //fetch correct vacations depending on user, sortBy value(filter) and follows(if user following(liked) vacation or not)
     useEffect(() => {
       fetchVacations();
     }, [user, sortBy, follows]);
@@ -62,11 +61,7 @@ function Home(): JSX.Element {
               data = await VacationService.getFilteredByActive(pageNumber, pageSize);
             }
             //if there is data, then set total count of vacations retrieved from sql query, and set total pages by amount of vacations
-            if (data.length > 0) {
-              setVacations(data);
-              setTotalCount(data[0].totalVacationsCount as number);
-              setTotalPages(Math.ceil(data[0].totalVacationsCount as number / pageSize));
-            }
+            if (data.length > 0) setVacations(data);
         } catch (error) {
             notify.error('Failed to fetch vacations:' + error);
         }
