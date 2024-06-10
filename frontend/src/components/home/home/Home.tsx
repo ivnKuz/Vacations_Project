@@ -76,7 +76,7 @@ function Home(): JSX.Element {
     const paginate = (pageNumber: number) => {
       setPageNumber(pageNumber)
     }
-
+    //passing this function to the card component and then to button like component to set the state if user follows or not
     const isUserFollows = (vacation: Vacation): boolean => {
         return follows.some(fol => vacation.id === fol.vocationId && user?.id === fol.userId);
     };

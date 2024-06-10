@@ -10,8 +10,7 @@ class Authentication {
        const response = await axios.post<{jwt: string}>(appConfig.signUpUrl, signup);
        const token = response.data.jwt;
 
-       //redux
-    //    create acton
+    //  redux  create acton
     const action: AuthAction = {
         type: AuthActionType.Signup,
         payload: token
@@ -19,25 +18,21 @@ class Authentication {
 
     //now all that is left to do is to send this action to redux
     authStore.dispatch(action)
-    
-        return token;
+    return token;
     }
     public async login(login: login):Promise<string>{
         //because jwt is {jwt} on backend
         const response = await axios.post<{jwt: string}>(appConfig.loginUrl, login);
         const token = response.data.jwt;
  
-        //redux
-     //    create acton
+     // redux   create acton
      const action: AuthAction = {
          type: AuthActionType.Login,
          payload: token
      }
- 
      //now all that is left to do is to send this action to redux
      authStore.dispatch(action)
-        
-         return token;
+     return token;
      }
      public logout(){
         const action: AuthAction = {
