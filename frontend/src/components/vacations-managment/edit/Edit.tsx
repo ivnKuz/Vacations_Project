@@ -76,7 +76,7 @@ function Edit(): JSX.Element {
         <div className="editVacation">
 			<h2>Edit Vacation</h2>
             <form onSubmit={handleSubmit(submitVacation)}>
-                <label>Destination:</label>
+                <label className="editVacation__label">Destination:</label>
                 <input className="editVacation__input" type="text" {...register('destination')} />
                 <label className="editVacation__label">Description:</label>
                 <textarea className="editVacation__input" rows={5} {...register('description')} />

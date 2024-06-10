@@ -13,10 +13,11 @@ export default async function uploadImage(req: Request, res: Response, next: Nex
     const image = req.body.image as UploadedFile;
     const imageName = `${v4()}${path.extname(image.name)}`;
 
-    // save images somewhere
+    // save images somewhere, .bind(image) give image context of this
     const mvPromisified = promisify(image.mv).bind(image)
     try{
         const fileAbsolutePath = path.resolve(config.get<string>('app.images.path'), imageName);
+        //save image in this location
        await mvPromisified(fileAbsolutePath);
        req.body.imageName = imageName;
        return next();

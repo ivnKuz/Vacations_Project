@@ -1,13 +1,10 @@
-# Which given Image I am starting to build upon
+# building upon node image
 FROM node:latest
 
-# I want to create a directory for my app to reside in
-# WORKDIR does 2 things:
-# 1. creates the directory
-# 2. every command from now on (unless specified otherwise) will run in this directory
+# create working directory, every command will execute here
 WORKDIR /app
 
-# Now I want to copy only the package.json file to the image
+# copy only the package.json file to the image
 # this copies package.json from the same directory where Dockerfile is run
 # into the directory we created in WORKDIR command
 COPY package.json ./
@@ -18,17 +15,14 @@ RUN npm i
 # Now we want to add the source code of our app
 COPY ./ ./
 
+# compile the TypeScript into JavaScript
 RUN npm run build
-# COPY ./dist/config ./config
-# Now we want to compile the TypeScript into JavaScript
 
-# We want to expose the port the app will listen to
+# expose the port app will listen to
 EXPOSE 3001
 
-# Now I want to provide some command to start the app 
-# in Node.js we usually use "npm start" for this
+# run start command
 CMD [ "npm", "start" ]
-# CMD npm start
 
 
 

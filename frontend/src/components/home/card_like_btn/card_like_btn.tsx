@@ -15,15 +15,17 @@ interface card_props {
 }
 function Card_like_btn(props:card_props): JSX.Element {
     const [follower, setFollower] = useState<follower>();
+    //passing by props the state if user follows or not, resetting state if "like" button was clicked.
     const [followed, setFollowed] = useState<boolean | undefined>(props.currentUserFollows);
     const [numberOfFollowers, setNumberOfFollowers] = useState<number>();
     
     useEffect(()=>{
-        checkFollowedVocations();
+        setCurrentFollower();
         setNumberOfFollowers(props.vacationFollowers.followers)
     },[]);
 
-     function  checkFollowedVocations(){  
+     function setCurrentFollower(){  
+        //creating new follower to add to the list of Followers if user pressed on Like button
         const currentFollower = {
         userId: props.user?.id, vocationId: props.vacation?.id
     }

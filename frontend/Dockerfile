@@ -7,10 +7,9 @@ WORKDIR /app
 # copy package.json from our source to /app
 COPY package.json ./
 
-# npm install
 RUN npm i
 
-# now copy the source code
+# copy the source code
 COPY ./ ./
 
 # now we can ask react to build our code to production
@@ -19,7 +18,7 @@ RUN npm run build
 
 # Now we start over with a fresh nginx machine
 # nginx is 2nd most popular web server after apache
-# it is not neccessarily CGI
+# it is not neccessarily CGI. Note: sometimes might require to download nginx from docker hub manualy even with FROM command
 FROM nginx:latest
 
 # we go to this directory
@@ -34,5 +33,4 @@ COPY nginx.conf ../sites-available/
 
 # and now we can start nginx, which will serve our react app to any browser
 # that access this server
-# CMD nginx -g daemon off;
 ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
