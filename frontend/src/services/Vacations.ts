@@ -6,20 +6,19 @@ import follower from "../models/follower";
 import vacationsCharts from "../models/vacationsChart";
 
 class Vacations {
-
+    //get all vacations
     public async getAll(): Promise<VacationModel[]> {
-
         const response = await axios.get<VacationModel[]>(appConfig.VacationsUrl);
-
         const vacations = response.data;
-
         return vacations;
     }
+    //get limited amount of vacations per page, with the limit set in the home component
     public async getPaginatedVacations(pageNumber:number, pageSize:number): Promise<VacationModel[]>{
         const response = await axios.get<VacationModel[]>(`${appConfig.VacationsUrl}/page=${pageNumber}&pageSize=${pageSize}`);
         const vacations = response.data;
         return vacations
     }
+    //FILTERS
     public async getFilteredByFollowVacations(userId:string | undefined, pageNumber:number, pageSize:number): Promise<VacationModel[]>{
         const response = await axios.get<VacationModel[]>(`${appConfig.VacationsUrl}/filter/page=${pageNumber}&pageSize=${pageSize}&userId=${userId}`);
         const vacations = response.data;
@@ -35,20 +34,15 @@ class Vacations {
         const vacations = response.data;
         return vacations
     }
-
+    //___
+    //get csv and reports data followers and vacation destination.
     public async getReportsData(): Promise<vacationsCharts[]> {
-
         const response = await axios.get<vacationsCharts[]>(appConfig.getChartReport);
-
         const reportChart = response.data;
-
         return reportChart;
     }
-
-
-
+    //download csv file function.
     public async getVacationsCSV(): Promise<void> {
-       
             try {
                 // Setting the response type to blob
               const response = await axios.get(appConfig.getVacationsCSV, {
@@ -74,31 +68,23 @@ class Vacations {
             } catch (error) {
               console.error('Error downloading CSV:', error);
             }
-          
-
     }
 
     public async getAllFollowers(): Promise<follower[]> {
-
         const response = await axios.get<follower[]>(appConfig.getAllFollowers);
-
         const followers = response.data;
-
         return followers;
     }
 
     public async getFollowerCount(): Promise<followerCount[]> {
-
         const response = await axios.get<followerCount[]>(appConfig.getFollowersCount);
-
         const followersCount = response.data;
-
         return followersCount;
     }
-
+    //one vacation
     public async getOne(id: number): Promise<VacationModel | undefined>{
-            const vacations = await this.getAll();
-             const vacation = vacations.find(v => v.id === id);
+        const vacations = await this.getAll();
+        const vacation = vacations.find(v => v.id === id);
         return vacation;
     }
 
@@ -112,16 +98,12 @@ class Vacations {
 
         const response = await axios.post<VacationModel>(appConfig.VacationsUrl, vacation, options);
         const addedVacation = response.data;
-
         return addedVacation;
     }
 
     public async addFollower(follower: follower | undefined): Promise<follower> {
-
         const response = await axios.post<follower>(appConfig.FollowUrl, follower);
-
         const addedFollower = response.data;
-
         return addedFollower;
     }
 
@@ -134,19 +116,16 @@ class Vacations {
         }
         const response = await axios.patch<VacationModel>(appConfig.VacationsUrl + `/${vacation.id}`, vacation, options);
         const updatedVAcation = response.data;
-       
         return updatedVAcation;
     }
 
-
     public async deleteFollow(id: number | undefined, userId: string | undefined): Promise<void>{
-        await axios.delete( `${appConfig.FollowUrl}/${id}/${userId}`);
+        await axios.delete(`${appConfig.FollowUrl}/${id}/${userId}`);
     }
     
     public async deleteVacation(id: number | undefined): Promise<void>{
-        await axios.delete( `${appConfig.deleteVacation}/${id}`);
+        await axios.delete(`${appConfig.deleteVacation}/${id}`);
     }
-
 
 }
 
