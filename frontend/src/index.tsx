@@ -7,8 +7,10 @@ import { BrowserRouter } from 'react-router-dom';
 import interceptors from './utils/interceptors';
 document.title = "JoJo's Vacations";
 interceptors.create();
+interceptors.handleTokenExpired();
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
+    
 );
 root.render(
     <BrowserRouter>

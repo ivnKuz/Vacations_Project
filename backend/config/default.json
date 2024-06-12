@@ -6,7 +6,7 @@
         "host": "localhost",
         "secret": "highground-secret",
         "jwt": {
-            "expires": "24h",
+            "expires": "10s",
             "secret": "IhaveTheHighgroundAnakin"
         }, 
         "images": {

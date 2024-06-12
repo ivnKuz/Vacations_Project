@@ -1,7 +1,7 @@
 import config from "config";
 import { NextFunction, Request, Response } from "express";
 import createHttpError, { Unauthorized} from "http-errors";
-import { JwtPayload, verify } from "jsonwebtoken";
+import jwt,{ JwtPayload, verify } from "jsonwebtoken";
 import userDTO from '../models/auth/user-dto'
 import getModel from "../models/auth/factory";
 
@@ -21,10 +21,26 @@ export default async function authentication (req: Request, res: Response, next:
         const token = header.split(' ') [1];
         //this creates an array of ['bearer', 'ewqtqwtqw.tqwtqwtwq.tqwt'] ^
     try{
-       const {user} = verify(token, config.get<string>('app.jwt.secret')) as JwtPayload;
+        const decoded = await verifyToken(token);
+        const user = decoded.user;
+        // const {user} = verify(token, config.get<string>('app.jwt.secret')) as JwtPayload;
        req.user = await getModel().getOne(user.id);
-        return next();
+       return next();
     }catch(err){
-        return next(createHttpError(Unauthorized(err.message || err)))
+        if (err instanceof jwt.TokenExpiredError) {
+            return next(createHttpError.Unauthorized("Token expired"));
+        }
+        return next(createHttpError.Unauthorized(err.message || "Invalid token"));
     }
+}
+function verifyToken(token: string): Promise<JwtPayload> {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, config.get<string>('app.jwt.secret'), (err, decoded) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(decoded as JwtPayload);
+            }
+        });
+    });
 }
