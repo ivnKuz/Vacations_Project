@@ -6,8 +6,8 @@ import Layout from './components/layout/layout/Layout';
 import { BrowserRouter } from 'react-router-dom';
 import interceptors from './utils/interceptors';
 document.title = "JoJo's Vacations";
-interceptors.create();
-interceptors.handleTokenExpired();
+
+interceptors.setupInterceptors();
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
     
