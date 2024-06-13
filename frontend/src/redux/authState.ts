@@ -1,6 +1,6 @@
 import { createStore } from "redux";
 
-//1. state
+//1. state. State will be either empty or token
 export class authState{
     public token: string = '';
     public constructor(){

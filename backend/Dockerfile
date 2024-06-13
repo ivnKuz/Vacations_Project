@@ -5,14 +5,14 @@ FROM node:latest
 WORKDIR /app
 
 # copy only the package.json file to the image
-# this copies package.json from the same directory where Dockerfile is run
-# into the directory we created in WORKDIR command
+# copies package.json from this directory into the directory specified in WORKDIR 
+
 COPY package.json ./
 
-# Now we want to run npm install
+
 RUN npm i
 
-# Now we want to add the source code of our app
+#copy the source code of the app
 COPY ./ ./
 
 # compile the TypeScript into JavaScript
