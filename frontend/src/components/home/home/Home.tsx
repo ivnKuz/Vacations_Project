@@ -60,7 +60,7 @@ function Home(): JSX.Element {
             } else if (sortBy === 'byActive'){
               data = await VacationService.getFilteredByActive(pageNumber, pageSize);
             }
-            //if there is data, then set total count of vacations retrieved from sql query, and set total pages by amount of vacations
+            //if there is data, then set the new data as vacations state
             if (data.length > 0) setVacations(data);
         } catch (error) {
             notify.error('Failed to fetch vacations:' + error);
@@ -72,7 +72,7 @@ function Home(): JSX.Element {
         setPageNumber(1); // Reset to the first page when sort order changes
         fetchData();
     };
-
+    //page is set in the pagination component
     const paginate = (pageNumber: number) => {
       setPageNumber(pageNumber)
     }

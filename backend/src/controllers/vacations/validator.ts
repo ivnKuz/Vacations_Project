@@ -1,8 +1,8 @@
 import Joi from "joi"
 import DTO from '../../models/vacations/dto';
 
-// const date = new Date();
-// date.setHours(date.getHours()- 24); CAN ADD this and pass into min date if I need to change it to allow new vacation to start from today
+//add vacation validator, all of the input fields are mandatory to fill, 
+//start date cannot be today and end date cannot be before start date, images can only be certain mime types.
 export const addVacationValidator = Joi.object<DTO>({
     id: Joi.number().optional(),
     destination: Joi.string().max(40).required().messages(

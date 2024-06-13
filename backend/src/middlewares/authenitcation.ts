@@ -18,8 +18,8 @@ export default async function authentication (req: Request, res: Response, next:
         if(!header) return next();
         // if we're here, we have an authorization header
         //we expect it to look something like: Bearer dwqfrqwrqwqwqtwt.qwtqwtqwtq.tqwtqwtwqt
-        const token = header.split(' ') [1];
-        //this creates an array of ['bearer', 'ewqtqwtqw.tqwtqwtwq.tqwt'] ^
+        const token = header.split(' ')[1];
+        //split makes it look like this ['bearer', 'some jwt'], we take only jwt token part ^
     try{
        const {user} = verify(token, config.get<string>('app.jwt.secret')) as JwtPayload;
        req.user = await getModel().getOne(user.id);
