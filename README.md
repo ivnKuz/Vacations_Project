@@ -13,7 +13,7 @@ fixing it with nginx.conf in the future.
 
 to see user functionality you can create new user by singing up
 
-to see admin functionallity use these credantials:
+to see admin functionallity use these credentials:
 
 email: admin@mail.com
 password: qwerty
