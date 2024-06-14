@@ -10,3 +10,9 @@ http://localhost:3000/login might show 404 if you're first time typing it manual
 http://localhost:3000 this will work every time. Recommended to not use any / when typing it in manually
 
 fixing it with nginx.conf in the future.
+
+to see user functionality you can create new user by singing up
+
+to see admin functionallity use these credantials:
+email: admin@mail.com
+password: qwerty
