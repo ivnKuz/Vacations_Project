@@ -11,7 +11,11 @@ http://localhost:3000 this will work every time. Recommended to not use any / wh
 
 fixing it with nginx.conf in the future.
 
-to see user functionality you can create new user by singing up
+to see user functionality you can either create new user by singing up or use existing user:
+
+email: tester5@mail.com
+
+password: 123456
 
 to see admin functionallity use these credentials:
 
