@@ -17,12 +17,9 @@ A full-stack vacation management application where users can browse, like, and s
 **Database:** MySQL  
 **Other Tools:** Docker, JSON, Recharts, XAMPP, Git, UUID
 
-## 🖼 Screenshots
-
-*(Consider adding UI screenshots here!)*
 
 ## 📦 Installation
-Run docker-compose via docker or
+Run docker-compose with docker or
 git clone https://github.com/ivnKuz/Vacations_Project
 cd Vacations_Project
 
