@@ -74,6 +74,7 @@ User view
 Admin view
 <img width="1440" alt="Screenshot 2025-05-12 at 3 38 48" src="https://github.com/user-attachments/assets/56fc8cda-11b5-4795-af49-fe32e5a6ad8b" />
 <img width="1440" alt="Screenshot 2025-05-12 at 3 38 55" src="https://github.com/user-attachments/assets/c80c1ec5-5b3e-421a-ad3c-ac55a10c8155" />
+<img width="1440" alt="Screenshot 2025-05-12 at 3 54 26" src="https://github.com/user-attachments/assets/b277c3c9-b9a5-40b0-bfdd-40f2f9512974" />
 <img width="1440" alt="Screenshot 2025-05-12 at 3 52 17" src="https://github.com/user-attachments/assets/4cc2c4d2-0cf1-443e-8e5f-eb3a368bcc48" />
 
 
