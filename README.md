@@ -45,11 +45,11 @@ website port: http://localhost:3000
 DOCKER, important to note:
 sometimes might require to download nginx from docker hub manualy even with FROM command
 
-NGINX has a problem with going to routes like /"something" for when going to site for the first time\manually typing in routes, for example:
+NGINX has a problem with going to routes like /"something" when going to site for the first time(by copying the url in aother tab for example) or manually typing in routes, for example:
 http://localhost:3000/login might show 404 if you're first time typing it manually, after that if app redirects you it will work fine
-http://localhost:3000 this will work every time. Recommended to not use any / when typing it in manually
+http://localhost:3000 this will work every time. Recommended to not use any / when typing it in manually, otherwise all should work fine
 
-fixing it with nginx.conf in the future.
+it's some issue probably with nginx.conf.
 
 to see user functionality you can either create new user by singing up or use existing user:
 
