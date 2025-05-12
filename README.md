@@ -69,9 +69,12 @@ password: qwerty
 
 
 ## 🖼 Screenshots
+Sign in & Sign Up page
 <img width="1440" alt="Screenshot 2025-05-12 at 3 37 12" src="https://github.com/user-attachments/assets/bff6ae5a-f312-4bb3-aadf-65a8e5300d44" />
 <img width="1440" alt="Screenshot 2025-05-12 at 3 37 23" src="https://github.com/user-attachments/assets/29a70337-1248-4fef-b5fc-f34ca241e594" />
+User view
 <img width="1440" alt="Screenshot 2025-05-12 at 3 37 52" src="https://github.com/user-attachments/assets/3827489c-4701-4c8b-b497-fba26f2051d8" />
+Admin view
 <img width="1440" alt="Screenshot 2025-05-12 at 3 38 48" src="https://github.com/user-attachments/assets/56fc8cda-11b5-4795-af49-fe32e5a6ad8b" />
 <img width="1440" alt="Screenshot 2025-05-12 at 3 38 55" src="https://github.com/user-attachments/assets/c80c1ec5-5b3e-421a-ad3c-ac55a10c8155" />
 <img width="1440" alt="Screenshot 2025-05-12 at 3 39 04" src="https://github.com/user-attachments/assets/7ffcd7e9-9e19-411a-b99b-e13042b3b18c" />
